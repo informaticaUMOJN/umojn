@@ -1,4 +1,4 @@
- <?php
+<?php
 	#Inicia la sesión antes de la respuesta HTML
 	session_start();
 	$_SESSION["gnVerifica"] = 0;
