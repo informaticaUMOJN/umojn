@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24/10/2025 2:45:49 p. m.                     */
+/* Created on:     21/11/2025 10:06:39 a. m.                    */
 /*==============================================================*/
 
 
@@ -1103,7 +1103,6 @@ create table UMO260A
    MATRICULAPOS_REL     varchar(10) not null  comment '',
    ESTUDIANTEPOS_REL    varchar(10)  comment '',
    CARRERA_REL          varchar(10)  comment '',
-   CURSOPOSGRADO_REL    varchar(10)  comment '',
    FECHA_260            date  comment '',
    ANNOINGRESO_260      numeric(4,0)  comment '',
    COHORTE_260          varchar(5)  comment '',
@@ -1114,6 +1113,16 @@ create table UMO260A
    CURRICULUM_260       bool  comment '',
    ESTADO_260           numeric(1,0)  comment '',
    primary key (MATRICULAPOS_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO261A                                               */
+/*==============================================================*/
+create table UMO261A
+(
+   CURSOPOSGRADO_REL    varchar(10) not null  comment '',
+   MATRICULAPOS_REL     varchar(10) not null  comment '',
+   primary key (CURSOPOSGRADO_REL, MATRICULAPOS_REL)
 );
 
 /*==============================================================*/
@@ -1519,11 +1528,14 @@ alter table UMO251A add constraint FK_UMO251A_REL_250_2_UMO250A foreign key (EST
 alter table UMO260A add constraint FK_UMO260A_REL_040_2_UMO040A foreign key (CARRERA_REL)
       references UMO040A (CARRERA_REL) on delete restrict on update restrict;
 
-alter table UMO260A add constraint FK_UMO260A_REL_240_2_UMO240A foreign key (CURSOPOSGRADO_REL)
-      references UMO240A (CURSOPOSGRADO_REL) on delete restrict on update restrict;
-
 alter table UMO260A add constraint FK_UMO260A_REL_250_2_UMO250A foreign key (ESTUDIANTEPOS_REL)
       references UMO250A (ESTUDIANTEPOS_REL) on delete restrict on update restrict;
+
+alter table UMO261A add constraint FK_UMO261A_UMO261A_UMO240A foreign key (CURSOPOSGRADO_REL)
+      references UMO240A (CURSOPOSGRADO_REL) on delete restrict on update restrict;
+
+alter table UMO261A add constraint FK_UMO261A_UMO261A2_UMO260A foreign key (MATRICULAPOS_REL)
+      references UMO260A (MATRICULAPOS_REL) on delete restrict on update restrict;
 
 alter table UMO290A add constraint FK_UMO290A_REL_100_2_UMO100A foreign key (DOCENTE_REL)
       references UMO100A (DOCENTE_REL) on delete restrict on update restrict;
