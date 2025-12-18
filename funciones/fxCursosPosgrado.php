@@ -51,4 +51,15 @@
 		}
 		return $mDatos;
 	}
+
+	function fxDevuelveCursoMatricula($msMatricula)
+	{
+		$m_cnx_MySQL = fxAbrirConexion();
+
+		$msConsulta = "select UMO261A.CURSOPOSGRADO_REL, NOMBRE_240, MATRICULAPOS_REL from UMO261A join UMO240A on UMO261A.CURSOPOSGRADO_REL = UMO240A.CURSOPOSGRADO_REL where MATRICULAPOS_REL = ?";
+		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+		$mDatos->execute([$msMatricula]);
+
+		return $mDatos;
+	}
 ?>

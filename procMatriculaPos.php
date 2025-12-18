@@ -46,7 +46,6 @@
 				$msCodigo = $_POST["txtCodMatricula"];
 				$msEstudiante = $_POST["cboEstudiante"];
 				$msCarrera = $_POST["cboCarrera"];
-				$msCurso = $_POST["cboCurso"];
 				$mdFecha = $_POST["dtpFecha"];
 				$mnAnnoIngreso = $_POST["txnAnnoIngreso"];
 				$mnCohorte = $_POST["txnCohorte"];
@@ -59,27 +58,16 @@
 
 				if ($msCodigo == "")
 				{
-					$msConsulta = "select MATRICULAPOS_REL from UMO260A where ESTUDIANTEPOS_REL = ? and CURSOPOSGRADO_REL = ? and COHORTE_260 = ?";
-					$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-					$mDatos->execute([$msEstudiante, $msCurso, $mnCohorte]);
-					
-					if ($mDatos->rowCount() == 0)
-					{
-						$msCodigo = fxGuardarMatriculaPos ($msEstudiante, $msCarrera, $msCurso, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
-						$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $msCurso . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
-						fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Agregar", $msBitacora);
-					}
-					else
-					{
-						?><script>$.messager.alert('UMOJN', $('#cboEstudiante option:selected').text() + ' ya fue matriculado en ' + $('#cboCurso option:selected').text(),'warning');</script><?php
-					}
+					$msCodigo = fxGuardarMatriculaPos ($msEstudiante, $msCarrera, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
+					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
+					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Agregar", $msBitacora);
 				}
 				else
 				{
-					fxModificarMatriculaPos ($msCodigo, $msEstudiante, $msCarrera, $msCurso, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
+					fxModificarMatriculaPos ($msCodigo, $msEstudiante, $msCarrera, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
 					fxBorrarDetMatricula ($msCodigo);
-					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $msCurso . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
-					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO030A", $msCodigo, "", "Modificar", $msBitacora);
+					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
+					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Modificar", $msBitacora);
 				}
 
 				?><meta http-equiv="Refresh" content="0;url=gridMatriculaPos.php"/><?php
@@ -107,7 +95,6 @@
 				{
 					$msEstudiante = $mFila["ESTUDIANTE_REL"];
 					$msCarrera = $mFila["CARRERA_REL"];
-					$msCurso = $mFila["CURSOPOSGRADO_REL"];
 					$mdFecha = $mFila["FECHA_260"];
 					$mnAnnoIngreso = $mFila["ANNOINGRESO_260"];
 					$mnCohorte = $mFila["COHORTE_260"];
@@ -125,7 +112,6 @@
 					else
 						$msEstudiante = "";
 					$msCarrera = "";
-					$msCurso = "";
 					$mdFecha = "";
 					$mnAnnoIngreso = date('Y');
 					$mnCohorte = 1;
@@ -228,36 +214,6 @@
 							</div>
 						</div>
 
-						<div class="form-group row">
-							<label for="cboCurso" class="col-sm-12 col-md-3 col-form-label">Curso</label>
-							<div class="col-sm-12 col-md-7">
-								<select class="form-control" id="cboCurso" name="cboCurso">
-									<?php
-										$msConsulta = "select CURSOPOSGRADO_REL, NOMBRE_240 from UMO240A where CARRERA_REL = ? and ACTIVO_240 = ? order by NOMBRE_240";
-										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-										$mDatos->execute([$msCarrera, 1]);
-										while ($mFila = $mDatos->fetch())
-										{
-											$msValor = rtrim($mFila["CURSOPOSGRADO_REL"]);
-											$msTexto = "Período " . trim($mFila["NOMBRE_240"]);
-											if ($msCurso == "")
-											{
-												echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
-												$msCurso = $msValor;
-											}
-											else
-											{
-												if ($msCurso == $msValor)
-													echo("<option value='" . $msValor . "' selected>" . $msTexto . "</option>");
-												else
-													echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
-											}
-										}
-									?>
-								</select>
-							</div>
-						</div>
-						
 						<div class = "form-group row">
 							<label for="dtpFecha" class="col-sm-12 col-md-3 col-form-label">Fecha</label>
 							<div class="col-sm-12 col-md-3">
@@ -348,6 +304,56 @@
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label for="cboCurso" class="col-sm-12 col-md-3 col-form-label">Curso para inscripción</label>
+							<div class="col-sm-12 col-md-7">
+								<select class="form-control" id="cboCurso" name="cboCurso">
+									<?php
+										$msConsulta = "select CURSOPOSGRADO_REL, NOMBRE_240 from UMO240A where CARRERA_REL = ? and ACTIVO_240 = ? order by NOMBRE_240";
+										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+										$mDatos->execute([$msCarrera, 1]);
+										while ($mFila = $mDatos->fetch())
+										{
+											$msValor = trim($mFila["CURSOPOSGRADO_REL"]);
+											$msTexto = trim($mFila["NOMBRE_240"]);
+											if ($msCurso == "")
+											{
+												echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
+												$msCurso = $msValor;
+											}
+										}
+									?>
+								</select>
+								<div id="dvCUR">
+									<table id="dgCUR" class="easyui-datagrid table" data-options="iconCls:'icon-edit', toolbar:'#tbCUR', singleSelect:true, method:'get', onClickCell: onClickCell">
+										<thead>
+											<tr>
+												<th data-options="field:'nombre',width:'100%',align:'left'">Curso</th>
+												<th data-options="field:'curso',hidden:'true'"></th>
+											</tr>
+										</thead>
+										<?php
+											$mDatos = fxDevuelveCursoMatricula($msCodigo);
+											while ($mFila = $mDatos->fetch())
+											{
+												echo ("<tr>");
+												echo ("<td>" . $mFila["NOMBRE_240"] . "</td>");
+												echo ("<td>" . $mFila["CURSOPOSGRADO_REL"] . "</td>");
+												echo ("</tr>");
+											}
+										?>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<div id="tbCUR" style="height:auto">
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Agregar</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Borrar</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="acceptit()">Aceptar</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Deshacer</a>
+						</div>
+
 						<div class = "row">
 							<div class="col-auto offset-sm-none col-md-12 offset-md-3">
 								<input type="submit" id="Guardar" name="Guardar" value="Guardar" class="btn btn-primary" />
@@ -377,13 +383,11 @@
 			return false;
 		}
 
-		/*
 		if(document.getElementById('txtRecibo').value=="" && document.getElementById('cboEstado').value!=2)
 		{
 			$.messager.alert('UMOJN','Falta el recibo.','warning');
 			return false;
 		}
-		*/
 		return true;
 	}
 
@@ -429,7 +433,184 @@
 
 	window.onload = function() 
 	{
+		var carrera = $('#cboCarrera').val();
 		var estudiante = $('#cboEstudiante').val();
-		llenaCarrera(estudiante)
+		var dgCurso = $('#dgCUR');
+		dgCurso.datagrid({striped: true});
+
+		$('.datagrid-wrap').width('100%');
+		$('.datagrid-view').height('200px');
+
+		llenaCarrera(estudiante);
+		llenaCursos(carrera);
 	}
+
+	var editIndex = undefined;
+	var lastIndex;
+	
+	$('#dgCUR').datagrid({
+		onClickRow:function(rowIndex){
+			if (lastIndex != rowIndex){
+				$(this).datagrid('endEdit', lastIndex);
+				$(this).datagrid('beginEdit', rowIndex);
+			}
+			lastIndex = rowIndex;
+		}
+	});
+	
+	function endEditing(){
+		if (editIndex == undefined){return true}
+		if ($('#dgCUR').datagrid('validateRow', editIndex)){
+			$('#dgCUR').datagrid('endEdit', editIndex);
+			editIndex = undefined;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function onClickCell(index, field){
+		if (editIndex != index){
+			if (endEditing()){
+				$('#dgCUR').datagrid('selectRow', index)
+						.datagrid('beginEdit', index);
+				editIndex = index;
+			} else {
+				setTimeout(function(){
+					$('#dgCUR').datagrid('selectRow', editIndex);
+				},0);
+			}
+		}
+	}
+
+	function append(){
+		if (endEditing()){
+			var i;
+			var codigo;
+			var existeCurso = false;
+			var datos = $('#dgCUR').datagrid('getData');
+			var registros = $('#dgCUR').datagrid('getRows').length;
+			
+			if (registros > 0)
+            {
+    			for (i=0; i<registros; i++)
+    			{
+    				if (datos.rows[i].curso == $('#cboCurso option:selected').val())
+					existeCurso = true;
+    			}
+			}
+			
+			if (existeCurso == true)
+			{
+				$.messager.alert('UMOJN',$('#cboCurso option:selected').text() + ' ya fue incluido.','warning');
+				$('#cboCurso').focus()
+			}
+			else
+			{
+				$('#dgCUR').datagrid('appendRow',{curso:$('#cboCurso option:selected').val(), nombre:$('#cboCurso option:selected').text()});
+				editIndex = $('#dgCUR').datagrid('getRows').length;
+				$('#dgCUR').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+			}
+		}
+	}
+		
+	function removeit(){
+		if (editIndex == undefined){return}
+		$('#dgCUR').datagrid('cancelEdit', editIndex)
+				.datagrid('deleteRow', editIndex);
+		editIndex = undefined;
+	}
+	
+	function acceptit(){
+		if (endEditing()){
+			$('#dgCUR').datagrid('acceptChanges');
+		}
+	}
+	
+	function reject(){
+		$('#dgCUR').datagrid('rejectChanges');
+		editIndex = undefined;
+	}
+
+	$('form').submit(function(e){
+		e.preventDefault();
+
+		if (verificarFormulario() == true)
+		{
+			var texto;
+			var datos;
+			var registros;
+			var i;
+			var gridAsignatura = $('#dgCUR').datagrid('getData');
+			
+			texto = '{"Guardar":"1", ';
+			texto += '"txtCodMatricula":"' + document.getElementById("txtCodMatricula").value + '", ';
+			texto += '"cboEstudiante":"' + document.getElementById("cboEstudiante").value + '", ';
+			texto += '"cboCarrera":"' + document.getElementById("cboCarrera").value + '", ';
+			texto += '"cboPlanEstudio":"' + document.getElementById("cboPlanEstudio").value + '", ';
+			texto += '"dtpFecha":"' + document.getElementById("dtpFecha").value + '", ';
+			
+			if (document.getElementById("OptPrimero2").checked)
+				texto += '"optPrimerIngreso":"1", ';
+			else
+				texto += '"optPrimerIngreso":"0", ';
+			
+			texto += '"txnAnnoIngreso":"' + document.getElementById("txnAnnoIngreso").value + '", ';
+			texto += '"cboAnnoAcademico":"' + document.getElementById("cboAnnoAcademico").value + '", ';
+			texto += '"txnAnnoLectivo":"' + document.getElementById("txnAnnoLectivo").value + '", ';
+			texto += '"txnSemestreAcademico":"' + document.getElementById("txnSemestreAcademico").value + '", ';
+			texto += '"txtRecibo":"' + document.getElementById("txtRecibo").value + '", ';
+			texto += '"cboBeca":"' + document.getElementById("cboBeca").value + '", ';
+			
+			if (document.getElementById("chkDiploma").checked)
+				texto += '"chkDiploma":"1", ';
+			else
+				texto += '"chkDiploma":"0", ';
+			
+			if (document.getElementById("chkNotas").checked)
+				texto += '"chkNotas":"1", ';
+			else
+				texto += '"chkNotas":"0", ';
+
+			if (document.getElementById("chkCedula").checked)
+				texto += '"chkCedula":"1", ';
+			else
+				texto += '"chkCedula":"0", ';
+			
+			if (document.getElementById("chkActaNac").checked)
+				texto += '"chkActaNac":"1", ';
+			else
+				texto += '"chkActaNac":"0", ';
+			
+			texto += '"cboEstado":"' + document.getElementById("cboEstado").value + '", ';
+
+			registros = $('#dgCUR').datagrid('getRows').length - 1;
+			
+			if (registros >= 0)
+			{
+				texto += '"gridAsignatura": [';
+				for (i=0; i<=registros; i++)
+				{
+					texto += '{"nombre":"' + gridAsignatura.rows[i].nombre + '", "asignatura":"' + gridAsignatura.rows[i].asignatura;
+					if (i==registros)
+						texto += '"}]}';
+					else
+						texto += '"},';
+				}
+			}
+			else
+				texto += '"gridAsignatura": []}';
+			
+			datos = JSON.parse(texto);
+
+			$.ajax({
+				url:'procMatricula.php',
+				type:'post',
+				data:datos,
+				beforeSend: function(){console.log(datos)}	
+			})
+			.done(function(){location.href="gridMatricula.php";})
+			.fail(function(){console.log('Error')});
+		}	
+	});
 </script>
