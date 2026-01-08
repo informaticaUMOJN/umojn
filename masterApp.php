@@ -168,6 +168,7 @@ header('Pragma: no-cache');
                                             <li><a class="dropdown-item" href="gridAvanceProg.php">Avance programático</a></li>
                                             <li><a class="dropdown-item" href="gridCalificaciones.php">Calificaciones</a></li>
                                             <li><a class="dropdown-item" href="gridExpDigital.php">Expediente digital</a></li>
+                                            <li><a class="dropdown-item" href="procCierreCalificacion.php">Cierre de actas de calificación</a></li>
                                         </ul>
                                     </li>
 

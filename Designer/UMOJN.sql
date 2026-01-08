@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     21/11/2025 10:06:39 a. m.                    */
+/* Created on:     18/12/2025 3:03:59 p. m.                     */
 /*==============================================================*/
 
 
@@ -737,11 +737,6 @@ create table UMO160A
    FECHA_160            date  comment '',
    ANNO_160             numeric(4,0)  comment '',
    SEMESTRE_160         numeric(1,0)  comment '',
-   PERIODO_160          numeric(1,0)  comment '0.-Semestre 1
-             1.-Semestre 2
-             2.-Cuatrimestre 1
-             3.-Cuatrimestre 2
-             4.-Cuatrimestre 3',
    PARCIAL_160          numeric(1,0)  comment '0.- 1er parcial
              1.- 2do parcial
              2.- 3er. parcial
@@ -754,6 +749,8 @@ create table UMO160A
              4.-Nocturno
              5.-Sabatino
              6.-Dominical',
+   ESTADO_160           numeric(1,0)  comment '0.- Abierto
+             1.- Cerrado',
    primary key (CALIFICACION_REL)
 );
 
@@ -771,6 +768,21 @@ create table UMO161A
              1.- Aprobado
              2.- Reprobado'
 );
+
+/*==============================================================*/
+/* Table: UMO162A                                               */
+/*==============================================================*/
+create table UMO162A
+(
+   USUARIO_162          varchar(20)  comment '',
+   ANNO_162             numeric(4,0)  comment '',
+   SEMESTRE_162         numeric(1,0)  comment '',
+   PARCIAL_162          numeric(1,0)  comment '',
+   TURNO_162            numeric(1,0)  comment '',
+   FECHA_162            datetime  comment ''
+);
+
+alter table UMO162A comment 'La tabla guarda las fechas de cierre general de las actas de';
 
 /*==============================================================*/
 /* Table: UMO170A                                               */
