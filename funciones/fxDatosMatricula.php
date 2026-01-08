@@ -6,7 +6,7 @@ if (isset($_POST["carreraPe"]))
 {
 	$m_cnx_MySQL = fxAbrirConexion();
 	$msCodigo = $_POST["carreraPe"];
-	$msConsulta = "Select PLANESTUDIO_REL, PERIODO_050 from UMO050A where CARRERA_REL = ? order by PERIODO_050";
+	$msConsulta = "Select PLANESTUDIO_REL, PERIODO_050 from UMO050A where CARRERA_REL = ? and ACTIVO_050 = 1 order by PERIODO_050 desc";
 	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 	$mDatos->execute([$msCodigo]);
 	$mnRegistros = $mDatos->rowCount();
@@ -25,13 +25,15 @@ if (isset($_POST["carreraPe"]))
 }
 
 /**********Llenar el combo de las Asignaturas**********/
-if (isset($_POST["carreraAsg"]))
+if (isset($_POST["carreraAsg"]) and isset($_POST["planestudioAsg"]))
 {
 	$m_cnx_MySQL = fxAbrirConexion();
 	$msCarrera = $_POST["carreraAsg"];
-	$msConsulta = "select UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A where CARRERA_REL = ? order by NOMBRE_060";
+	$msPlanEstudio = $_POST["planestudioAsg"];
+	$msConsulta = "select UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A join UMO051A on UMO060A.ASIGNATURA_REL = UMO051A.ASIGNATURA_REL ";
+	$msConsulta .= "where UMO060A.CARRERA_REL = ? and PLANESTUDIO_REL = ? order by NOMBRE_060";
 	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-	$mDatos->execute([$msCarrera]);
+	$mDatos->execute([$msCarrera, $msPlanEstudio]);
 	$mnRegistros = $mDatos->rowCount();
 	$msResultado = "";
 

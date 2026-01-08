@@ -52,13 +52,14 @@
 		return $mDatos;
 	}
 
-	function fxDevuelveAsignaturaCarrera($msCarrera)
+	function fxDevuelveAsignaturaCarrera($msCarrera, $msPlanEstudio)
 	{
 		$m_cnx_MySQL = fxAbrirConexion();
 
-		$msConsulta = "select ASIGNATURA_REL, NOMBRE_060 from UMO060A where CARRERA_REL = ?";
+		$msConsulta = "select UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A join UMO051A on UMO060A.ASIGNATURA_REL = UMO051A.ASIGNATURA_REL ";
+		$msConsulta .= "where UMO060A.CARRERA_REL = ? and PLANESTUDIO_REL = ? order by NOMBRE_060";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-		$mDatos->execute([$msCarrera]);
+		$mDatos->execute([$msCarrera, $msPlanEstudio]);
 
 		return $mDatos;
 	}

@@ -257,11 +257,11 @@
 						<div class="form-group row">
 							<label for="cboPlanEstudio" class="col-sm-12 col-md-3 col-form-label">Plan de estudio</label>
 							<div class="col-sm-12 col-md-4">
-								<select class="form-control" id="cboPlanEstudio" name="cboPlanEstudio">
+								<select class="form-control" id="cboPlanEstudio" name="cboPlanEstudio" onchange="llenaAsignaturas()">
 									<?php
-										$msConsulta = "select PLANESTUDIO_REL, PERIODO_050 from UMO050A where ACTIVO_050 = 1 order by PLANESTUDIO_REL";
+										$msConsulta = "Select PLANESTUDIO_REL, PERIODO_050 from UMO050A where CARRERA_REL = ? order by PERIODO_050 desc";
 										$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-										$mDatos->execute();
+										$mDatos->execute([$msCarrera]);
 										while ($mFila = $mDatos->fetch())
 										{
 											$msValor = rtrim($mFila["PLANESTUDIO_REL"]);
@@ -466,7 +466,7 @@
 							<div class="col-sm-auto col-md-7">
 								<select class="form-control" id="cboAsignatura" name="cboAsignatura">
 									<?php
-										$mDatos = fxDevuelveAsignaturaCarrera($msCarrera);
+										$mDatos = fxDevuelveAsignaturaCarrera($msCarrera, $msPlanEstudio);
 										while ($mFila = $mDatos->fetch())
 										{
 											$Valor = rtrim($mFila["ASIGNATURA_REL"]);
@@ -476,11 +476,11 @@
 									?>
 								</select>
 								<div id="dvASG">
-									<table id="dgASG" class="easyui-datagrid table" data-options="iconCls:'icon-edit', toolbar:'#tbASG', singleSelect:true, method:'get', onClickCell: onClickCell">
+									<table id="dgASG" class="easyui-datagrid table" style="height:300px" data-options="iconCls:'icon-edit', toolbar:'#tbASG', singleSelect:true, method:'get', onClickCell: onClickCell">
 										<thead>
 											<tr>
 												<th data-options="field:'nombre',width:'100%',align:'left'">Asignatura</th>
-												<th data-options="field:'asignatura',hidden:'true'"></th>
+												<th data-options="field:'asignatura',hidden:'true'">&nbsp;</th>
 											</tr>
 										</thead>
 										<?php
@@ -551,8 +551,12 @@
 
 	function llenaCombos(carrera)
 	{
-		llenaPlanEstudio(carrera);
-		llenaAsignaturas(carrera);
+		var matricula = document.getElementById('txtCodMatricula').value;
+		if (matricula == "")
+		{
+			llenaPlanEstudio(carrera);
+			llenaAsignaturas();
+		}
 	}
 
 	function llenaCarrera (estudiante)
@@ -607,10 +611,13 @@
 		})
 	}
 
-	function llenaAsignaturas (carrera)
+	function llenaAsignaturas()
 	{
 		var datos = new FormData();
+		var carrera = document.getElementById('cboCarrera').value;
+		var planEstudio = document.getElementById('cboPlanEstudio').value;
 		datos.append('carreraAsg', carrera);
+		datos.append('planestudioAsg', planEstudio);
 
 		$.ajax({
 			url: 'funciones/fxDatosMatricula.php',
@@ -632,7 +639,7 @@
 		dgAsignatura.datagrid({striped: true});
 
 		$('.datagrid-wrap').width('100%');
-		$('.datagrid-view').height('200px');
+		$('.datagrid-view').height('300px');
 
 		llenaCarrera(estudiante)
 		llenaGeneracion(estudiante);
