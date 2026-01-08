@@ -1219,6 +1219,8 @@
 														<option value="11">Datos generales del título</option>
 														<option value="12">Publicación en la gaceta</option>
 														<option value="13">Título universitario</option>
+														<option value="14">Constancia de egresado</option>
+														<option value="15">Registro universitario</option>
 													</select>
 												</td>
 												<td></td>

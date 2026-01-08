@@ -857,12 +857,14 @@
 														<option value="3">Título de grado</option>
 														<option value="4">Fotografía</option>
 														<option value="5">Plan de estudio</option>
-														<option value="6">Acta de aprobación monográfica</option>
-														<option value="7">Calificaciones universitarias</option>
-														<option value="8">Certificación del título universitario</option>
-														<option value="9">Datos generales del título</option>
+														<option value="6">Acta de aprobación de tesis</option>
+														<option value="7">Certificación de estudios</option>
+														<option value="8">Certificación del título de posgrado</option>
+														<option value="9">Datos generales del título de posgrado</option>
 														<option value="10">Publicación en la gaceta</option>
 														<option value="11">Título de posgrado</option>
+														<option value="12">Constancia de egresado</option>
+														<option value="13">Registro de título de posgrado</option>
 													</select>
 												</td>
 												<td></td>
