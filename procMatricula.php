@@ -555,7 +555,6 @@
 		if (matricula == "")
 		{
 			llenaPlanEstudio(carrera);
-			llenaAsignaturas();
 		}
 	}
 
@@ -607,6 +606,7 @@
 			processData: false,
 			success: function(response){
 				document.getElementById('cboPlanEstudio').innerHTML = response;
+				llenaAsignaturas();
 			}
 		})
 	}

@@ -24,7 +24,7 @@
 	else
 	{
 		$mbAdministrador = fxVerificaAdministrador();
-		$mbPermisoUsuario = fxPermisoUsuario("catCursosPos", $mbAgregar, $mbModificar, $mbBorrar, $mbAnular);
+		$mbPermisoUsuario = fxPermisoUsuario("catCursosPosgrado", $mbAgregar, $mbModificar, $mbBorrar, $mbAnular);
 		
 		if ($mbAdministrador == 0 and $mbPermisoUsuario == 0)
 		{ ?>
