@@ -6,7 +6,7 @@ if (isset($_POST["carrera"]))
 {
 	$m_cnx_MySQL = fxAbrirConexion();
 	$msCodigo = $_POST["carrera"];
-	$msConsulta = "Select ASIGNATURA_REL, NOMBRE_060 from UMO060A where CARRERA_REL = ? order by NOMBRE_060";
+	$msConsulta = "Select ASIGNATURA_REL, NOMBRE_060, CODIGO_060 from UMO060A where CARRERA_REL = ? order by CODIGO_060";
 	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 	$mDatos->execute([$msCodigo]);
 	$mnRegistros = $mDatos->rowCount();
@@ -16,7 +16,7 @@ if (isset($_POST["carrera"]))
 	{
 		while ($mFila = $mDatos->fetch())
 		{
-			$msResultado .= "<option value='>" . $mFila["ASIGNATURA_REL"] . "'>" . $mFila["NOMBRE_060"] . "</option>";
+			$msResultado .= "<option value='>" . $mFila["ASIGNATURA_REL"] . "'>" . $mFila["CODIGO_060"] . " " . $mFila["NOMBRE_060"] . "</option>";
 		}
 	}
 	

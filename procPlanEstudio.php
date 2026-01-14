@@ -295,24 +295,24 @@
                                                     echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" /> Matutino');
 
                                                 if ($mnTurno == 3)
-                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optoptTurno" value="3" checked /> Vespertino');
+                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" checked /> Vespertino');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optoptTurno" value="3" /> Vespertino');
+                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" /> Vespertino');
 
                                                 if ($mnTurno == 4)
-                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optoptTurno" value="4" checked /> Nocturno');
+                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" checked /> Nocturno');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optoptTurno" value="4" /> Nocturno');
+                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" /> Nocturno');
 
                                                 if ($mnTurno == 5)
-                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optoptTurno" value="5" checked /> Sabatino');
+                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" checked /> Sabatino');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optoptTurno" value="5" /> Sabatino');
+                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" /> Sabatino');
 
                                                 if ($mnTurno == 6)
-                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optoptTurno" value="6" checked /> Dominical');
+                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" checked /> Dominical');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optoptTurno" value="6" /> Dominical');
+                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" /> Dominical');
                                             ?>
                                         </div>
                                     </div>
@@ -404,12 +404,12 @@
                                             <td width="40%">
                                                 <select id="cboAsignatura" name="cboAsignatura" class="form-control" style="width:80%">
                                                 <?php
-                                                    $msConsulta = "select ASIGNATURA_REL, NOMBRE_060 from UMO060A where CARRERA_REL = ? order by NOMBRE_060";
+                                                    $msConsulta = "select ASIGNATURA_REL, NOMBRE_060, CODIGO_060 from UMO060A where CARRERA_REL = ? order by CODIGO_060";
                                                     $mAsignaturas = $m_cnx_MySQL->prepare($msConsulta);
                                                     $mAsignaturas->execute([$msCarrera]);
                                                     while ($mAuxFila = $mAsignaturas->fetch())
                                                     {
-                                                        echo("<option value='" . $mAuxFila["ASIGNATURA_REL"] . "'>" . $mAuxFila["NOMBRE_060"] . "</option>");
+                                                        echo("<option value='" . $mAuxFila["ASIGNATURA_REL"] . "'>" . $mAuxFila["CODIGO_060"] . " " . $mAuxFila["NOMBRE_060"] . "</option>");
                                                     }
                                                 ?>
                                                 </select>
@@ -433,12 +433,12 @@
                                             <td width="40%">
                                                 <select id="cboRequisito" name="cboRequisito" class="form-control" style="width:80%">
                                                 <?php
-                                                    $msConsulta = "select ASIGNATURA_REL, NOMBRE_060 from UMO060A where CARRERA_REL = ? order by NOMBRE_060";
+                                                    $msConsulta = "select ASIGNATURA_REL, NOMBRE_060, CODIGO_060 from UMO060A where CARRERA_REL = ? order by CODIGO_060";
                                                     $mAsignaturas = $m_cnx_MySQL->prepare($msConsulta);
                                                     $mAsignaturas->execute([$msCarrera]);
                                                     while ($mAuxFila = $mAsignaturas->fetch())
                                                     {
-                                                        echo("<option value='" . $mAuxFila["ASIGNATURA_REL"] . "'>" . $mAuxFila["NOMBRE_060"] . "</option>");
+                                                        echo("<option value='" . $mAuxFila["ASIGNATURA_REL"] . "'>" . $mAuxFila["CODIGO_060"] . " " . $mAuxFila["NOMBRE_060"] . "</option>");
                                                     }
                                                 ?>
                                                 </select>
