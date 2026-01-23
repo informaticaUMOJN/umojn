@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     09/01/2026 3:52:33 p. m.                     */
+/* Created on:     14/01/2026 8:57:51 a. m.                     */
 /*==============================================================*/
 
 
@@ -751,6 +751,7 @@ create table UMO160A
              4.-Nocturno
              5.-Sabatino
              6.-Dominical',
+   ESTADO_160           numeric(1,0)  comment '',
    primary key (CALIFICACION_REL)
 );
 
@@ -767,6 +768,24 @@ create table UMO161A
              0.- No aplica
              1.- Aprobado
              2.- Reprobado'
+);
+
+/*==============================================================*/
+/* Table: UMO162A                                               */
+/*==============================================================*/
+create table UMO162A
+(
+   USUARIO_162          varchar(20)  comment '',
+   ANNO_162             numeric(4,0)  comment '',
+   SEMESTRE_162         numeric(1,0)  comment '',
+   PARCIAL_162          numeric(1,0)  comment '',
+   TURNO_162            numeric(1,0)  comment '1.-Diurno
+             2.-Matutino
+             3.-Verpertino
+             4.-Nocturno
+             5.-Sabatino
+             6.-Dominical',
+   FECHA_162            datetime  comment ''
 );
 
 /*==============================================================*/
