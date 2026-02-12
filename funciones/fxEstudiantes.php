@@ -94,8 +94,8 @@
 		
 		if ($mbLlenaGrid == 1)
 		{
-			$msConsulta = "select ESTUDIANTE_REL, FECHA_010, NOMBRE1_010, NOMBRE2_010, APELLIDO1_010, APELLIDO2_010, CELULAR_010, CORREOI_010 ";
-			$msConsulta .= "from UMO010A order by ESTUDIANTE_REL desc";
+			$msConsulta = "select ESTUDIANTE_REL, FECHA_010, NOMBRE1_010, NOMBRE2_010, APELLIDO1_010, APELLIDO2_010, CELULAR_010, CORREOI_010, NOMBRE_040 ";
+			$msConsulta .= "from UMO010A, UMO040A where UMO010A.CARRERA_REL = UMO040A.CARRERA_REL order by ESTUDIANTE_REL desc";
 			$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 			$mDatos->execute();
 		}

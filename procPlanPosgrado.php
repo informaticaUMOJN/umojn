@@ -75,12 +75,11 @@
                     $msCurso = $mRegistro['codCurso'];
                     $mnPeriodo = $mRegistro['periodo'];
                     $msModulo = $mRegistro['modulo'];
-                    $mnHPresenciales = $mRegistro['hPresenciales'];
+                    $mnHTeoricas = $mRegistro['hTeoricas'];
                     $mnHAutoestudio = $mRegistro['hAutoestudio'];
-                    $mnHTrabajo = $mRegistro['hTrabajo'];
                     $mnHTotales = $mRegistro['hTotales'];
                     $mnCreditos = $mRegistro['creditos'];
-                    fxGuardarDetPlanPosgrado($msCodigo, $itemId, $msCurso, $mnPeriodo, $msModulo, $mnHPresenciales, $mnHAutoestudio, $mnHTrabajo, $mnHTotales, $mnCreditos);
+                    fxGuardarDetPlanPosgrado($msCodigo, $itemId, $msCurso, $mnPeriodo, $msModulo, $mnHTeoricas, $mnHAutoestudio, $mnHTotales, $mnCreditos);
                     $itemId++;
 				}
 				?>
@@ -295,24 +294,24 @@
                                                     echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" /> Matutino');
 
                                                 if ($mnTurno == 3)
-                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optoptTurno" value="3" checked /> Vespertino');
+                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" checked /> Vespertino');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optoptTurno" value="3" /> Vespertino');
+                                                    echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" /> Vespertino');
 
                                                 if ($mnTurno == 4)
-                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optoptTurno" value="4" checked /> Nocturno');
+                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" checked /> Nocturno');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optoptTurno" value="4" /> Nocturno');
+                                                    echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" /> Nocturno');
 
                                                 if ($mnTurno == 5)
-                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optoptTurno" value="5" checked /> Sabatino');
+                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" checked /> Sabatino');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optoptTurno" value="5" /> Sabatino');
+                                                    echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" /> Sabatino');
 
                                                 if ($mnTurno == 6)
-                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optoptTurno" value="6" checked /> Dominical');
+                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" checked /> Dominical');
                                                 else
-                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optoptTurno" value="6" /> Dominical');
+                                                    echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" /> Dominical');
                                             ?>
                                         </div>
                                     </div>
@@ -352,13 +351,12 @@
                                                         <th data-options="field:'codPlanPosgrado', hidden:'true'">codPlan</th>
                                                         <th data-options="field:'codConsecutivo', hidden:'true'">codConsecutivo</th>
                                                         <th data-options="field:'codCurso', hidden:'true'">codCurso</th>
-                                                        <th data-options="field:'curso',width:'18%',align:'left'">Curso</th>
-                                                        <th data-options="field:'periodo',width:'18%',align:'left'">Período</th>
-                                                        <th data-options="field:'modulo',width:'18%',align:'left'">Módulo</th>
-                                                        <th data-options="field:'hPresenciales',width:'12%',align:'left'">Presenciales/Teóricas</th>
-                                                        <th data-options="field:'hAutoestudio',width:'12%',align:'left'">Autoestudio/Prácticas</th>
-                                                        <th data-options="field:'hTrabajo',width:'12%',align:'left'">Trabajo independiente</th>
-                                                        <th data-options="field:'hTotales',width:'12%',align:'left'">Horas totales</th>
+                                                        <th data-options="field:'curso',width:'20%',align:'left'">Curso</th>
+                                                        <th data-options="field:'periodo',width:'20%',align:'left'">Período</th>
+                                                        <th data-options="field:'modulo',width:'20%',align:'left'">Módulo</th>
+                                                        <th data-options="field:'hTeoricas',width:'10%',align:'left'">Teóricas</th>
+                                                        <th data-options="field:'hAutoestudio',width:'10%',align:'left'">Autoestudio/Prácticas</th>
+                                                        <th data-options="field:'hTotales',width:'10%',align:'left'">Horas totales</th>
                                                         <th data-options="field:'creditos',width:'10%',align:'left'">Créditos</th>
                                                     </tr>
                                                 </thead>
@@ -374,9 +372,8 @@
                                                         echo ("<td>" . $mFila["NOMBRE_240"] . "</td>");
                                                         echo ("<td>" . $mFila["PERIODO_231"] . "</td>");
                                                         echo ("<td>" . $mFila["MODULO_231"] . "</td>");
-                                                        echo ("<td>" . $mFila["HPRESENCIALES_231"] . "</td>");
+                                                        echo ("<td>" . $mFila["HTEORICAS_231"] . "</td>");
                                                         echo ("<td>" . $mFila["HAUTOESTUDIO_231"] . "</td>");
-                                                        echo ("<td>" . $mFila["HTRABAJO_231"] . "</td>");
                                                         echo ("<td>" . $mFila["HTOTALES_231"] . "</td>");
                                                         echo ("<td>" . $mFila["CREDITOS_231"] . "</td>");
                                                         echo ("</tr>");
@@ -394,8 +391,8 @@
                                             <td width="15%">Trimestre, Cuatrimestre o Semestre</td>
                                             <td width="40%"><input type="number" id="txnPeriodo" class="form-control" style="width:25%" value="0"></td>
 
-                                            <td width="15%">Horas autoestudio / Horas prácticas</td>
-                                            <td width="30%"><input type="number" id="txnHAutoestudio" class="form-control" style="width:30%" value="0" onchange="sumaHoras()"></td>
+                                            <td width="15%">&nbsp;</td>
+                                            <td width="30%">&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td width="15%">Curso</td>
@@ -413,8 +410,8 @@
                                                 </select>
                                             </td>
 
-                                            <td width="15%">Horas de trabajo independiente</td>
-                                            <td width="30%"><input type="number" id="txnHTrabajo" class="form-control" style="width:30%" value="0" onchange="sumaHoras()"></td>
+                                            <td width="15%">Horas autoestudio / Horas prácticas</td>
+                                            <td width="30%"><input type="number" id="txnHAutoestudio" class="form-control" style="width:30%" value="0" onchange="sumaHoras()"></td>
                                         </tr>
                                         <tr>
                                             <td width="15%">Módulo</td>
@@ -424,8 +421,8 @@
                                             <td width="30%"><input type="number" id="txnHTotales" class="form-control" style="width:30%" value="0" readonly></td>
                                         </tr>
                                         <tr>
-                                            <td width="15%">Horas presenciales</td>
-                                            <td width="40%"><input type="number" id="txnHPresenciales" class="form-control" style="width:25%" value="0" onchange="sumaHoras()"></td>
+                                            <td width="15%">Horas teóricas</td>
+                                            <td width="40%"><input type="number" id="txnHTeoricas" class="form-control" style="width:25%" value="0" onchange="sumaHoras()"></td>
 
                                             <td width="15%">Créditos</td>
                                             <td width="30%"><input type="number" id="txnCreditosAs" class="form-control" style="width:30%" value="0"></td>
@@ -487,18 +484,18 @@ function validaRegistro(){
         }
     }
 
-    if (document.getElementById("txnHPresenciales").value <= 0)
+    if (document.getElementById("txnHTeoricas").value <= 0)
     {
-        $.messager.alert('UMOJN','Las horas presenciales están en cero.','warning');
+        $.messager.alert('UMOJN','Las horas teóricas están en cero.','warning');
 		return false;
     }
-/*
+
     if (document.getElementById("txnHAutoestudio").value <= 0)
     {
         $.messager.alert('UMOJN','Las horas de autoestudio están en cero.','warning');
 		return false;
     }
-*/
+
     if (document.getElementById("txnCreditosAs").value <= 0)
     {
         $.messager.alert('UMOJN','Los créditos están en cero.','warning');
@@ -510,10 +507,9 @@ function validaRegistro(){
 
 function sumaHoras()
 {
-    var presenciales = document.getElementById("txnHPresenciales").value;
+    var presenciales = document.getElementById("txnHTeoricas").value;
     var autoestudio = document.getElementById("txnHAutoestudio").value;
-    var trabajo = document.getElementById("txnHTrabajo").value;
-    var totales = parseInt(presenciales) + parseInt(autoestudio) + parseInt(trabajo);
+    var totales = parseInt(presenciales) + parseInt(autoestudio);
     document.getElementById("txnHTotales").value = totales;
 }
 
@@ -521,21 +517,19 @@ function sumaHorasCreditos()
 {
     var gridCursos = $('#dgCUR').datagrid('getData');
     var registros = $('#dgCUR').datagrid('getRows').length - 1;
-    var hPresenciales = 0;
+    var hTeoricas = 0;
     var hAutoestudio = 0;
-    var hTrabajo = 0;
     var hTotales = 0;
     var creditos = 0;
 
     if (registros >= 0) {
         for (i = 0; i <= registros; i++) {
-            hPresenciales += parseInt(gridCursos.rows[i].hPresenciales);
+            hTeoricas += parseInt(gridCursos.rows[i].hTeoricas);
             hAutoestudio += parseInt(gridCursos.rows[i].hAutoestudio);
-            hTrabajo += parseInt(gridCursos.rows[i].hTrabajo);
             creditos += parseInt(gridCursos.rows[i].creditos);
         }
 
-        hTotales = hPresenciales + hAutoestudio + hTrabajo;
+        hTotales = hTeoricas + hAutoestudio;
         $('#txnHoras').val(hTotales);
         $('#txnCreditos').val(creditos);
     }
@@ -640,9 +634,8 @@ function appendCUR() {
                 curso: txCurso,
                 periodo: $('#txnPeriodo').val(),
                 modulo: $('#txtModulo').val(),
-                hPresenciales: $('#txnHPresenciales').val(),
+                hTeoricas: $('#txnHTeoricas').val(),
                 hAutoestudio: $('#txnHAutoestudio').val(),
-                hTrabajo: $('#txnHTrabajo').val(),
                 hTotales: $('#txnHTotales').val(),
                 creditos: $('#txnCreditosAs').val()
             });
@@ -744,9 +737,8 @@ $('form').submit(function(e) {
                 texto += '"curso":"' + gridDetalle.rows[i].curso + '",';
                 texto += '"periodo":"' + gridDetalle.rows[i].periodo + '",';
                 texto += '"modulo":"' + gridDetalle.rows[i].modulo + '",';
-                texto += '"hPresenciales":"' + gridDetalle.rows[i].hPresenciales + '",';
+                texto += '"hTeoricas":"' + gridDetalle.rows[i].hTeoricas + '",';
                 texto += '"hAutoestudio":"' + gridDetalle.rows[i].hAutoestudio + '",';
-                texto += '"hTrabajo":"' + gridDetalle.rows[i].hTrabajo + '",';
                 texto += '"hTotales":"' + gridDetalle.rows[i].hTotales + '",';
                 texto += '"creditos":"' + gridDetalle.rows[i].creditos + '"';
 

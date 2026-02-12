@@ -16,7 +16,7 @@ if (isset($_POST["carrera"]))
 	{
 		while ($mFila = $mDatos->fetch())
 		{
-			$msResultado .= "<option value='>" . $mFila["CURSOPOSGRADO_REL"] . "'>" . $mFila["NOMBRE_240"] . "</option>";
+			$msResultado .= "<option value='" . $mFila["CURSOPOSGRADO_REL"] . "'>" . $mFila["NOMBRE_240"] . "</option>";
 		}
 	}
 	

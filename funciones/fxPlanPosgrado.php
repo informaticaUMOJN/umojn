@@ -22,7 +22,7 @@
 		$m_cnx_MySQL = fxAbrirConexion();
 
 		$msConsulta = "update UMO230A set CARRERA_REL = ?, PERIODO_230 = ?, GRADO_230 = ?, HORAS_230 = ?, CREDITOS_230 = ?, TURNO_230 = ?, REGIMEN_230 = ?, MODALIDAD_230 = ?, ACTIVO_230 = ? ";
-		$msConsulta .= "where PLANESTUDIO_REL = ?";
+		$msConsulta .= "where PLANPOSGRADO_REL = ?";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 		$mDatos->execute([$msCarrera, $msPeriodo, $msGrado, $mnHoras, $mnCreditos, $mnTurno, $mnRegimen, $mnModalidad, $mbActivo, $msCodigo]);
 	}
@@ -56,14 +56,14 @@
 		$mDatos->execute([$msCodigo]);
 	}
 
-	function fxGuardarDetPlanPosgrado($msCodigo, $mnConsecutivo, $msCurso, $msPeriodo, $msModulo, $mnHPreseciales, $mnHAutoestudio, $mnHTrabajo, $mnHTotales, $mnCreditos)
+	function fxGuardarDetPlanPosgrado($msCodigo, $mnConsecutivo, $msCurso, $msPeriodo, $msModulo, $mnHTeoricas, $mnHAutoestudio, $mnHTotales, $mnCreditos)
 	{
 		$m_cnx_MySQL = fxAbrirConexion();
 
-		$msConsulta = "insert into UMO231A (PLANPOSGRADO_REL, DETPLAN_REL, CURSOPOSGRADO_REL, PERIODO_231, MODULO_231, HPRESENCIALES_231, HAUTOESTUDIO_231, ";
-		$msConsulta .= "HTRABAJO_231, HTOTALES_231, CREDITOS_231) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$msConsulta = "insert into UMO231A (PLANPOSGRADO_REL, DETPLAN_REL, CURSOPOSGRADO_REL, PERIODO_231, MODULO_231, HTEORICAS_231, HAUTOESTUDIO_231, ";
+		$msConsulta .= "HTOTALES_231, CREDITOS_231) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-		$mDatos->execute([$msCodigo, $mnConsecutivo, $msCurso, $msPeriodo, $msModulo, $mnHPreseciales, $mnHAutoestudio, $mnHTrabajo, $mnHTotales, $mnCreditos]);
+		$mDatos->execute([$msCodigo, $mnConsecutivo, $msCurso, $msPeriodo, $msModulo, $mnHTeoricas, $mnHAutoestudio, $mnHTotales, $mnCreditos]);
 	}
 
 	function fxObtenerDetPlanPosgrado($msCodigo)
@@ -71,7 +71,7 @@
 		$m_cnx_MySQL = fxAbrirConexion();
 
 		$msConsulta = "select PLANPOSGRADO_REL, DETPLAN_REL, UMO231A.CURSOPOSGRADO_REL, NOMBRE_240, PERIODO_231, MODULO_231, ";
-		$msConsulta .= "HPRESENCIALES_231, HAUTOESTUDIO_231, HTRABAJO_231, HTOTALES_231, CREDITOS_231 ";
+		$msConsulta .= "HTEORICAS_231, HAUTOESTUDIO_231, HTOTALES_231, CREDITOS_231 ";
 		$msConsulta .= "from UMO231A join UMO240A on UMO231A.CURSOPOSGRADO_REL = UMO240A.CURSOPOSGRADO_REL "; 
 		$msConsulta .= "where PLANPOSGRADO_REL = ? order by DETPLAN_REL";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
