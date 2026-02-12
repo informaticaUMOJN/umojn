@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     14/01/2026 8:57:51 a. m.                     */
+/* Created on:     12/02/2026 11:29:49 a. m.                    */
 /*==============================================================*/
 
 
@@ -28,6 +28,19 @@ create table UMO000C
    ENTIDAD_000          varchar(30)  comment '',
    CLAVE_000            varchar(20)  comment '',
    ACCION_000           varchar(20)  comment ''
+);
+
+/*==============================================================*/
+/* Table: UMO001A                                               */
+/*==============================================================*/
+create table UMO001A
+(
+   RECTOR_001           varchar(100)  comment '',
+   RECTOR_FM_001        char(1)  comment '',
+   SECRETARIO_001       varchar(100)  comment '',
+   SECRETARIO_FM_001    char(1)  comment '',
+   REGISTRO_001         varchar(100)  comment '',
+   REGISTRO_FM_001      char(1)  comment ''
 );
 
 /*==============================================================*/
@@ -751,7 +764,8 @@ create table UMO160A
              4.-Nocturno
              5.-Sabatino
              6.-Dominical',
-   ESTADO_160           numeric(1,0)  comment '',
+   ESTADO_160           numeric(1,0)  comment '0.- Abierto
+             1.- Cerrado',
    primary key (CALIFICACION_REL)
 );
 
@@ -849,7 +863,10 @@ create table UMO190A
    FECHAINICIO_190      date  comment '',
    FECHAFIN_190         date  comment '',
    DIACLASES_190        varchar(50)  comment '',
-   MODALIDAD_190        bool  comment '',
+   MODALIDAD_190        numeric(1,0)  comment '1.-Presencial
+             2.-Por encuentro
+             3.-Virtual
+             4.-Mixto',
    ESTADO_190           numeric(1,0)  comment '',
    primary key (CURSOS_REL)
 );
@@ -959,7 +976,10 @@ create table UMO210A
    DIPLOMA_210          bool  comment '',
    CEDULA_210           bool  comment '',
    ACTANACIMIENTO_210   bool  comment '',
-   ESTADO_210           numeric(1,0)  comment '',
+   ESTADO_210           numeric(1,0)  comment '0.-Prematriculado
+             1.-Activo
+             2.-Retirado
+             3.-Certificado',
    ANNOACADEMICO_210    bool  comment '',
    primary key (MATCURSO_REL2)
 );
@@ -1021,7 +1041,7 @@ create table UMO240A
    CURSOPOSGRADO_REL    varchar(10) not null  comment '',
    CARRERA_REL          varchar(10)  comment '',
    NOMBRE_240           varchar(100)  comment '',
-   CODIGO_240           varchar(10)  comment '',
+   CODIGO_240           varchar(15)  comment '',
    ACTIVO_240           bool  comment '',
    primary key (CURSOPOSGRADO_REL)
 );
@@ -1155,6 +1175,20 @@ create table UMO321A
    ASISTENCIACL_REL     varchar(10)  comment '',
    MATCURSO_REL2        varchar(20)  comment '',
    ESTADO_321           char(1)  comment ''
+);
+
+/*==============================================================*/
+/* Table: UMO330A                                               */
+/*==============================================================*/
+create table UMO330A
+(
+   LIBRO_REL            varchar(10) not null  comment '',
+   DESC_330             varchar(200)  comment '',
+   APERTURA_330         date  comment '',
+   TIPO_330             numeric(1,0)  comment '',
+   TOMO_330             varchar(5)  comment '',
+   ULTIMOREGISTRO_330   numeric(10,0)  comment '',
+   primary key (LIBRO_REL)
 );
 
 alter table UMO002B add constraint FK_UMO002B_REL_001B__UMO001B foreign key (EXPDIGITAL_REL)
