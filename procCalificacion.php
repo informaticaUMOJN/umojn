@@ -11,9 +11,9 @@
 	require_once ("funciones/fxUsuarios.php");
 	require_once ("funciones/fxCalificaciones.php");
     $m_cnx_MySQL = fxAbrirConexion();
-	$Registro = fxVerificaUsuario();
+	$mnRegistro = fxVerificaUsuario();
 	
-	if ($Registro == 0)
+	if ($mnRegistro == 0)
 	{
 ?>
         <div class="container text-center">
@@ -261,6 +261,7 @@
                                 else
                                     echo('<input type="number" class="form-control" id="txnAnno" name="txnAnno" value="' . $mnAnno . '" readonly />');
                             ?>
+                            <input type="hidden" style="text-align:right" class="form-control" id="txnCierre" name="txnCierre" value="0" />
                         </div>
                     </div>
 
@@ -543,7 +544,20 @@ window.onload = function()
 
 function verificarFormulario() {
     var semestre = $('#txnSemestre').val();
-    
+    var cierre = $('#txnCierre').val();
+    var administrador = <?php echo($mbAdministrador) ?>;
+    var supervisor = <?php echo($mbSupervisor) ?>;
+
+/* Sólo en el ambiente de Docentes. En el administrativo no se valida.
+    if (administrador == 0 && supervisor == 0)
+    {
+        if (cierre != 0)
+        {
+            $.messager.alert('UMOJN', 'El período ya fue cerrado.', 'warning');
+            return false;
+        }
+    }
+*/ 
     if (semestre < 1 || semestre > 2)
     {
         $.messager.alert('UMOJN', 'El valor del semestre sólo puede ser 1 ó 2.', 'warning');
@@ -684,6 +698,7 @@ function llenaEstudiantes()
                 $('#dgEST2').datagrid({data: datosGrid});
                 $('#dgEST2').datagrid('reload');
                 verificaCalificacion();
+                llenaCierre();
             }
         })
     }
@@ -725,6 +740,30 @@ function verificaCalificacion()
         processData: false,
         success: function(response){
             document.getElementById('txnExisteCalificacion').value = response;
+        }
+    })
+}
+
+function llenaCierre()
+{
+    var anno = $('#txnAnno').val();
+    var semestre = $('#txnSemestre').val();
+    var parcial = $('#cboParcial').val();
+    var turno = $("input[name='optTurno']:checked").val();
+    var datos = new FormData();
+    datos.append('anno', anno);
+    datos.append('semestre', semestre);
+    datos.append('parcial', parcial);
+    datos.append('turno', turno);
+
+    $.ajax({
+        url: 'funciones/fxDatosCierreNotas.php',
+        type: 'post',
+        data: datos,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            $('#txnCierre').val(response);
         }
     })
 }

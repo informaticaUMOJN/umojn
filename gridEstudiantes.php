@@ -71,41 +71,45 @@
 							echo('<button id="matricula" type="button" class="btn btn-primary">Matricular</button>');
 						?>
 						
-						<table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true">
-							<thead>
-								<tr>
-									<th data-column-id="ESTUDIANTE_REL" data-identifier="true" data-align="left" data-width="12%">Estudiante</th>
-									<th data-column-id="NOMBRECOMPLETO" data-header-align="left" data-width="32%">Nombre completo</th>
-									<th data-column-id="CELULAR_010" data-align="left" data-header-align="left" data-width="15%">Celular</th>
-									<th data-column-id="CORREOI_010" data-align="left" data-header-align="left" data-width="35%">eMail</th>
-								</tr>
-							</thead>
-							<tbody>
-							<?php
-								$mDatos = fxDevuelveEstudiantes(1);
-								while ($mFila = $mDatos->fetch())
-								{
-									echo ("<tr>");
-									echo ("<td>" . $mFila["ESTUDIANTE_REL"] . "</td>");
+						<div class="table-responsive">
+							<table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true">
+								<thead>
+									<tr>
+										<th data-column-id="ESTUDIANTE_REL" data-identifier="true" data-align="left" data-width="12%">Estudiante</th>
+										<th data-column-id="NOMBRE_040" data-header-align="left" data-width="20%">Carrera</th>
+										<th data-column-id="NOMBRECOMPLETO" data-header-align="left" data-width="23%">Nombre completo</th>
+										<th data-column-id="CELULAR_010" data-align="left" data-header-align="left" data-width="10%">Celular</th>
+										<th data-column-id="CORREOI_010" data-align="left" data-header-align="left" data-width="35%">eMail</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php
+									$mDatos = fxDevuelveEstudiantes(1);
+									while ($mFila = $mDatos->fetch())
+									{
+										echo ("<tr>");
+										echo ("<td>" . $mFila["ESTUDIANTE_REL"] . "</td>");
+										echo ("<td>" . $mFila["NOMBRE_040"] . "</td>");
 
-									if (trim($mFila["APELLIDO2_010"])!="")
-										$msNombre = trim($mFila["APELLIDO1_010"]) . " " . $mFila["APELLIDO2_010"] . ", ";
-									else
-										$msNombre = trim($mFila["APELLIDO1_010"]) . ", ";
+										if (trim($mFila["APELLIDO2_010"])!="")
+											$msNombre = trim($mFila["APELLIDO1_010"]) . " " . $mFila["APELLIDO2_010"] . ", ";
+										else
+											$msNombre = trim($mFila["APELLIDO1_010"]) . ", ";
 
-									if (trim($mFila["NOMBRE2_010"])!="")
-										$msNombre .= trim($mFila["NOMBRE1_010"]) . " " . trim($mFila["NOMBRE2_010"]);
-									else
-										$msNombre .= trim($mFila["NOMBRE1_010"]);
+										if (trim($mFila["NOMBRE2_010"])!="")
+											$msNombre .= trim($mFila["NOMBRE1_010"]) . " " . trim($mFila["NOMBRE2_010"]);
+										else
+											$msNombre .= trim($mFila["NOMBRE1_010"]);
 
-									echo ("<td>" . $msNombre . " " . "</td>");
-									echo ("<td>" . $mFila["CELULAR_010"] . "</td>");
-									echo ("<td>" . $mFila["CORREOI_010"] . "</td>");
+										echo ("<td>" . $msNombre . " " . "</td>");
+										echo ("<td>" . $mFila["CELULAR_010"] . "</td>");
+										echo ("<td>" . $mFila["CORREOI_010"] . "</td>");
+									}
 								}
-							}
-							?>
-							</tbody>
-						</table>
+								?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
             </div>

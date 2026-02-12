@@ -91,7 +91,7 @@ function fxCierreCalificacion($msUsuario, $mnAnno, $mnSemestre, $mnParcial, $mnT
 function fxDevuelveCierreCalificacion($mnAnno, $mnSemestre, $mnParcial, $mnTurno)
 {
     $m_cnx_MySQL = fxAbrirConexion();
-    $msConsulta = "select * UMO162A where ANNO_162 = ? and SEMESTRE_162 = ? and PARCIAL_162 = ? and TURNO_162 = ?";
+    $msConsulta = "select * from UMO162A where ANNO_162 = ? and SEMESTRE_162 = ? and PARCIAL_162 = ? and TURNO_162 = ?";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
     $mDatos->execute([$mnAnno, $mnSemestre, $mnParcial, $mnTurno]);
     $mnRegistros = $mDatos->rowCount();
