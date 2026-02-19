@@ -46,6 +46,7 @@
 				$msCodigo = $_POST["txtCodMatricula"];
 				$msEstudiante = $_POST["cboEstudiante"];
 				$msCarrera = $_POST["cboCarrera"];
+				$msPlanPosgrado = $_POST["cboPlanPosgrado"];
 				$mdFecha = $_POST["dtpFecha"];
 				$mnAnnoIngreso = $_POST["txnAnnoIngreso"];
 				$mnCohorte = $_POST["txnCohorte"];
@@ -58,15 +59,15 @@
 
 				if ($msCodigo == "")
 				{
-					$msCodigo = fxGuardarMatriculaPos ($msEstudiante, $msCarrera, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
-					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
+					$msCodigo = fxGuardarMatriculaPos ($msEstudiante, $msCarrera, $msPlanPosgrado, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
+					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . ", " . $msPlanPosgrado . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Agregar", $msBitacora);
 				}
 				else
 				{
-					fxModificarMatriculaPos ($msCodigo, $msEstudiante, $msCarrera, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
+					fxModificarMatriculaPos ($msCodigo, $msEstudiante, $msCarrera, $msPlanPosgrado, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
 					fxBorrarDetMatricula ($msCodigo);
-					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
+					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $msPlanPosgrado . ", " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Modificar", $msBitacora);
 				}
 
@@ -203,6 +204,38 @@
 										else
 										{
 											if ($msCarrera == $msValor)
+												echo("<option value='" . $msValor . "' selected>" . $msTexto . "</option>");
+											else
+												echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
+										}
+									}
+
+									echo('</select>');
+								?>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="cboPlanPosgrado" class="col-sm-12 col-md-3 col-form-label">Plan de estudio</label>
+							<div class="col-sm-12 col-md-7">
+								<?php
+									echo('<select class="form-control" id="cboPlanPosgrado" name="cboPlanPosgrado">');
+
+									$msConsulta = "select PLANPOSGRADO_REL, PERIODO_230 from UMO230A where CARRERA_REL = ? and ACTIVO_230 = 1";
+									$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+									$mDatos->execute([$msCarrera]);
+									while ($mFila = $mDatos->fetch())
+									{
+										$msValor = rtrim($mFila["PLANPOSGRADO_REL"]);
+										$msTexto = rtrim($mFila["PERIODO_230"]);
+										if ($msPlanPosgrado == "")
+										{
+											echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
+											$msPlanPosgrado = $msValor;
+										}
+										else
+										{
+											if ($msPlanPosgrado == $msValor)
 												echo("<option value='" . $msValor . "' selected>" . $msTexto . "</option>");
 											else
 												echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
@@ -427,6 +460,26 @@
 			processData: false,
 			success: function(response){
 				document.getElementById('cboCurso').innerHTML = response;
+				var carrera = document.getElementById('cboCarrera').value;
+				llenaPlanEstudio (carrera);
+			}
+		})
+	}
+
+	function llenaPlanEstudio (carrera)
+	{
+		
+		var datos = new FormData();
+		datos.append('carrera2', carrera);
+
+		$.ajax({
+			url: 'funciones/fxDatosMatriculaPos.php',
+			type: 'post',
+			data: datos,
+			contentType: false,
+			processData: false,
+			success: function(response){
+				document.getElementById('cboPlanPosgrado').innerHTML = response;
 			}
 		})
 	}
@@ -443,6 +496,7 @@
 
 		llenaCarrera(estudiante);
 		llenaCursos(carrera);
+		llenaPlanEstudio(carrera);
 	}
 
 	var editIndex = undefined;

@@ -44,7 +44,7 @@
         $msVerificacion = $mFila["VERIFICACION_002"];
         $msFolder = $mFila["FOLDER_002"];
 
-        if ($msVerificacion == "" and $msFolder == "")
+        if ($msVerificacion == "")
         {
             $mCarnet = explode('-', $msCarnet);
             $mnElementos = count($mCarnet);
@@ -59,9 +59,9 @@
             //Completa el codigo de verificación
             $msVerificacion .= $msRegistro . rand(10000, 99999);
 
-            $msConsulta = "update UMO002B set FOLDER_002 = ?, VERIFICACION_002 = ? where CARNET_REL = ? and EXPDIGITAL_REL = ?";
+            $msConsulta = "update UMO002B set VERIFICACION_002 = ? where CARNET_REL = ? and EXPDIGITAL_REL = ?";
             $mAux = $m_cnx_MySQL->prepare($msConsulta);
-            $mAux->execute([$msFolder, $msVerificacion, $msCarnet, $msExpDigital]);
+            $mAux->execute([$msVerificacion, $msCarnet, $msExpDigital]);
         }
 
         //Nombre del estudiante

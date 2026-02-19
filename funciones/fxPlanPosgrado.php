@@ -73,7 +73,7 @@
 		$msConsulta = "select PLANPOSGRADO_REL, DETPLAN_REL, UMO231A.CURSOPOSGRADO_REL, NOMBRE_240, PERIODO_231, MODULO_231, ";
 		$msConsulta .= "HTEORICAS_231, HAUTOESTUDIO_231, HTOTALES_231, CREDITOS_231 ";
 		$msConsulta .= "from UMO231A join UMO240A on UMO231A.CURSOPOSGRADO_REL = UMO240A.CURSOPOSGRADO_REL "; 
-		$msConsulta .= "where PLANPOSGRADO_REL = ? order by DETPLAN_REL";
+		$msConsulta .= "where PLANPOSGRADO_REL = ? order by PERIODO_231, NOMBRE_240";
 		$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 		$mDatos->execute([$msCodigo]);
 		return $mDatos;

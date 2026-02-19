@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     12/02/2026 11:29:49 a. m.                    */
+/* Created on:     18/02/2026 4:38:32 p. m.                     */
 /*==============================================================*/
 
 
@@ -1023,11 +1023,10 @@ create table UMO231A
    PLANPOSGRADO_REL     varchar(10) not null  comment '',
    DETPLAN_REL          varchar(3) not null  comment '',
    CURSOPOSGRADO_REL    varchar(10)  comment '',
-   PERIODO_221          numeric(2,0)  comment 'Semestre, trimestre o cuatrimestre en el que se imparte el curso',
+   PERIODO_221          varchar(3)  comment 'Semestre, trimestre o cuatrimestre en el que se imparte el curso',
    MODULO_221           varchar(200)  comment '',
-   HPRESENCIALES_221    numeric(5,0)  comment '',
+   HTEORICAS_221        numeric(5,0)  comment '',
    HAUTOESTUDIO_221     numeric(5,0)  comment '',
-   HTRABAJO_221         numeric(5,0)  comment '',
    HTOTALES_221         numeric(5,0)  comment '',
    CREDITOS_221         numeric(5,0)  comment '',
    primary key (PLANPOSGRADO_REL, DETPLAN_REL)
@@ -1140,7 +1139,7 @@ create table UMO260A
    MATRICULAPOS_REL     varchar(10) not null  comment '',
    ESTUDIANTEPOS_REL    varchar(10)  comment '',
    CARRERA_REL          varchar(10)  comment '',
-   CURSOPOSGRADO_REL    varchar(10)  comment '',
+   PLANPOSGRADO_REL     varchar(10)  comment '',
    FECHA_260            date  comment '',
    ANNOINGRESO_260      numeric(4,0)  comment '',
    COHORTE_260          varchar(5)  comment '',
@@ -1151,6 +1150,16 @@ create table UMO260A
    CURRICULUM_260       bool  comment '',
    ESTADO_260           numeric(1,0)  comment '',
    primary key (MATRICULAPOS_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO261A                                               */
+/*==============================================================*/
+create table UMO261A
+(
+   CURSOPOSGRADO_REL    varchar(10) not null  comment '',
+   MATRICULAPOS_REL     varchar(10) not null  comment '',
+   primary key (CURSOPOSGRADO_REL, MATRICULAPOS_REL)
 );
 
 /*==============================================================*/
@@ -1434,11 +1443,17 @@ alter table UMO251A add constraint FK_UMO251A_REL_250_2_UMO250A foreign key (EST
 alter table UMO260A add constraint FK_UMO260A_REL_040_2_UMO040A foreign key (CARRERA_REL)
       references UMO040A (CARRERA_REL) on delete restrict on update restrict;
 
-alter table UMO260A add constraint FK_UMO260A_REL_240_2_UMO240A foreign key (CURSOPOSGRADO_REL)
-      references UMO240A (CURSOPOSGRADO_REL) on delete restrict on update restrict;
+alter table UMO260A add constraint FK_UMO260A_REL_230_2_UMO230A foreign key (PLANPOSGRADO_REL)
+      references UMO230A (PLANPOSGRADO_REL) on delete restrict on update restrict;
 
 alter table UMO260A add constraint FK_UMO260A_REL_250_2_UMO250A foreign key (ESTUDIANTEPOS_REL)
       references UMO250A (ESTUDIANTEPOS_REL) on delete restrict on update restrict;
+
+alter table UMO261A add constraint FK_UMO261A_UMO261A_UMO240A foreign key (CURSOPOSGRADO_REL)
+      references UMO240A (CURSOPOSGRADO_REL) on delete restrict on update restrict;
+
+alter table UMO261A add constraint FK_UMO261A_UMO261A2_UMO260A foreign key (MATRICULAPOS_REL)
+      references UMO260A (MATRICULAPOS_REL) on delete restrict on update restrict;
 
 alter table UMO320A add constraint FK_UMO320A_REL_100_3_UMO100A foreign key (DOCENTE_REL)
       references UMO100A (DOCENTE_REL) on delete restrict on update restrict;

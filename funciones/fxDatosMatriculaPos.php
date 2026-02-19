@@ -23,6 +23,28 @@ if (isset($_POST["carrera"]))
 	echo $msResultado;
 }
 
+/**********Llenar el combo de los Planes de estudio**********/
+if (isset($_POST["carrera2"]))
+{
+	$m_cnx_MySQL = fxAbrirConexion();
+	$msCodigo = $_POST["carrera2"];
+	$msConsulta = "select PLANPOSGRADO_REL, PERIODO_230 from UMO230A where CARRERA_REL = ? and ACTIVO_230 = 1";
+	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+	$mDatos->execute([$msCodigo]);
+	$mnRegistros = $mDatos->rowCount();
+	$msResultado = "";
+
+	if ($mnRegistros > 0)
+	{
+		while ($mFila = $mDatos->fetch())
+		{
+			$msResultado .= "<option value='" . $mFila["PLANPOSGRADO_REL"] . "'>" . $mFila["PERIODO_230"] . "</option>";
+		}
+	}
+	
+	echo $msResultado;
+}
+
 /**********Llenar la carrera del estudiante**********/
 if (isset($_POST["estudianteCrr"]))
 {

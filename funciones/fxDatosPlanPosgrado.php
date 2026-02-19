@@ -1,7 +1,7 @@
 <?php
 require_once ("fxGeneral.php");
 
-/**********Llenar el combo de las Asignaturas**********/
+/**********Llenar el combo de los Cursos**********/
 if (isset($_POST["carrera"]))
 {
 	$m_cnx_MySQL = fxAbrirConexion();
