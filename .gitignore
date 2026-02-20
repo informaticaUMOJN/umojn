@@ -6,6 +6,7 @@
 /documentos/
 /estudiantes/
 /tcpdf/
+/fonts/
 
 # Configuración sensible
 .env
@@ -14,6 +15,7 @@
 *.log
 *.tmp
 *.bak
+*.png
 
 # Bases de datos locales
 *.sqlite
