@@ -11,7 +11,7 @@
 		$mnNumero = intval($mFila["Ultimo"]);
 		$mnNumero += 1;
 		$mnLongitud = strlen($mnNumero);
-		$msCodigo = "MP" . str_repeat("0", 3 - $mnLongitud) . trim($mnNumero);
+		$msCodigo = "MP" . str_repeat("0", 8 - $mnLongitud) . trim($mnNumero);
 		$msConsulta = "insert into UMO260A (MATRICULAPOS_REL, ESTUDIANTEPOS_REL, CARRERA_REL, PLANPOSGRADO_REL, FECHA_260, ";
 		$msConsulta .= "ANNOINGRESO_260, COHORTE_260, RECIBO_260, TITULO_260, NOTAS_260, CEDULA_260, CURRICULUM_260, ";
 		$msConsulta .= "ESTADO_260) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

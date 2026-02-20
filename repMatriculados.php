@@ -39,7 +39,7 @@ else
 			// Logos
 			$this->Image('imagenes/logoRep.jpg',15,12,0,18);
 			// Title
-			$mid_x = 210; // width of the "PDF screen", fixed by now.
+			$mid_x = 278; // width of the "PDF screen", fixed by now.
 
 			$this->SetFont('helvetica','B',13);
 			$Titulo = 'ESTUDIANTES MATRICULADOS';
@@ -165,7 +165,7 @@ else
 	$mnAnnoLectivo = $_POST["mnAnno"];
 	$mnAcademico = $_POST["mnAcademico"];
 
-	$pdf = new PDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+	$pdf = new PDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 	// set default monospaced font
 	$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -197,7 +197,7 @@ else
 
 	for ($i=$mnIni; $i<=$mnFin; $i++)
 	{
-		$msConsulta = "select MATRICULA_REL, NOMBRE1_010, NOMBRE2_010, APELLIDO1_010, APELLIDO2_010, CARNET_010, ";
+		$msConsulta = "select MATRICULA_REL, NOMBRE1_010, NOMBRE2_010, APELLIDO1_010, APELLIDO2_010, CARNET_010, CORREOI_010, ";
 		$msConsulta .= "FECHA_030, GENERACION_010, ANNOACADEMICO_030, ESTADO_030 ";
 		$msConsulta .= "from UMO030A, UMO010A, UMO050A " ;
 		$msConsulta .= "where UMO030A.PLANESTUDIO_REL = UMO050A.PLANESTUDIO_REL and ";
@@ -231,12 +231,13 @@ else
 
 			$msHTML .= '<table cellpadding="2">';
 			$msHTML .= '<thead><tr>';
-			$msHTML .= '<th width="12%">MATRICULA</th>';
-			$msHTML .= '<th width="12%">CARNET</th>';
+			$msHTML .= '<th width="10%">MATRICULA</th>';
+			$msHTML .= '<th width="10%">CARNET</th>';
 			$msHTML .= '<th width="10%">FECHA DE MATRICULA</th>';
-			$msHTML .= '<th width="10%" class="centro">AÑO DE INGRESO</th>';
-			$msHTML .= '<th width="46%">ESTUDIANTE</th>';
-			$msHTML .= '<th width="10%">ESTADO</th>';
+			$msHTML .= '<th width="8%" class="centro">AÑO DE INGRESO</th>';
+			$msHTML .= '<th width="36%">ESTUDIANTE</th>';
+			$msHTML .= '<th width="18%">CORREO</th>';
+			$msHTML .= '<th width="8%">ESTADO</th>';
 			$msHTML .= '</tr></thead>';
 
 			$msHTML .= '<tbody>';
@@ -268,6 +269,7 @@ else
 				
 				$msMatricula = $mFila["MATRICULA_REL"];
 				$mnAnnoIngreso = $mFila["GENERACION_010"];
+				$msCorreo = $mFila["CORREOI_010"];
 				$msEstado = fxDevuelveEstado($mFila["ESTADO_030"]);
 
 				$pdf->setFontSize(8);
@@ -276,21 +278,23 @@ else
 
 				if ($mbColorea == 0)
 				{
-					$msHTML .= '<td width="12%">' . $msMatricula . '</td>';
-					$msHTML .= '<td width="12%">' . $msCarnet . '</td>';
+					$msHTML .= '<td width="10%">' . $msMatricula . '</td>';
+					$msHTML .= '<td width="10%">' . $msCarnet . '</td>';
 					$msHTML .= '<td width="10%">' . fxFechaCorta($mFila["FECHA_030"]) . '</td>';
-					$msHTML .= '<td width="10%" class="centro">' . $mnAnnoIngreso . '</td>';
-					$msHTML .= '<td width="46%">' . $msEstudiante . '</td>';
-					$msHTML .= '<td width="10%">' . $msEstado . '</td>';
+					$msHTML .= '<td width="8%" class="centro">' . $mnAnnoIngreso . '</td>';
+					$msHTML .= '<td width="36%">' . $msEstudiante . '</td>';
+					$msHTML .= '<td width="18%">' . $msCorreo . '</td>';
+					$msHTML .= '<td width="8%">' . $msEstado . '</td>';
 				}
 				else
 				{
-					$msHTML .= '<td width="12%" class="fondo">' . $msMatricula . '</td>';
-					$msHTML .= '<td width="12%" class="fondo">' . $msCarnet . '</td>';
+					$msHTML .= '<td width="10%" class="fondo">' . $msMatricula . '</td>';
+					$msHTML .= '<td width="10%" class="fondo">' . $msCarnet . '</td>';
 					$msHTML .= '<td width="10%" class="fondo">' . fxFechaCorta($mFila["FECHA_030"]) . '</td>';
-					$msHTML .= '<td width="10%" class="fondo centro">' . $mnAnnoIngreso . '</td>';
-					$msHTML .= '<td width="46%" class="fondo">' . $msEstudiante . '</td>';
-					$msHTML .= '<td width="10%" class="fondo">' . $msEstado . '</td>';
+					$msHTML .= '<td width="8%" class="fondo centro">' . $mnAnnoIngreso . '</td>';
+					$msHTML .= '<td width="36%" class="fondo">' . $msEstudiante . '</td>';
+					$msHTML .= '<td width="18%" class="fondo">' . $msCorreo . '</td>';
+					$msHTML .= '<td width="8%" class="fondo">' . $msEstado . '</td>';
 				}
 
 				$msHTML .= '</tr>';

@@ -51,10 +51,10 @@
 				$mnAnnoIngreso = $_POST["txnAnnoIngreso"];
 				$mnCohorte = $_POST["txnCohorte"];
 				$msRecibo = $_POST["txtRecibo"];
-				if (isset($_POST["chkTitulo"])) $mbTitulo = 1; else $mbTitulo = 0;
-				if (isset($_POST["chkNotas"])) $mbNotas = 1; else $mbNotas = 0;
-				if (isset($_POST["chkCedula"])) $mbCedula = 1; else $mbCedula = 0;
-				if (isset($_POST["chkCurriculum"])) $mbCurriculum = 1; else $mbCurriculum = 0;
+				if ($_POST["chkTitulo"] == 1) $mbTitulo = 1; else $mbTitulo = 0;
+				if ($_POST["chkNotas"] == 1) $mbNotas = 1; else $mbNotas = 0;
+				if ($_POST["chkCedula"] == 1) $mbCedula = 1; else $mbCedula = 0;
+				if ($_POST["chkCurriculum"] == 1) $mbCurriculum = 1; else $mbCurriculum = 0;
 				$mnEstado = $_POST["cboEstado"];
 
 				if ($msCodigo == "")
@@ -66,9 +66,19 @@
 				else
 				{
 					fxModificarMatriculaPos ($msCodigo, $msEstudiante, $msCarrera, $msPlanPosgrado, $mdFecha, $mnAnnoIngreso, $mnCohorte, $msRecibo, $mbTitulo, $mbNotas, $mbCedula, $mbCurriculum, $mnEstado);
-					fxBorrarDetMatricula ($msCodigo);
+					fxBorrarDetMatriculaPos ($msCodigo);
 					$msBitacora = $msCodigo . "; " . $msEstudiante . "; " . $msCarrera . "; " . $msPlanPosgrado . ", " . $mdFecha . "; " . $mnAnnoIngreso . "; " . $mnCohorte . "; " . $msRecibo . "; " . $mbTitulo . "; " . $mbNotas . "; " . $mbCedula . "; " . $mbCurriculum . "; " .  $mnEstado;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO260A", $msCodigo, "", "Modificar", $msBitacora);
+				}
+
+				if (isset($_POST["gridCursos"]))
+				{
+					$gridCursos = $_POST["gridCursos"];
+					foreach($gridCursos as $mRegistro)
+					{
+						$msCurso = $mRegistro['curso'];
+						fxGuardarDetMatriculaPos ($msCodigo, $msCurso);
+					}
 				}
 
 				?><meta http-equiv="Refresh" content="0;url=gridMatriculaPos.php"/><?php
@@ -94,8 +104,9 @@
 				$mFila = $RecordSet->fetch();
 				if ($msCodigo != "")
 				{
-					$msEstudiante = $mFila["ESTUDIANTE_REL"];
+					$msEstudiante = $mFila["ESTUDIANTEPOS_REL"];
 					$msCarrera = $mFila["CARRERA_REL"];
+					$msPlanPosgrado = $mFila["PLANPOSGRADO_REL"];
 					$mdFecha = $mFila["FECHA_260"];
 					$mnAnnoIngreso = $mFila["ANNOINGRESO_260"];
 					$mnCohorte = $mFila["COHORTE_260"];
@@ -113,6 +124,7 @@
 					else
 						$msEstudiante = "";
 					$msCarrera = "";
+					$msPlanPosgrado = "";
 					$mdFecha = "";
 					$mnAnnoIngreso = date('Y');
 					$mnCohorte = 1;
@@ -291,9 +303,9 @@
 							<div class="col-sm-12 col-md-8">
 								<?php
 									if ($mbTitulo == 1)
-										echo('<input type="checkbox" name="chkDiploma" id="chkDiploma" checked > Diploma de grado<br>');
+										echo('<input type="checkbox" name="chkTitulo" id="chkTitulo" checked > Diploma de grado<br>');
 									else
-										echo('<input type="checkbox" name="chkDiploma" id="chkDiploma" > Diploma de grado<br>');
+										echo('<input type="checkbox" name="chkTitulo" id="chkTitulo" > Diploma de grado<br>');
 
 									if ($mbNotas == 1)
 										echo('<input type="checkbox" name="chkNotas" id="chkNotas" checked > Notas de grado<br>');
@@ -349,11 +361,7 @@
 										{
 											$msValor = trim($mFila["CURSOPOSGRADO_REL"]);
 											$msTexto = trim($mFila["NOMBRE_240"]);
-											if ($msCurso == "")
-											{
-												echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
-												$msCurso = $msValor;
-											}
+											echo("<option value='" . $msValor . "'>" . $msTexto . "</option>");
 										}
 									?>
 								</select>
@@ -486,6 +494,7 @@
 
 	window.onload = function() 
 	{
+		var codigo = $('#txtCodMatricula').val();
 		var carrera = $('#cboCarrera').val();
 		var estudiante = $('#cboEstudiante').val();
 		var dgCurso = $('#dgCUR');
@@ -496,7 +505,8 @@
 
 		llenaCarrera(estudiante);
 		llenaCursos(carrera);
-		llenaPlanEstudio(carrera);
+		if (codigo == "")
+			llenaPlanEstudio(carrera);
 	}
 
 	var editIndex = undefined;
@@ -595,7 +605,7 @@
 			var datos;
 			var registros;
 			var i;
-			var gridAsignatura = $('#dgCUR').datagrid('getData');
+			var gridCursos = $('#dgCUR').datagrid('getData');
 			
 			texto = '{"Guardar":"1", ';
 			texto += '"txtCodMatricula":"' + document.getElementById("txtCodMatricula").value + '", ';
@@ -607,10 +617,10 @@
 			texto += '"txnCohorte":"' + document.getElementById("txnCohorte").value + '", ';
 			texto += '"txtRecibo":"' + document.getElementById("txtRecibo").value + '", ';
 			
-			if (document.getElementById("chkDiploma").checked)
-				texto += '"chkDiploma":"1", ';
+			if (document.getElementById("chkTitulo").checked)
+				texto += '"chkTitulo":"1", ';
 			else
-				texto += '"chkDiploma":"0", ';
+				texto += '"chkTitulo":"0", ';
 			
 			if (document.getElementById("chkNotas").checked)
 				texto += '"chkNotas":"1", ';
@@ -633,10 +643,10 @@
 			
 			if (registros >= 0)
 			{
-				texto += '"gridAsignatura": [';
+				texto += '"gridCursos": [';
 				for (i=0; i<=registros; i++)
 				{
-					texto += '{"nombre":"' + gridAsignatura.rows[i].nombre + '", "asignatura":"' + gridAsignatura.rows[i].asignatura;
+					texto += '{"nombre":"' + gridCursos.rows[i].nombre + '", "curso":"' + gridCursos.rows[i].curso;
 					if (i==registros)
 						texto += '"}]}';
 					else
@@ -644,7 +654,7 @@
 				}
 			}
 			else
-				texto += '"gridAsignatura": []}';
+				texto += '"gridCursos": []}';
 			
 			datos = JSON.parse(texto);
 
