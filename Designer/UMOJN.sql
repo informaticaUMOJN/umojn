@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     18/02/2026 4:38:32 p. m.                     */
+/* Created on:     20/02/2026 11:27:20 a. m.                    */
 /*==============================================================*/
 
 
@@ -36,7 +36,7 @@ create table UMO000C
 create table UMO001A
 (
    RECTOR_001           varchar(100)  comment '',
-   RECTOR_FM_001        char(1)  comment '',
+   RECTOR_FM_001        char(1)  comment 'No quise ponerle RECTOR_SEXO_001. FM es por Femenino o Masculino.',
    SECRETARIO_001       varchar(100)  comment '',
    SECRETARIO_FM_001    char(1)  comment '',
    REGISTRO_001         varchar(100)  comment '',
@@ -380,7 +380,7 @@ create table UMO050A
    PLANESTUDIO_REL      varchar(10) not null  comment '',
    CARRERA_REL          varchar(10)  comment '',
    PERIODO_050          varchar(30)  comment 'Tiempo de vigencia del plan',
-   GRADO_050            varchar(50)  comment '',
+   GRADO_050            varchar(150)  comment '',
    HORAS_050            numeric(6,0)  comment '',
    CREDITOS_050         numeric(4,0)  comment '',
    TURNO_050            numeric(1,0)  comment '1.-Diurno
