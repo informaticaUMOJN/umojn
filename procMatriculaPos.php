@@ -291,9 +291,9 @@
 							<div class="col-sm-12 col-md-8">
 								<?php
 									if ($mbTitulo == 1)
-										echo('<input type="checkbox" name="chkTitulo" id="chkTitulo" checked > Diploma de grado<br>');
+										echo('<input type="checkbox" name="chkDiploma" id="chkDiploma" checked > Diploma de grado<br>');
 									else
-										echo('<input type="checkbox" name="chkTitulo" id="chkTitulo" > Diploma de grado<br>');
+										echo('<input type="checkbox" name="chkDiploma" id="chkDiploma" > Diploma de grado<br>');
 
 									if ($mbNotas == 1)
 										echo('<input type="checkbox" name="chkNotas" id="chkNotas" checked > Notas de grado<br>');
@@ -601,20 +601,11 @@
 			texto += '"txtCodMatricula":"' + document.getElementById("txtCodMatricula").value + '", ';
 			texto += '"cboEstudiante":"' + document.getElementById("cboEstudiante").value + '", ';
 			texto += '"cboCarrera":"' + document.getElementById("cboCarrera").value + '", ';
-			texto += '"cboPlanEstudio":"' + document.getElementById("cboPlanEstudio").value + '", ';
+			texto += '"cboPlanPosgrado":"' + document.getElementById("cboPlanPosgrado").value + '", ';
 			texto += '"dtpFecha":"' + document.getElementById("dtpFecha").value + '", ';
-			
-			if (document.getElementById("OptPrimero2").checked)
-				texto += '"optPrimerIngreso":"1", ';
-			else
-				texto += '"optPrimerIngreso":"0", ';
-			
 			texto += '"txnAnnoIngreso":"' + document.getElementById("txnAnnoIngreso").value + '", ';
-			texto += '"cboAnnoAcademico":"' + document.getElementById("cboAnnoAcademico").value + '", ';
-			texto += '"txnAnnoLectivo":"' + document.getElementById("txnAnnoLectivo").value + '", ';
-			texto += '"txnSemestreAcademico":"' + document.getElementById("txnSemestreAcademico").value + '", ';
+			texto += '"txnCohorte":"' + document.getElementById("txnCohorte").value + '", ';
 			texto += '"txtRecibo":"' + document.getElementById("txtRecibo").value + '", ';
-			texto += '"cboBeca":"' + document.getElementById("cboBeca").value + '", ';
 			
 			if (document.getElementById("chkDiploma").checked)
 				texto += '"chkDiploma":"1", ';
@@ -631,10 +622,10 @@
 			else
 				texto += '"chkCedula":"0", ';
 			
-			if (document.getElementById("chkActaNac").checked)
-				texto += '"chkActaNac":"1", ';
+			if (document.getElementById("chkCurriculum").checked)
+				texto += '"chkCurriculum":"1", ';
 			else
-				texto += '"chkActaNac":"0", ';
+				texto += '"chkCurriculum":"0", ';
 			
 			texto += '"cboEstado":"' + document.getElementById("cboEstado").value + '", ';
 
@@ -658,12 +649,12 @@
 			datos = JSON.parse(texto);
 
 			$.ajax({
-				url:'procMatricula.php',
+				url:'procMatriculaPos.php',
 				type:'post',
 				data:datos,
 				beforeSend: function(){console.log(datos)}	
 			})
-			.done(function(){location.href="gridMatricula.php";})
+			.done(function(){location.href="gridMatriculaPos.php";})
 			.fail(function(){console.log('Error')});
 		}	
 	});
