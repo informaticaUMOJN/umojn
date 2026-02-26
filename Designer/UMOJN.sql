@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     20/02/2026 11:27:20 a. m.                    */
+/* Created on:     26/02/2026 3:24:33 p. m.                     */
 /*==============================================================*/
 
 
@@ -171,8 +171,8 @@ create table UMO010A
    PAIS_010             varchar(50)  comment '',
    NACIONALIDAD_010     varchar(100)  comment '',
    ETNIA_010            varchar(100)  comment '',
-   PESO_010             numeric(3,0)  comment '',
-   TALLA_010            numeric(3,0)  comment '',
+   PESO_010             numeric(5,2)  comment '',
+   TALLA_010            numeric(5,2)  comment '',
    TIPOSANGRE_010       varchar(3)  comment '',
    CEDULA_010           varchar(20)  comment '',
    PASAPORTE_010        varchar(50)  comment 'Sólo cuando NACIONAL_010 es falso',

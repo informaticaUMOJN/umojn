@@ -963,7 +963,7 @@
 								<div class = "form-group row">
 									<label for="txnPeso" class="col-sm-12 col-md-3 form-label">Peso (en libras)</label>
 									<div class="col-sm-12 col-md-2">
-										<?php echo('<input type="number" class="form-control" id="txnPeso" name="txnPeso" value="' . $mnPeso . '" />'); ?>
+										<?php echo('<input type="number" step="0.01" class="form-control" id="txnPeso" name="txnPeso" value="' . $mnPeso . '" />'); ?>
 									</div>
 								</div>
 
