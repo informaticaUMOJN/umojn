@@ -42,6 +42,7 @@
 			{
 				$msCodigo = $_POST["txtExpDigital"];
 				$mdFecha = $_POST["dtpFecha"];
+				$mdDefensa = $_POST["dtpDefensa"];
 				$msCarrera = $_POST["txtCarrera"];
 				$msCodCarrera = $_POST["txtCodCarrera"];
 
@@ -50,14 +51,14 @@
 					
 				if ($msCodigo == "")
 				{
-					$msCodigo = fxGuardarExpDigital($mdFecha, $msCodCarrera, $msCarrera);
-					$msBitacora = $msCodigo . "; " . $mdFecha . "; " . "; " . $msCodCarrera . "; " . $msCarrera;
+					$msCodigo = fxGuardarExpDigital($mdFecha, $mdDefensa, $msCodCarrera, $msCarrera);
+					$msBitacora = $msCodigo . "; " . $mdFecha . "; " . $mdDefensa . "; " . $msCodCarrera . "; " . $msCarrera;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO001B", $msCodigo, "", "Agregar", $msBitacora);
 				}
 				else
 				{
-					fxModificarExpDigital ($msCodigo, $msCodCarrera, $mdFecha, $msCarrera);
-					$msBitacora = $msCodigo . "; " . $mdFecha . "; " . "; " . $msCodCarrera . "; " . $msCarrera;
+					fxModificarExpDigital ($msCodigo, $msCodCarrera, $mdFecha, $mdDefensa, $msCarrera);
+					$msBitacora = $msCodigo . "; " . $mdFecha . "; " . $mdDefensa . "; " . $msCodCarrera . "; " . $msCarrera;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO001B", $msCodigo, "", "Modificar", $msBitacora);
 				}
 
@@ -89,6 +90,7 @@
 					$objRecordSet = fxDevuelveExpDigital(0, $msCodigo);
 					$mFila = $objRecordSet->fetch();
 					$mdFecha = $mFila["FECHA_001"];
+					$mdDefensa = $mFila["FECHADEFENSA_001"];
 					$msCodCarrera = $mFila["CARRERA_REL"];
 					$msCarrera = $mFila["CARRERA_001"];
 				}
@@ -96,6 +98,7 @@
 				{
 					$msColegio = "";
 					$mdFecha = date('Y-m-d');
+					$mdDefensa = date('Y-m-d');
 					$msCodCarrera = "";
 					$msCarrera = "";
 				}
@@ -127,8 +130,15 @@
 									
 									<div class = "form-group row">
 										<label for="dtpFecha" class="col-sm-12 col-md-2 form-label">Fecha de registro</label>
-										<div class="col-sm-12 col-md-2">
+										<div class="col-sm-12 col-md-3">
 										<?php echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . $mdFecha . '" readonly />'); ?>
+										</div>
+									</div>
+
+									<div class = "form-group row">
+										<label for="dtpDefensa" class="col-sm-12 col-md-2 form-label">Fecha de defensa</label>
+										<div class="col-sm-12 col-md-3">
+										<?php echo('<input type="date" class="form-control" id="dtpDefensa" name="dtpDefensa" value="' . $mdDefensa . '" />'); ?>
 										</div>
 									</div>
 
@@ -504,6 +514,7 @@
 			
 			texto = '{"txtExpDigital":"' + document.getElementById("txtExpDigital").value + '", ';
 			texto += '"dtpFecha":"' + document.getElementById("dtpFecha").value + '", ';
+			texto += '"dtpDefensa":"' + document.getElementById("dtpDefensa").value + '", ';
 			texto += '"txtCarrera":"' + document.getElementById("txtCarrera").value + '", ';
 			texto += '"txtCodCarrera":"' + document.getElementById("txtCodCarrera").value + '", ';
 			

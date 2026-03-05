@@ -53,6 +53,7 @@
 						
 						echo('<label id="borrar" data-toggle="tooltip" data-placement="top" title="Borrar"><img src="imagenes/btnLateralBorrar.png" height="80%" style="cursor:pointer" /></label>');
 						echo('<label id="generarqr" data-toggle="tooltip" data-placement="top" title="Generar QR"><img src="imagenes/btnLateralQR.png" height="80%" style="cursor:pointer" /></label>');
+						echo('<label id="datosdiploma" data-toggle="tooltip" data-placement="top" title="Datos del diploma"><img src="imagenes/btnLateralDiploma.png" height="80%" style="cursor:pointer" /></label>');
 					?>
 				</div>
 
@@ -71,6 +72,7 @@
 							
 							echo('<button id="remove" type="button" class="btn btn-primary">Borrar</button>');
 							echo('<button id="addqr" type="button" class="btn btn-primary">Generar QR</button>');
+							echo('<button id="datadiploma" type="button" class="btn btn-primary">Generar Datos del diploma</button>');
 						?>
 						
 						<table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true">
@@ -78,7 +80,8 @@
 								<tr>
 									<th data-column-id="EXPDIGITAL_REL" data-identifier="true" data-align="left" data-width="15%">Expediente</th>
 									<th data-column-id="FECHA_001" data-header-align="left" data-width="15%">Fecha de registro</th>
-									<th data-column-id="CARRERA_001" data-align="left" data-header-align="left" data-width="70%">Carrera</th>
+									<th data-column-id="FECHADEFENSA_001" data-header-align="left" data-width="15%">Fecha de defensa</th>
+									<th data-column-id="CARRERA_001" data-align="left" data-header-align="left" data-width="55%">Carrera</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -90,6 +93,9 @@
 									echo ("<td>" . $mFila["EXPDIGITAL_REL"] . "</td>");
 
 									$fecha = date_create_from_format('Y-m-d', $mFila["FECHA_001"]);
+									echo ("<td>" . date_format($fecha, 'd-m-Y') . "</td>");
+
+									$fecha = date_create_from_format('Y-m-d', $mFila["FECHADEFENSA_001"]);
 									echo ("<td>" . date_format($fecha, 'd-m-Y') . "</td>");
 
 									echo ("<td>" . $mFila["CARRERA_001"] . " " . "</td>");
@@ -187,6 +193,22 @@
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
 				$.redirect("tskGenerarQR.php", {UMOJN: codExpediente}, "POST", "_blank");
+			}
+		});
+
+		$("#datosdiploma").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("imgDatosDiploma.php", {UMOJN: codExpediente}, "POST", "_blank");
+			}
+		});
+
+		$("#datadiploma").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("imgDatosDiploma.php", {UMOJN: codExpediente}, "POST", "_blank");
 			}
 		});
 	});

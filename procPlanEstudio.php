@@ -192,7 +192,7 @@
 
                                 <div class="form-group row">
                                     <label for="txtGrado" class="col-sm-auto col-md-2 form-label">Grado</label>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-8">
                                         <?php echo('<input type="text" class="form-control" id="txtGrado" name="txtGrado" value="' . $msGrado . '" />'); ?>
                                     </div>
                                 </div>

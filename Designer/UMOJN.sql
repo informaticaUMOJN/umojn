@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     26/02/2026 3:24:33 p. m.                     */
+/* Created on:     27/02/2026 9:45:34 a. m.                     */
 /*==============================================================*/
 
 
@@ -50,6 +50,7 @@ create table UMO001B
 (
    EXPDIGITAL_REL       varchar(10) not null  comment '',
    FECHA_001            date  comment '',
+   FECHADEFENSA_001     date  comment '',
    CARRERA_001          varchar(100)  comment '',
    primary key (EXPDIGITAL_REL)
 );

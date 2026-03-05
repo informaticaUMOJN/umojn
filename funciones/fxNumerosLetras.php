@@ -25,7 +25,7 @@
                     {
                         if ($mnCuentaCero < 3)
                         {
-                            $msNumLetras .= 'Mil ';
+                            $msNumLetras .= 'mil ';
 						    $mbEntroEnElIf = 1;
 						    $mnCuentaCero = 0;
                         }
@@ -36,10 +36,10 @@
                         {
                             if ($mnCuentaCero < 3)
                             {
-                                if (trim($msNumLetras) == 'Un')
-								    $msNumLetras .= 'Millón ';
+                                if (trim($msNumLetras) == 'un')
+								    $msNumLetras .= 'millón ';
                                 else
-								    $msNumLetras .= 'Millones ';
+								    $msNumLetras .= 'millones ';
 	
 							    $mbEntroEnElIf = 1;
 						    	$mnCuentaCero = 0;
@@ -50,10 +50,10 @@
                         {
                             if ($mnCuentaCero < 3)
                             {
-                                if (trim($msNumLetras) == 'Un')
-								    $msNumLetras .= 'Billón ';
+                                if (trim($msNumLetras) == 'un')
+								    $msNumLetras .= 'billón ';
                                 else
-								    $msNumLetras .= 'Billones ';
+								    $msNumLetras .= 'billones ';
 	
 							    $mbEntroEnElIf = 1;
 						    	$mnCuentaCero = 0;
@@ -86,31 +86,31 @@
                             $mnCuentaCero += 1;
                             break;
                         case 1:
-                            $msNumLetras .= 'Ciento ';
+                            $msNumLetras .= 'ciento ';
                             break;
                         case 2:
-                            $msNumLetras .= 'Doscientos ';
+                            $msNumLetras .= 'doscientos ';
                             break;
                         case 3:
-                            $msNumLetras .= 'Trescientos ';
+                            $msNumLetras .= 'trescientos ';
                             break;
                         case 4:
-                            $msNumLetras .= 'Cuatrocientos ';
+                            $msNumLetras .= 'cuatrocientos ';
                             break;
                         case 5:
-                            $msNumLetras .= 'Quinientos ';
+                            $msNumLetras .= 'quinientos ';
                             break;
                         case 6:
-                            $msNumLetras .= 'Seiscientos ';
+                            $msNumLetras .= 'seiscientos ';
                             break;
                         case 7:
-                            $msNumLetras .= 'Setecientos ';
+                            $msNumLetras .= 'setecientos ';
                             break;
                         case 8:
-                            $msNumLetras .= 'Ochocientos ';
+                            $msNumLetras .= 'ochocientos ';
                             break;
                         case 9:
-                            $msNumLetras .= 'Novecientos ';
+                            $msNumLetras .= 'novecientos ';
                             break;
                     }
                     $msDigitoPrevioAnterior = $msDigitoAnterior;
@@ -125,45 +125,45 @@
                             break;
                         case 3:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Treinta ';
+                                $msNumLetras .= 'treinta ';
                             else
-                                $msNumLetras .= 'Treinta y ';
+                                $msNumLetras .= 'treinta y ';
                             break;
                         case 4:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Cuarenta ';
+                                $msNumLetras .= 'cuarenta ';
                             else
-                                $msNumLetras .= 'Cuarenta y ';
+                                $msNumLetras .= 'cuarenta y ';
                             break;
                         case 5:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Cincuenta ';
+                                $msNumLetras .= 'cincuenta ';
                             else
-                                $msNumLetras .= 'Cincuenta y ';
+                                $msNumLetras .= 'cincuenta y ';
                             break;
                         case 6:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Sesenta ';
+                                $msNumLetras .= 'sesenta ';
                             else
-                                $msNumLetras .= 'Sesenta y ';
+                                $msNumLetras .= 'sesenta y ';
                             break;
                         case 7:    
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Setenta ';
+                                $msNumLetras .= 'setenta ';
                             else
-                                $msNumLetras .= 'Setenta y ';
+                                $msNumLetras .= 'setenta y ';
                             break;
                         case 8:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Ochenta ';
+                                $msNumLetras .= 'ochenta ';
                             else
-                                $msNumLetras .= 'Ochenta y ';
+                                $msNumLetras .= 'ochenta y ';
                             break;
                         case 9:
                             if ($msDigitoSiguiente == "0")
-                                $msNumLetras .= 'Noventa ';
+                                $msNumLetras .= 'noventa ';
                             else
-                                $msNumLetras .= 'Noventa y ';
+                                $msNumLetras .= 'noventa y ';
                             break;
                     }
                     $msDigitoAnterior = $msDigito;
@@ -192,11 +192,11 @@
                             else
                             {
                                 If ($msDigitoAnterior == '1')
-                                    $msNumLetras .= 'Diez ';
+                                    $msNumLetras .= 'diez ';
                                 else
                                 {
                                     If ($msDigitoAnterior == '2')
-                                        $msNumLetras .= 'Veinte ';
+                                        $msNumLetras .= 'veinte ';
                                     else
                                         $msNumLetras = substr($msNumLetras, 0, strlen($msNumLetras) - 1);
                                 }
@@ -204,75 +204,75 @@
                             break;
                         case 1:
                             If ($msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Un ';
+                                $msNumLetras .= 'un ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Once ';
+                                $msNumLetras .= 'once ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintiun ';
+                                $msNumLetras .= 'veintiun ';
                             break;
                         case 2:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Dos ';
+                                $msNumLetras .= 'dos ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Doce ';
+                                $msNumLetras .= 'doce ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintidos ';
+                                $msNumLetras .= 'veintidos ';
                             break;
                         case 3:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Tres ';
+                                $msNumLetras .= 'tres ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Trece ';
+                                $msNumLetras .= 'trece ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintitres ';
+                                $msNumLetras .= 'veintitres ';
                             break;
                         case 4:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Cuatro ';
+                                $msNumLetras .= 'cuatro ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Catorce ';
+                                $msNumLetras .= 'catorce ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veinticuatro ';
+                                $msNumLetras .= 'veinticuatro ';
                             break;
                         case 5:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Cinco ';
+                                $msNumLetras .= 'cinco ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Quince ';
+                                $msNumLetras .= 'quince ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veinticinco ';
+                                $msNumLetras .= 'veinticinco ';
                             break;
                         case 6:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Seis ';
+                                $msNumLetras .= 'seis ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Dieciseis ';
+                                $msNumLetras .= 'dieciseis ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintiseis ';
+                                $msNumLetras .= 'veintiseis ';
                             break;
                         case 7:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Siete ';
+                                $msNumLetras .= 'siete ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Diecisiete ';
+                                $msNumLetras .= 'diecisiete ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintisiete ';
+                                $msNumLetras .= 'veintisiete ';
                             break;
                         case 8:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Ocho ';
+                                $msNumLetras .= 'ocho ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Dieciocho ';
+                                $msNumLetras .= 'dieciocho ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintiocho ';
+                                $msNumLetras .= 'veintiocho ';
                             break;
                         case 9:
                             If ($msDigitoAnterior == '' or $msDigitoAnterior == '0' or $msDigitoAnterior == '3' or $msDigitoAnterior == '4' or $msDigitoAnterior == '5' or $msDigitoAnterior == '6' or $msDigitoAnterior == '7' or $msDigitoAnterior == '8' or $msDigitoAnterior == '9')
-                                $msNumLetras .= 'Nueve ';
+                                $msNumLetras .= 'nueve ';
                             If ($msDigitoAnterior == '1')
-                                $msNumLetras .= 'Diecinueve ';
+                                $msNumLetras .= 'diecinueve ';
                             If ($msDigitoAnterior == '2')
-                                $msNumLetras .= 'Veintinueve ';
+                                $msNumLetras .= 'veintinueve ';
                             break;
                     }
                 }
