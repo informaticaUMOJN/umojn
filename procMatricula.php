@@ -52,7 +52,7 @@
 				$mnAnnoIngreso = $_POST["txnAnnoIngreso"];
 				$mnAnnoAcademico = $_POST["cboAnnoAcademico"];
 				$mnAnnoLectivo = $_POST["txnAnnoLectivo"];
-				$mnSemestreAcademico = $_POST["txnSemestreAcademico"];
+				$mnSemestreAcademico = $_POST["txnSemestreLectivo"];
 				$msRecibo = $_POST["txtRecibo"];
 				$mnBeca = $_POST["cboBeca"];
 				$mbDiploma = $_POST["chkDiploma"];
@@ -364,10 +364,10 @@
 						</div>
 
 						<div class = "form-group row">
-							<label for="txnSemestreAcademico" class="col-sm-12 col-md-3 col-form-label">Semestre académico</label>
+							<label for="txnSemestreLectivo" class="col-sm-12 col-md-3 col-form-label">Semestre lectivo</label>
 							<div class="col-sm-12 col-md-3">
 								<?php
-									echo('<input type="number" style="text-align:right" class="form-control" id="txnSemestreAcademico" name="txnSemestreAcademico" value="' . $mnSemestreAcademico . '" />');
+									echo('<input type="number" style="text-align:right" class="form-control" id="txnSemestreLectivo" name="txnSemestreLectivo" value="' . $mnSemestreAcademico . '" min="1" max="2" />');
 								?>
 							</div>
 						</div>
@@ -530,6 +530,12 @@
 		if(document.getElementById('txnAnnoLectivo').value<=0)
 		{
 			$.messager.alert('UMOJN','Falta el año lectivo.','warning');
+			return false;
+		}
+
+		if(int.parse(document.getElementById('txnSemestreLectivo').value)<1 && int.parse(getElementById('txnSemestreLectivo').value)>2)
+		{
+			$.messager.alert('UMOJN','El semestre lectivo sólo puede ser 1 ó 2.','warning');
 			return false;
 		}
 
@@ -758,7 +764,7 @@
 			texto += '"txnAnnoIngreso":"' + document.getElementById("txnAnnoIngreso").value + '", ';
 			texto += '"cboAnnoAcademico":"' + document.getElementById("cboAnnoAcademico").value + '", ';
 			texto += '"txnAnnoLectivo":"' + document.getElementById("txnAnnoLectivo").value + '", ';
-			texto += '"txnSemestreAcademico":"' + document.getElementById("txnSemestreAcademico").value + '", ';
+			texto += '"txnSemestreLectivo":"' + document.getElementById("txnSemestreLectivo").value + '", ';
 			texto += '"txtRecibo":"' + document.getElementById("txtRecibo").value + '", ';
 			texto += '"cboBeca":"' + document.getElementById("cboBeca").value + '", ';
 			
