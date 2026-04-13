@@ -533,7 +533,7 @@
 			return false;
 		}
 
-		if(int.parse(document.getElementById('txnSemestreLectivo').value)<1 && int.parse(getElementById('txnSemestreLectivo').value)>2)
+		if(parseInt(document.getElementById('txnSemestreLectivo').value)<1 && parseInt(getElementById('txnSemestreLectivo').value)>2)
 		{
 			$.messager.alert('UMOJN','El semestre lectivo sólo puede ser 1 ó 2.','warning');
 			return false;

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     27/02/2026 9:45:34 a. m.                     */
+/* Created on:     09/04/2026 2:19:56 p. m.                     */
 /*==============================================================*/
 
 
@@ -15,7 +15,7 @@ create table UMO000A
    LLAVE1_000           varchar(20)  comment '',
    LLAVE2_000           varchar(20)  comment '',
    OPERACION_000        varchar(20)  comment '',
-   REGISTRO_000         varchar(500)  comment 'Guarda una cadena con los datos actuales del registro afectado'
+   REGISTRO_000         varchar(600)  comment 'Guarda una cadena con los datos actuales del registro afectado'
 );
 
 /*==============================================================*/
@@ -293,13 +293,13 @@ create table UMO011C
 create table UMO012C
 (
    DOCUMENTO_REL        varchar(10) not null  comment '',
-   AREA_REL             varchar(10) not null  comment '',
+   AREA_REL             varchar(10)  comment '',
    FECHA_012            date  comment '',
    ARCHIVO_012          varchar(100)  comment '',
    NOMBRE_012           varchar(200)  comment '',
    PROPIETARIO_012      varchar(20)  comment '',
    RUTA_012             varchar(255)  comment '',
-   primary key (AREA_REL, DOCUMENTO_REL)
+   primary key (DOCUMENTO_REL)
 );
 
 /*==============================================================*/
@@ -608,7 +608,7 @@ create table UMO130A
 (
    COBRO_REL            varchar(10) not null  comment '',
    UMO_COBRO_REL        varchar(10)  comment '',
-   CURSOS_REL           varchar(20)  comment '',
+   CURSOS_REL           varchar(10)  comment '',
    MATRICULAPOS_REL     varchar(10)  comment '',
    CARRERA_REL          varchar(10)  comment '',
    DESC_130             varchar(150)  comment '',
@@ -686,10 +686,10 @@ create table UMO141A
 (
    PAGO_REL             varchar(10) not null  comment '',
    MATRICULA_REL        varchar(10) not null  comment '',
-   MATCURSO_REL2        varchar(20) not null  comment '',
+   MATCURSO_REL         varchar(20) not null  comment '',
    VALOR_141            float(8,2)  comment '',
    DESCUENTO_141        decimal(10,2)  comment '',
-   primary key (PAGO_REL, MATRICULA_REL, MATCURSO_REL2)
+   primary key (PAGO_REL, MATRICULA_REL, MATCURSO_REL)
 );
 
 /*==============================================================*/
@@ -698,10 +698,10 @@ create table UMO141A
 create table UMO142A
 (
    PAGO_REL             varchar(10) not null  comment '',
-   MATCURSO_REL2        varchar(20) not null  comment '',
+   MATCURSO_REL         varchar(20) not null  comment '',
    VALOR_142            float(8,2)  comment '',
    DESCUENTO_142        decimal(10,2)  comment '',
-   primary key (PAGO_REL, MATCURSO_REL2)
+   primary key (PAGO_REL, MATCURSO_REL)
 );
 
 /*==============================================================*/
@@ -855,8 +855,8 @@ create table UMO180A
 /*==============================================================*/
 create table UMO190A
 (
-   CURSOS_REL           varchar(20) not null  comment '',
-   DOCENTE_REL          varchar(10)  comment '',
+   CURSOS_REL           varchar(10) not null  comment '',
+   DOCENTECL_REL        varchar(10)  comment '',
    NOMBRE_190           varchar(50)  comment '',
    TURNO_190            numeric(1,0)  comment '',
    HRSINICIO_190        time  comment '',
@@ -868,7 +868,9 @@ create table UMO190A
              2.-Por encuentro
              3.-Virtual
              4.-Mixto',
-   ESTADO_190           numeric(1,0)  comment '',
+   HORAS_190            numeric(3,0)  comment '',
+   ASISTENCIA_190       bool  comment '',
+   ESTADO_190           bool  comment '',
    primary key (CURSOS_REL)
 );
 
@@ -878,19 +880,31 @@ create table UMO190A
 create table UMO200A
 (
    ALUMNO_REL           varchar(10) not null  comment '',
-   UNIVERSIDAD_REL      varchar(20)  comment '',
+   UNIVERSIDADCL_REL    varchar(10)  comment '',
    MUNICIPIO_REL        varchar(10)  comment '',
+   COLEGIOCL_REL        varchar(10)  comment '',
+   FECHAINS_200         date  comment '',
    NOMBRES_200          varchar(50)  comment '',
    APELLIDOS_200        varchar(50)  comment '',
    NACIONALIDAD_200     varchar(100)  comment '',
+   NUMEROUNICO_200      varchar(10)  comment '',
    CEDULA_200           varchar(15)  comment '',
+   FECHANAC_200         date  comment '',
+   TELEFONO_200         varchar(20)  comment '',
+   CELULAR_200          varchar(20)  comment '',
+   EMAIL_200            varchar(90)  comment '',
+   DIRECCION_200        varchar(250)  comment '',
+   SEXO_200             char(1)  comment '',
+   PESO_200             decimal(10,2)  comment '',
+   ALTURA_200           decimal(10,2)  comment '',
+   SANGRE_200           varchar(3)  comment '',
+   DISCAPACIDAD_200     bool  comment '',
    DEFICIENCIA_200      varchar(90)  comment '',
    ESTADOCIVIL_200      numeric(1,0)  comment '',
-   HIJOS_200            numeric(8,0)  comment '',
-   DISCAPACIDAD_200     varchar(80)  comment '',
-   NIVELESTUDIOS_200    varchar(150)  comment '',
+   HIJOS_200            numeric(2,0)  comment '',
+   NIVELESTUDIOS_200    numeric(1,0)  comment '',
    CONDICIONLAB_200     varchar(90)  comment '',
-   PROFESIONAL_200      varchar(100)  comment '',
+   OCUPACION_200        varchar(100)  comment '',
    SECTOR_200           numeric(2,0)  comment '1.- Agricultura, ganadería, caza y silvicultra
              2.- Pesca
              3.- Minas y canteras
@@ -907,14 +921,10 @@ create table UMO200A
              14.- Otros servicios comunales, sociales y personales.
              15.- Hogares privados con servicio doméstico
              16.- Organizaciones y órganos extraterritoriales.',
-   INGRESOMENSUAL_200   varchar(20)  comment '',
+   INGRESOMENSUAL_200   decimal(10,2)  comment '',
    ENTIDADLAB_200       numeric(1,0)  comment '',
-   TELEFONO_200         varchar(20)  comment '',
-   CELULAR_200          varchar(20)  comment '',
-   EMAIL_200            varchar(90)  comment '',
    IDIOMA_200           varchar(30)  comment '',
    DOMINIOIDIOMA_200    varchar(120)  comment '',
-   DIRECCION_200        varchar(250)  comment '',
    MEDIO_200            numeric(2,0)  comment '1.-Visita al colegio
              2.-Facebook
              3.-Instagram
@@ -929,9 +939,15 @@ create table UMO200A
              12.-Sitio web
              13.-YouTube
              14.-Otros',
-   NOMBREREF_200        varchar(20)  comment '',
-   CEDULAREFERENTE_200  varchar(20)  comment '',
-   CELULARREFERENTE_200 varchar(20)  comment '',
+   NPADRE_200           varchar(100)  comment '',
+   NMADRE_200           varchar(100)  comment '',
+   PTRABAJA_200         bool  comment '',
+   MTRABAJA_200         bool  comment '',
+   PTRABAJO_200         varchar(100)  comment '',
+   MTRABAJO_200         varchar(100)  comment '',
+   NOMBREREF_200        varchar(100)  comment '',
+   CEDULAREF_200        varchar(20)  comment '',
+   CELULARREF_200       varchar(20)  comment '',
    DIRECCIONREF_200     varchar(100)  comment '',
    primary key (ALUMNO_REL)
 );
@@ -967,8 +983,8 @@ create table UMO201A
 /*==============================================================*/
 create table UMO210A
 (
-   MATCURSO_REL2        varchar(20) not null  comment '',
-   CURSOS_REL           varchar(20)  comment '',
+   MATCURSO_REL         varchar(20) not null  comment '',
+   CURSOS_REL           varchar(10)  comment '',
    ALUMNO_REL           varchar(10)  comment '',
    FECHA_210            date  comment '',
    RECIBO_210           numeric(10,0)  comment '',
@@ -977,12 +993,10 @@ create table UMO210A
    DIPLOMA_210          bool  comment '',
    CEDULA_210           bool  comment '',
    ACTANACIMIENTO_210   bool  comment '',
-   ESTADO_210           numeric(1,0)  comment '0.-Prematriculado
-             1.-Activo
+   ESTADO_210           numeric(1,0)  comment '1.-Activo
              2.-Retirado
              3.-Certificado',
-   ANNOACADEMICO_210    bool  comment '',
-   primary key (MATCURSO_REL2)
+   primary key (MATCURSO_REL)
 );
 
 /*==============================================================*/
@@ -1164,27 +1178,25 @@ create table UMO261A
 );
 
 /*==============================================================*/
-/* Table: UMO320A                                               */
+/* Table: UMO270A                                               */
 /*==============================================================*/
-create table UMO320A
+create table UMO270A
 (
-   ASISTENCIACL_REL     varchar(10) not null  comment '',
-   DOCENTE_REL          varchar(10)  comment '',
-   FECHA_320            date  comment '',
-   TURNO_320            numeric(1,0)  comment '',
-   ANNO_320             numeric(1,0)  comment '',
-   MODULOLECTIVO_320    numeric(1,0)  comment '',
-   primary key (ASISTENCIACL_REL)
+   DOCCURSO_REL         varchar(10) not null  comment '',
+   CURSO_270            varchar(100)  comment '',
+   primary key (DOCCURSO_REL)
 );
 
 /*==============================================================*/
-/* Table: UMO321A                                               */
+/* Table: UMO271A                                               */
 /*==============================================================*/
-create table UMO321A
+create table UMO271A
 (
-   ASISTENCIACL_REL     varchar(10)  comment '',
-   MATCURSO_REL2        varchar(20)  comment '',
-   ESTADO_321           char(1)  comment ''
+   DOCCURSO_REL         varchar(10) not null  comment '',
+   DOCCURSOCONS_REL     numeric(2,0) not null  comment '',
+   ARCHIVO_271          varchar(100)  comment '',
+   RUTA_271             varchar(255)  comment '',
+   primary key (DOCCURSO_REL, DOCCURSOCONS_REL)
 );
 
 /*==============================================================*/
@@ -1199,6 +1211,45 @@ create table UMO330A
    TOMO_330             varchar(5)  comment '',
    ULTIMOREGISTRO_330   numeric(10,0)  comment '',
    primary key (LIBRO_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO340A                                               */
+/*==============================================================*/
+create table UMO340A
+(
+   DOCENTECL_REL        varchar(10) not null  comment '',
+   NOMBRE_340           varchar(100)  comment '',
+   TELEFONO_340         varchar(20)  comment '',
+   ACTIVO_340           bool  comment '',
+   primary key (DOCENTECL_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO350A                                               */
+/*==============================================================*/
+create table UMO350A
+(
+   COLEGIOCL_REL        varchar(10) not null  comment '',
+   MUNICIPIO_REL        varchar(10)  comment '',
+   NOMBRE_350           varchar(100)  comment '',
+   TIPO_350             numeric(1,0)  comment '0.-Privado
+             1.-Público
+             2.-Subvencionado
+             3.-Otro',
+   primary key (COLEGIOCL_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO360A                                               */
+/*==============================================================*/
+create table UMO360A
+(
+   UNIVERSIDADCL_REL    varchar(10) not null  comment '',
+   MUNICIPIO_REL        varchar(10)  comment '',
+   NOMBRE_360           varchar(100)  comment '',
+   TIPO_360             numeric(1,0)  comment '',
+   primary key (UNIVERSIDADCL_REL)
 );
 
 alter table UMO002B add constraint FK_UMO002B_REL_001B__UMO001B foreign key (EXPDIGITAL_REL)
@@ -1342,14 +1393,14 @@ alter table UMO141A add constraint FK_UMO141A_REL_030_1_UMO030A foreign key (MAT
 alter table UMO141A add constraint FK_UMO141A_REL_140_1_UMO140A foreign key (PAGO_REL)
       references UMO140A (PAGO_REL) on delete restrict on update restrict;
 
-alter table UMO141A add constraint FK_UMO141A_REL_210_1_UMO210A foreign key (MATCURSO_REL2)
-      references UMO210A (MATCURSO_REL2) on delete restrict on update restrict;
+alter table UMO141A add constraint FK_UMO141A_REL_210_1_UMO210A foreign key (MATCURSO_REL)
+      references UMO210A (MATCURSO_REL) on delete restrict on update restrict;
 
 alter table UMO142A add constraint FK_UMO142A_REL_140_1_UMO140A foreign key (PAGO_REL)
       references UMO140A (PAGO_REL) on delete restrict on update restrict;
 
-alter table UMO142A add constraint FK_UMO142A_REL_210_1_UMO210A foreign key (MATCURSO_REL2)
-      references UMO210A (MATCURSO_REL2) on delete restrict on update restrict;
+alter table UMO142A add constraint FK_UMO142A_REL_210_1_UMO210A foreign key (MATCURSO_REL)
+      references UMO210A (MATCURSO_REL) on delete restrict on update restrict;
 
 alter table UMO150A add constraint FK_UMO150A_REL_040_1_UMO040A foreign key (CARRERA_REL)
       references UMO040A (CARRERA_REL) on delete restrict on update restrict;
@@ -1396,14 +1447,17 @@ alter table UMO170A add constraint FK_UMO170A_REL_100_1_UMO100A foreign key (DOC
 alter table UMO171A add constraint FK_UMO171A_REL_170_1_UMO170A foreign key (AVANCE_REL)
       references UMO170A (AVANCE_REL) on delete restrict on update restrict;
 
-alter table UMO190A add constraint FK_UMO190A_REL_100_1_UMO100A foreign key (DOCENTE_REL)
-      references UMO100A (DOCENTE_REL) on delete restrict on update restrict;
+alter table UMO190A add constraint FK_UMO190A_REL_340_1_UMO340A foreign key (DOCENTECL_REL)
+      references UMO340A (DOCENTECL_REL) on delete restrict on update restrict;
 
 alter table UMO200A add constraint FK_UMO200A_REL_120_2_UMO120A foreign key (MUNICIPIO_REL)
       references UMO120A (MUNICIPIO_REL) on delete restrict on update restrict;
 
-alter table UMO200A add constraint FK_UMO200A_REL_180_2_UMO180A foreign key (UNIVERSIDAD_REL)
-      references UMO180A (UNIVERSIDAD_REL) on delete restrict on update restrict;
+alter table UMO200A add constraint FK_UMO200A_REL_350_2_UMO350A foreign key (COLEGIOCL_REL)
+      references UMO350A (COLEGIOCL_REL) on delete restrict on update restrict;
+
+alter table UMO200A add constraint FK_UMO200A_REL_360_2_UMO360A foreign key (UNIVERSIDADCL_REL)
+      references UMO360A (UNIVERSIDADCL_REL) on delete restrict on update restrict;
 
 alter table UMO201A add constraint FK_UMO201A_REL_200_2_UMO200A foreign key (ALUMNO_REL)
       references UMO200A (ALUMNO_REL) on delete restrict on update restrict;
@@ -1456,12 +1510,12 @@ alter table UMO261A add constraint FK_UMO261A_UMO261A_UMO240A foreign key (CURSO
 alter table UMO261A add constraint FK_UMO261A_UMO261A2_UMO260A foreign key (MATRICULAPOS_REL)
       references UMO260A (MATRICULAPOS_REL) on delete restrict on update restrict;
 
-alter table UMO320A add constraint FK_UMO320A_REL_100_3_UMO100A foreign key (DOCENTE_REL)
-      references UMO100A (DOCENTE_REL) on delete restrict on update restrict;
+alter table UMO271A add constraint FK_UMO271A_REL_270_2_UMO270A foreign key (DOCCURSO_REL)
+      references UMO270A (DOCCURSO_REL) on delete restrict on update restrict;
 
-alter table UMO321A add constraint FK_UMO321A_REL_210_3_UMO210A foreign key (MATCURSO_REL2)
-      references UMO210A (MATCURSO_REL2) on delete restrict on update restrict;
+alter table UMO350A add constraint FK_UMO350A_REL_120_3_UMO120A foreign key (MUNICIPIO_REL)
+      references UMO120A (MUNICIPIO_REL) on delete restrict on update restrict;
 
-alter table UMO321A add constraint FK_UMO321A_REL_320_3_UMO320A foreign key (ASISTENCIACL_REL)
-      references UMO320A (ASISTENCIACL_REL) on delete restrict on update restrict;
+alter table UMO360A add constraint FK_UMO360A_REL_120_3_UMO120A foreign key (MUNICIPIO_REL)
+      references UMO120A (MUNICIPIO_REL) on delete restrict on update restrict;
 

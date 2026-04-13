@@ -59,9 +59,9 @@ else
 			$this->SetTextColor(255,255,255);
 			
 			$this->setXY(15, 35);
-			$this->cell(31, 20, 'ESTUDIANTE', 0, 0, 'C', true, '', 0, false, 'T', 'M');
+			$this->cell(73, 20, 'ESTUDIANTE', 0, 0, 'C', true, '', 0, false, 'T', 'M');
 			
-			$mnY = 52; //Y se convierte en X durante la rotación de Cell
+			$mnY = 94; //Y se convierte en X durante la rotación de Cell
 			foreach($this->mFechas as $mFecha)
 			{
 				$this->StartTransform();
@@ -265,7 +265,7 @@ else
 	$msHTML .= "width: 17; height: 60;";
 	$msHTML .= "}";
 	$msHTML .= ".anchoE{";
-	$msHTML .= "width: 90;";
+	$msHTML .= "width: 210;";
 	$msHTML .= "}";
 	$msHTML .= ".relleno{";
 	$msHTML .= "background-color: rgb(230,230,230);";
@@ -298,7 +298,8 @@ else
 
 	$msConsulta = "select UMO030A.MATRICULA_REL, APELLIDO1_010, APELLIDO2_010, NOMBRE1_010, NOMBRE2_010 from UMO050A, UMO030A, UMO031A, UMO010A ";
 	$msConsulta .= "where UMO030A.ESTUDIANTE_REL = UMO010A.ESTUDIANTE_REL and UMO030A.MATRICULA_REL = UMO031A.MATRICULA_REL ";
-	$msConsulta .= "and UMO030A.PLANESTUDIO_REL = UMO050A.PLANESTUDIO_REL and ASIGNATURA_REL = ? and TURNO_050 = ?";
+	$msConsulta .= "and UMO030A.PLANESTUDIO_REL = UMO050A.PLANESTUDIO_REL and ASIGNATURA_REL = ? and TURNO_050 = ? ";
+	$msConsulta .= "order by APELLIDO1_010, APELLIDO2_010, NOMBRE1_010, NOMBRE2_010";
 	$mEstudiantes = $m_cnx_MySQL->prepare($msConsulta);
 	$mEstudiantes->execute([$msCodAsignatura, $mnTurno]);
 	
