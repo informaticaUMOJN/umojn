@@ -469,7 +469,9 @@
 			success: function(response){
 				document.getElementById('cboCurso').innerHTML = response;
 				var carrera = document.getElementById('cboCarrera').value;
-				llenaPlanEstudio (carrera);
+				var codigo = $('#txtCodMatricula').val();
+				if (codigo == "")
+					llenaPlanEstudio (carrera);
 			}
 		})
 	}

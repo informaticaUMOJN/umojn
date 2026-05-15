@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     09/04/2026 2:19:56 p. m.                     */
+/* Created on:     15/05/2026 10:08:11 a. m.                    */
 /*==============================================================*/
 
 
@@ -608,18 +608,15 @@ create table UMO130A
 (
    COBRO_REL            varchar(10) not null  comment '',
    UMO_COBRO_REL        varchar(10)  comment '',
-   CURSOS_REL           varchar(10)  comment '',
-   MATRICULAPOS_REL     varchar(10)  comment '',
-   CARRERA_REL          varchar(10)  comment '',
-   DESC_130             varchar(150)  comment '',
-   TIPO_130             numeric(1,0)  comment '0.-Matrícula
+   DESC_130             varchar(300)  comment '',
+   TIPOCOBRO_130        numeric(1,0)  comment '0.-Matrícula
              1.-Mensualidad
              2.-Mora
              3.-Servicios académicos (Aplican a todas las carreras)',
-   TURNO_130            numeric(1,0)  comment '',
-   REGIMEN_130          numeric(1,0)  comment '0.-Semestral
-             1.-Trimestral
-             2.-Cuatrimestral',
+   TIPOESTUDIO_130      numeric(1,0)  comment '0.- Carrera de grado regular
+             1.- Carrera de grado sabatino
+             2.- Carrera de posgrado
+             3.- Curso libre',
    VALOR_130            float(8,2)  comment '',
    MONEDA_130           numeric(1,0)  comment '0.-Córdobas
              1.-Dólares',
@@ -634,28 +631,14 @@ create table UMO130A
 create table UMO131A
 (
    COBRO_REL            varchar(10) not null  comment '',
-   MATRICULA_REL        varchar(10) not null  comment '',
+   CLIENTE_REL          varchar(10) not null  comment '',
    ADEUDADO_131         float(8,2)  comment '',
    ABONADO_131          float(8,2)  comment '',
    MONEDA_131           numeric(1,0)  comment '0.-Córdobas
              1.-Dólares',
    DESCUENTO_131        float(8,2)  comment '',
    ANULADO_131          bool  comment '',
-   primary key (COBRO_REL, MATRICULA_REL)
-);
-
-/*==============================================================*/
-/* Table: UMO132A                                               */
-/*==============================================================*/
-create table UMO132A
-(
-   COBRO_REL            varchar(10) not null  comment '',
-   ADEUDADO_132         float(8,2)  comment '',
-   ABONADO_132          float(8,2)  comment '',
-   MONEDA_132           numeric(1,0)  comment '',
-   DESCUENTO_132        float(8,2)  comment '',
-   ANULADO_132          bool  comment '',
-   primary key (COBRO_REL)
+   primary key (COBRO_REL, CLIENTE_REL)
 );
 
 /*==============================================================*/
@@ -997,6 +980,19 @@ create table UMO210A
              2.-Retirado
              3.-Certificado',
    primary key (MATCURSO_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO220A                                               */
+/*==============================================================*/
+create table UMO220A
+(
+   CLIENTE_REL          varchar(10) not null  comment '',
+   CODIGO_220           varchar(10)  comment '',
+   NOMBRES_220          varchar(50)  comment '',
+   APELLIDOS_220        varchar(200)  comment '',
+   TIPOESTUDIO_220      numeric(1,0)  comment '',
+   primary key (CLIENTE_REL)
 );
 
 /*==============================================================*/
@@ -1366,26 +1362,14 @@ alter table UMO100A add constraint FK_UMO100A_REL_002_1_UMO002A foreign key (USU
 alter table UMO120A add constraint FK_UMO120A_REL_110_1_UMO110A foreign key (DEPARTAMENTO_REL)
       references UMO110A (DEPARTAMENTO_REL) on delete restrict on update restrict;
 
-alter table UMO130A add constraint FK_UMO130A_REL_040_1_UMO040A foreign key (CARRERA_REL)
-      references UMO040A (CARRERA_REL) on delete restrict on update restrict;
-
 alter table UMO130A add constraint FK_UMO130A_REL_130_1_UMO130A foreign key (UMO_COBRO_REL)
       references UMO130A (COBRO_REL) on delete restrict on update restrict;
-
-alter table UMO130A add constraint FK_UMO130A_REL_190_1_UMO190A foreign key (CURSOS_REL)
-      references UMO190A (CURSOS_REL) on delete restrict on update restrict;
-
-alter table UMO130A add constraint FK_UMO130A_REL_260_1_UMO260A foreign key (MATRICULAPOS_REL)
-      references UMO260A (MATRICULAPOS_REL) on delete restrict on update restrict;
-
-alter table UMO131A add constraint FK_UMO131A_REL_030_1_UMO030A foreign key (MATRICULA_REL)
-      references UMO030A (MATRICULA_REL) on delete restrict on update restrict;
 
 alter table UMO131A add constraint FK_UMO131A_REL_130_1_UMO130A foreign key (COBRO_REL)
       references UMO130A (COBRO_REL) on delete restrict on update restrict;
 
-alter table UMO132A add constraint FK_UMO132A_REL_130_1_UMO130A foreign key (COBRO_REL)
-      references UMO130A (COBRO_REL) on delete restrict on update restrict;
+alter table UMO131A add constraint FK_UMO131A_REL_220_1_UMO220A foreign key (CLIENTE_REL)
+      references UMO220A (CLIENTE_REL) on delete restrict on update restrict;
 
 alter table UMO141A add constraint FK_UMO141A_REL_030_1_UMO030A foreign key (MATRICULA_REL)
       references UMO030A (MATRICULA_REL) on delete restrict on update restrict;

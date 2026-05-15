@@ -499,19 +499,19 @@ else
 		$pdf->Image('imagenes/uncheck.jpg', 80, 140, 5);
 	else
 		$pdf->Image('imagenes/check.jpg',80, 140, 5);
-	$pdf->Text(85,140,"Diploma de bachiller");
+	$pdf->Text(85,140,"Diploma de universidad");
 
 	if ($mbCurriculum == 0)
 		$pdf->Image('imagenes/uncheck.jpg', 30, 145, 5);
 	else
 		$pdf->Image('imagenes/check.jpg',30, 145, 5);
-	$pdf->Text(35,145,"Acta de nacimiento");
+	$pdf->Text(35,145,"Curriculum");
 
 	if ($mbNotas == 0)
 		$pdf->Image('imagenes/uncheck.jpg', 80, 145, 5);
 	else
 		$pdf->Image('imagenes/check.jpg',80, 145, 5);
-	$pdf->Text(85,145,"Calificaciones de secundaria");
+	$pdf->Text(85,145,"Calificaciones universitarias");
 
 	/*Cursos inscritos*/
 	$msConsulta = "select UMO261A.CURSOPOSGRADO_REL, NOMBRE_240, CODIGO_240, CREDITOS_231 from UMO261A, UMO240A, UMO231A, UMO260A ";

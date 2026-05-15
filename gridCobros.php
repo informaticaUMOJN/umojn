@@ -39,7 +39,7 @@
 		if (isset($_POST["UMOJN"]))
             {
                 fxBorrarCobros($_POST["UMOJN"]);
-				fxAgregarBitacora($_SESSION["gsUsuario"], "UMO140A", $_POST["UMOJN"], "", "Borrar", "");
+				fxAgregarBitacora($_SESSION["gsUsuario"], "UMO130A", $_POST["UMOJN"], "", "Borrar", "");
             }
 		?>
     	<div class="container">
@@ -76,7 +76,7 @@
 								echo('<button id="edit" type="button" class="btn btn-primary">Editar</button>');
 							else
 								echo('<button id="edit" type="button" class="btn btn-primary" disabled>Editar</button>');
-								
+							
 							if ($mbBorrar == 1 or $mbAdministrador == 1)
 								echo('<button id="remove" type="button" class="btn btn-primary">Borrar</button>');
 							else
@@ -86,13 +86,10 @@
 						<table id="grid" class="table table-condensed table-hover table-striped" data-selection="true" data-multi-select="false" data-row-select="true" data-keep-selection="true"  style="font-size:small">
 							<thead>
 								<tr>
-									<th data-column-id="COBRO_REL" data-identifier="true" data-visible="false" data-align="left" data-width="10%">Cobro</th>
-									<th data-column-id="CARRERA_REL" data-align="left" data-width="28%" >Nombre</th>
-									<th data-column-id="DESC_130" data-align="left" data-width="27%">Descripcion</th>
-									<th data-column-id="VENCIMIENTO_130" data-align="left"  data-width="12%">Vencimiento</th>
-									<th data-column-id="carrera_x" data-align="center" data-width="8%">Carrera</th>
-									<th data-column-id="curso_x" data-align="center" data-width="8%">Curso</th>
-									<th data-column-id="ACTIVO_130" data-align="left" data-width="10%">Activo</th>
+									<th data-column-id="COBRO_REL" data-identifier="true" data-align="left" data-width="10%">Cobro</th>
+									<th data-column-id="DESC_130" data-align="left" data-width="60%">Descripcion</th>
+									<th data-column-id="VENCIMIENTO_130" data-header-align="center" data-align="center" data-width="15%">Vencimiento</th>
+									<th data-column-id="ACTIVO_130" data-header-align="center" data-align="center" data-width="10%">Activo</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -101,13 +98,13 @@
 								while ($mFila = $mDatos->fetch())
 								{
 									echo ("<tr>");
-								    echo ("<td>" . htmlspecialchars($mFila["COBRO_REL"]) . "</td>");
-           							echo ("<td>" . htmlspecialchars($mFila["NOMBRE_PROGRAMA"]) . "</td>");
-            					    echo ("<td>" . htmlspecialchars($mFila["DESC_130"]) . "</td>");
-            						echo ("<td>" . htmlspecialchars($mFila["VENCIMIENTO_130"]) . "</td>");
-									echo ("<td>" . ($mFila["TIPO_PROGRAMA"] === 'Carrera' ? 'X' : '') . "</td>");
-									echo ("<td>" . ($mFila["TIPO_PROGRAMA"] === 'Curso' ? 'X' : '') . "</td>");
-									echo ("<td>" . htmlspecialchars($mFila["ACTIVO_130"]) . "</td>");
+								    echo ("<td>" . $mFila["COBRO_REL"] . "</td>");
+            						echo ("<td>" . $mFila["DESC_130"] . "</td>");
+									echo ("<td>" . $mFila["VENCIMIENTO_130"] . "</td>");
+									if ($mFila["ACTIVO_130"] == 0)
+										echo ("<td>&nbsp;</td>");
+									else
+										echo ("<td>X</td>");
 									echo ("</tr>");
 								}
 							}
@@ -124,63 +121,60 @@
 <script src="bootstrap/dist/jquery.bootgrid.fa.js"></script>
 <script src="js/jquery.redirect.js"></script>
 <script>
-        $(function() {
-            function init() {
-                $("#grid").bootgrid({
-                    formatters: {
-                        "link": function(column, row) {
-                            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-                        }
-                    },
-                    rowCount: [-1, 10, 50, 75]
-                });
-            }
+	$(function() {
+		function init() {
+			$("#grid").bootgrid({
+				formatters: {
+					"link": function(column, row) {
+						return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
+					}
+				},
+				rowCount: [-1, 10, 50, 75]
+			});
+		}
 
-            init();
+		init();
 
-			$("#append").on("click", function() {
-                $.redirect("catCobros.php", "POST");
-			});
-  
-			$("#remove").on("click", function() {
-                if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                { 
-                    var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("gridCobros.php", {UMOJN: codCobros}, "POST");
-                }
-			});
-      			
-            $("#edit").on("click", function() {
-				if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("catCobros.php", {UMOJN: codCobros}, "POST");
-                }
-            });
+		$("#append").on("click", function() {
+			$.redirect("catCobros.php", "POST");
+		});
 
-			$("#agregar").on("click", function() {
-                $.redirect("catCobros.php", "POST");
-			});
-  
-			$("#borrar").on("click", function() {
-                if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("gridPagos.php", {UMOJN: codCobros}, "POST");
-                }
-			});
-      			
-            $("#modificar").on("click", function() {
-				if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("catCobros.php", {UMOJN: codCobros}, "POST");
-                }
-            });
-        });
-		$(document).ready(function(){
-        $("#grid th[data-column-id='COBRO_REL'], #grid td:nth-child(1)").hide();
-   });
-    </script>
+		$("#remove").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{ 
+				var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("gridCobros.php", {UMOJN: codCobros}, "POST");
+			}
+		});
+			
+		$("#edit").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("catCobros.php", {UMOJN: codCobros}, "POST");
+			}
+		});
+
+		$("#agregar").on("click", function() {
+			$.redirect("catCobros.php", "POST");
+		});
+
+		$("#borrar").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("gridPagos.php", {UMOJN: codCobros}, "POST");
+			}
+		});
+			
+		$("#modificar").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCobros = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("catCobros.php", {UMOJN: codCobros}, "POST");
+			}
+		});
+	});
+</script>
 </body>
 </html>
