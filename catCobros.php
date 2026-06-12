@@ -63,6 +63,17 @@
 					$msBitacora = $msCodigo . "; " . $msMora . "; " . $msDescripcion . "; " . $mnTipoCobro . "; " .$mnTipoEstudio.";". $mnValor . "; " . $mnMoneda . ";" . $msFechaVenc . "; " . $mbActivo;
 					fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO130A", $msCodigo, "", "Modificar", $msBitacora);
 				}
+
+				if (isset($_POST["gridNVO"]))
+				{
+					$gridNVO = $_POST["gridNVO"];
+					foreach($gridNVO as $mNuevo)
+					{
+						$mCliente = $mNuevo['cliente'];
+						fxGuardarDetCobros ($msCodigo, $mCliente, $mnValor, $mnMoneda);
+					}
+				}
+
 				?><meta http-equiv="Refresh" content="0;url=gridCobros.php"/><?php
 			}
 		}
@@ -130,24 +141,48 @@
 							<div class="col-sm-12 col-md-7">
 								<div class="radio">
 									<?php
-									if ($mnTipoCobro == 0 )
-										echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" checked/>Matricula &nbsp;');
-									else
-										echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" />Matricula &nbsp;');
+									if ($msCodigo == "")
+									{
+										if ($mnTipoCobro == 0 )
+											echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" checked/>Matricula &nbsp;');
+										else
+											echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" />Matricula &nbsp;');
 
-									if ($mnTipoCobro == 1)
-										echo('<input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" checked/>Mensualidad &nbsp;');
-									else
-										echo(' <input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" />Mensualidad &nbsp;');
+										if ($mnTipoCobro == 1)
+											echo('<input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" checked/>Mensualidad &nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" />Mensualidad &nbsp;');
 
-									if ($mnTipoCobro == 2)
-										echo('<input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" checked/>Mora &nbsp;');
+										if ($mnTipoCobro == 2)
+											echo('<input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" checked/>Mora &nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" />Mora &nbsp;');
+										if ($mnTipoCobro == 3)
+											echo('<input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" checked/>Servicios academicos');
+										else
+											echo(' <input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" />Servicios academicos');
+									}
 									else
-										echo(' <input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" />Mora &nbsp;');
-									if ($mnTipoCobro == 3)
-										echo('<input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" checked/>Servicios academicos');
-									else
-										echo(' <input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" />Servicios academicos');
+									{
+										if ($mnTipoCobro == 0 )
+											echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" disabled checked/>Matricula &nbsp;');
+										else
+											echo('<input type="radio" id="optTipoCobro1" name="optTipoCobro" value="0" disabled />Matricula &nbsp;');
+
+										if ($mnTipoCobro == 1)
+											echo('<input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" disabled checked/>Mensualidad &nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoCobro2" name="optTipoCobro" value="1" disabled />Mensualidad &nbsp;');
+
+										if ($mnTipoCobro == 2)
+											echo('<input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" disabled checked/>Mora &nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoCobro3" name="optTipoCobro" value="2" disabled />Mora &nbsp;');
+										if ($mnTipoCobro == 3)
+											echo('<input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" disabled checked/>Servicios academicos');
+										else
+											echo(' <input type="radio" id="optTipoCobro4" name="optTipoCobro" value="3" disabled />Servicios academicos');
+									}
 									?>
 								</div>
 							</div>
@@ -158,24 +193,48 @@
 							<div class="col-sm-12 col-md-9">
 								<div class="radio">
 									<?php
-									if ($mnTipoEstudio == 0 )
-										echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" checked/>Grado regular&nbsp;');
-									else
-										echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" />Grado regular&nbsp;');
+									if ($msCodigo == "")
+									{
+										if ($mnTipoEstudio == 0 )
+											echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" checked/>Grado regular&nbsp;');
+										else
+											echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" />Grado regular&nbsp;');
 
-									if ($mnTipoEstudio == 1)
-										echo('<input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" checked/>Grado sabatino&nbsp;');
-									else
-										echo(' <input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" />Grado sabatino&nbsp;');
+										if ($mnTipoEstudio == 1)
+											echo('<input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" checked/>Grado sabatino&nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" />Grado sabatino&nbsp;');
 
-									if ($mnTipoEstudio == 2)
-										echo('<input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" checked/>Posgrado&nbsp;');
+										if ($mnTipoEstudio == 2)
+											echo('<input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" checked/>Posgrado&nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" />Posgrado&nbsp;');
+										if ($mnTipoEstudio == 3)
+											echo('<input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" checked/>Curso libre');
+										else
+											echo(' <input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" />Curso libre');
+									}
 									else
-										echo(' <input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" />Posgrado&nbsp;');
-									if ($mnTipoEstudio == 3)
-										echo('<input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" checked/>Curso libre');
-									else
-										echo(' <input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" />Curso libre');
+									{
+										if ($mnTipoEstudio == 0 )
+											echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" disabled checked/>Grado regular&nbsp;');
+										else
+											echo('<input type="radio" id="optTipoEstudio1" name="optTipoEstudio" value="0" disabled />Grado regular&nbsp;');
+
+										if ($mnTipoEstudio == 1)
+											echo('<input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" disabled checked/>Grado sabatino&nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoEstudio2" name="optTipoEstudio" value="1" disabled />Grado sabatino&nbsp;');
+
+										if ($mnTipoEstudio == 2)
+											echo('<input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" disabled checked/>Posgrado&nbsp;');
+										else
+											echo(' <input type="radio" id="optTipoEstudio3" name="optTipoEstudio" value="2" disabled />Posgrado&nbsp;');
+										if ($mnTipoEstudio == 3)
+											echo('<input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" disabled checked/>Curso libre');
+										else
+											echo(' <input type="radio" id="optTipoEstudio4" name="optTipoEstudio" value="3" disabled />Curso libre');
+									}
 									?>
 								</div>
 							</div>
@@ -246,6 +305,69 @@
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label for="dgCLI" class="col-sm-12 col-md-3 form-label">Clientes</label>
+
+							<div id="tbTabs" class="easyui-tabs tabs-narrow col-sm-12 col-md-9" style="width:100%;height:auto">
+								<div title="Agregados" style="padding: 5px;">
+									<div class="col-sm-auto col-md-auto">
+										<div id="dvCLI">
+											<table id="dgCLI" class="easyui-datagrid table" data-options="iconCls:'icon-edit', singleSelect:true, method:'get'">
+												<thead>
+													<tr>
+														<th data-options="field:'cliente', hidden:'true'">Cliente</th>
+														<th data-options="field:'nombre',width:'40%',align:'left'">Nombre</th>
+														<th data-options="field:'abonado',width:'20%',align:'right'">Abonado</th>
+														<th data-options="field:'descuento',width:'20%',align:'right'">Descuento</th>
+														<th data-options="field:'adeudado',width:'20%',align:'right'">Adeudado</th>
+													</tr>
+												</thead>
+												<?php
+													$mDatos = fxDevuelveClientes($msCodigo);
+													while ($mFila = $mDatos->fetch())
+													{
+														echo ("<tr>");
+														echo ("<td>" . $mFila["CLIENTE_REL"] . "</td>");
+														echo ("<td>" . $mFila["NOMBRECLIENTE"] . "</td>");
+														echo ("<td>" . $mFila["ABONADO_131"] . "</td>");
+														echo ("<td>" . $mFila["DESCUENTO_131"] . "</td>");
+														echo ("<td>" . $mFila["ADEUDADO_131"] . "</td>");
+														echo ("</tr>");
+													}
+												?>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div title="Sin agregar" style="padding: 5px;">
+									<div class="col-sm-auto col-md-auto">
+										<div id="dvNVO">
+											<table id="dgNVO" class="easyui-datagrid table" data-options="iconCls:'icon-edit'">
+												<thead>
+													<tr>
+														<th data-options="field:'ck',width:'5%',checkbox:true"></th>
+														<th data-options="field:'cliente',width:'30%',align:'left'">Cliente</th>
+														<th data-options="field:'nombre',width:'65%',align:'left'">Nombre</th>
+													</tr>
+												</thead>
+												<?php
+													$mDatos = fxDevuelveClientesNuevos($mnTipoEstudio, $msCodigo);
+													while ($mFila = $mDatos->fetch())
+													{
+														echo ("<tr>");
+														echo ("<td>" . $mFila["CLIENTE_REL"] . "</td>");
+														echo ("<td>" . $mFila["NOMBRECLIENTE"] . "</td>");
+														echo ("</tr>");
+													}
+												?>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class = "row">
 							<div class="col-auto offset-sm-0 col-md-12 offset-md-3">
 								<input type="submit" id="Guardar" name="Guardar" value="Guardar" class="btn btn-primary"/>
@@ -260,7 +382,17 @@
 </body>
 </html>
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
+	$('#dgNVO').datagrid({
+        striped: true,
+        singleSelect: false,
+        method:'get' 
+    });
+
+	//Para mostrar correctamente el grid "Sin agregar"
+	llenaGridNuevo();
+
     function moraVista()
 	{
         const tipoCobroRadio = document.querySelector('input[name="optTipoCobro"]:checked');
@@ -291,12 +423,59 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	document.querySelectorAll("input[name='optTipoCobro']").forEach(radio => {
-        radio.addEventListener("change", moraVista);
+        radio.addEventListener("change", function(){moraVista(); llenaGridNuevo();});
     });
 
 	document.querySelectorAll("input[name='optTipoEstudio']").forEach(radio => {
-        radio.addEventListener("change", comboMora);
+        radio.addEventListener("change", function(){comboMora(); llenaGridNuevo();});
     });
+
+	function llenaGrid()
+	{
+		var datos = new FormData();
+		var cobro = document.getElementById('txtCobros').value;
+		var response;
+		datos.append('codCobro', cobro);
+
+		$.ajax({
+			url: 'funciones/fxDatosCobros.php',
+			type: 'post',
+			data: datos,
+			contentType: false,
+			processData: false,
+			success: function(response){
+				datos = JSON.parse(response);
+                $('#dgCLI').datagrid({data: datos});
+                $('#dgCLI').datagrid('reload');
+				}
+			}
+		)
+	}
+
+	function llenaGridNuevo()
+	{
+		var datos = new FormData();
+		var cobro = document.getElementById('txtCobros').value;
+		var tipoEstudioRadio = document.querySelector('input[name="optTipoEstudio"]:checked');
+		var tipoEstudio = tipoEstudioRadio.value;
+		var response;
+		datos.append('tipoEstudio2', tipoEstudio);
+		datos.append('cobro', cobro);
+
+		$.ajax({
+			url: 'funciones/fxDatosCobros.php',
+			type: 'post',
+			data: datos,
+			contentType: false,
+			processData: false,
+			success: function(response){
+				datos = JSON.parse(response);
+                $('#dgNVO').datagrid({data: datos});
+                $('#dgNVO').datagrid('reload');
+				}
+			}
+		)
+	}
 
     window.verificarFormulario = function() {
         if(document.getElementById('txtDescripcion').value.trim() === "") {
@@ -312,4 +491,55 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 });
+
+
+$('form').submit(function(e){
+	e.preventDefault();
+
+	const tipoCobroRadio = document.querySelector('input[name="optTipoCobro"]:checked');
+    const tipoCobro = tipoCobroRadio.value;
+	const tipoEstudioRadio = document.querySelector('input[name="optTipoEstudio"]:checked');
+    const tipoEstudio = tipoEstudioRadio.value;
+	const monedaRadio = document.querySelector('input[name="optMoneda"]:checked');
+    const moneda = monedaRadio.value;
+	const activoRadio = document.querySelector('input[name="optActivo"]:checked');
+    const activo = activoRadio.value;
+
+	texto = '{"txtCobros":"' + document.getElementById("txtCobros").value + '", ';
+	texto += '"cboMora":"' + document.getElementById("cboMora").value + '", ';
+	texto += '"txtDescripcion":"' + document.getElementById("txtDescripcion").value + '", ';
+	texto += '"optTipoCobro":"' + tipoCobro + '", ';
+	texto += '"optTipoEstudio":"' + tipoEstudio + '", ';
+	texto += '"txtValor":"' + document.getElementById("txtValor").value + '", ';
+	texto += '"optMoneda":"' + moneda + '", ';
+	texto += '"dtpFechaVenc":"' + document.getElementById("dtpFechaVenc").value + '", ';
+	texto += '"optActivo":"' + activo + '", ';
+
+	registros = $('#dgNVO').datagrid('getSelections');
+	cuenta = registros.length;
+	texto += '"gridNVO": [';
+
+	if (cuenta >= 0)
+	{
+		for (i=0; i<cuenta; i++)
+		{
+			texto += '{"cliente":"' + registros[i].cliente + '", "nombre":"' + registros[i].nombre + '"}';
+			if (i+1 < cuenta)
+				texto += ',';
+		}
+	}
+
+	texto += ']}';
+
+	datos = JSON.parse(texto);
+
+	$.ajax({
+		url:'catCobros.php',
+		type:'post',
+		data:datos,
+		beforeSend: function(){console.log(datos)}
+	})
+	.done(function(){location.href="gridCobros.php"})
+	.fail(function(){console.log('Error')});
+})
 </script>

@@ -15,4 +15,30 @@ if (isset($_POST["tipoEstudio"])) {
     }
     echo $msResultado;
 }
+
+if (isset($_POST["tipoEstudio2"]) and isset($_POST["cobro"])) {
+    $mnTipoEstudio = $_POST["tipoEstudio2"];
+    $msCodCobro = $_POST["cobro"];
+
+    $msConsulta = "select A.* from (select UMO220A.CLIENTE_REL, CONCAT_WS(' ', NOMBRES_220, APELLIDOS_220) AS NOMBRECLIENTE ";
+    $msConsulta .= "from UMO220A where TIPOESTUDIO_220 = ?) as A left join (select UMO220A.CLIENTE_REL, COBRO_REL from UMO220A ";
+    $msConsulta .= "join UMO131A on UMO220A.CLIENTE_REL = UMO131A.CLIENTE_REL where COBRO_REL = ?) as B on A.CLIENTE_REL = B.CLIENTE_REL ";
+    $msConsulta .= "where B.CLIENTE_REL is null order by A.NOMBRECLIENTE";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$mnTipoEstudio, $msCodCobro]);
+    $mnRegistros = $mDatos->rowCount();
+    $msResultado = "[";
+    $i = 1;
+
+    while ($mFila = $mDatos->fetch()) {
+        $msResultado .= '{"cliente":"' . $mFila["CLIENTE_REL"] . '","nombre":"' . $mFila["NOMBRECLIENTE"] . '"}';
+        if ($i != $mnRegistros)
+            $msResultado .= ',';
+
+        $i++;
+    }
+
+    $msResultado .= ']';
+    echo($msResultado);
+}
 ?>

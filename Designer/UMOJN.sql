@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     15/05/2026 10:08:11 a. m.                    */
+/* Created on:     22/05/2026 10:21:52 a. m.                    */
 /*==============================================================*/
 
 
@@ -988,9 +988,10 @@ create table UMO210A
 create table UMO220A
 (
    CLIENTE_REL          varchar(10) not null  comment '',
-   CODIGO_220           varchar(10)  comment '',
+   CEDULA_220           varchar(20)  comment '',
+   CARNET_220           varchar(20)  comment '',
    NOMBRES_220          varchar(50)  comment '',
-   APELLIDOS_220        varchar(200)  comment '',
+   APELLIDOS_220        varchar(50)  comment '',
    TIPOESTUDIO_220      numeric(1,0)  comment '',
    primary key (CLIENTE_REL)
 );
@@ -1203,9 +1204,8 @@ create table UMO330A
    LIBRO_REL            varchar(10) not null  comment '',
    DESC_330             varchar(200)  comment '',
    APERTURA_330         date  comment '',
-   TIPO_330             numeric(1,0)  comment '',
    TOMO_330             varchar(5)  comment '',
-   ULTIMOREGISTRO_330   numeric(10,0)  comment '',
+   ULTIMAPARTIDA_330    numeric(10,0)  comment '',
    primary key (LIBRO_REL)
 );
 
@@ -1246,6 +1246,31 @@ create table UMO360A
    NOMBRE_360           varchar(100)  comment '',
    TIPO_360             numeric(1,0)  comment '',
    primary key (UNIVERSIDADCL_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO370A                                               */
+/*==============================================================*/
+create table UMO370A
+(
+   REGISTRO_REL         varchar(10) not null  comment '',
+   LIBRO_REL            varchar(10)  comment '',
+   CURSOS_REL           varchar(10)  comment '',
+   FECHA_370            date  comment '',
+   primary key (REGISTRO_REL)
+);
+
+/*==============================================================*/
+/* Table: UMO371A                                               */
+/*==============================================================*/
+create table UMO371A
+(
+   REGISTRO_REL         varchar(10) not null  comment '',
+   PARTIDA_REL          numeric(10,0) not null  comment '',
+   MATCURSO_REL         varchar(20) not null  comment '',
+   TOMO_371             varchar(5)  comment '',
+   FOLIO_371            numeric(10,0)  comment '',
+   primary key (REGISTRO_REL, MATCURSO_REL, PARTIDA_REL)
 );
 
 alter table UMO002B add constraint FK_UMO002B_REL_001B__UMO001B foreign key (EXPDIGITAL_REL)
@@ -1502,4 +1527,16 @@ alter table UMO350A add constraint FK_UMO350A_REL_120_3_UMO120A foreign key (MUN
 
 alter table UMO360A add constraint FK_UMO360A_REL_120_3_UMO120A foreign key (MUNICIPIO_REL)
       references UMO120A (MUNICIPIO_REL) on delete restrict on update restrict;
+
+alter table UMO370A add constraint FK_UMO370A_REL_190_3_UMO190A foreign key (CURSOS_REL)
+      references UMO190A (CURSOS_REL) on delete restrict on update restrict;
+
+alter table UMO370A add constraint FK_UMO370A_REL_330_3_UMO330A foreign key (LIBRO_REL)
+      references UMO330A (LIBRO_REL) on delete restrict on update restrict;
+
+alter table UMO371A add constraint FK_UMO371A_REL_210_3_UMO210A foreign key (MATCURSO_REL)
+      references UMO210A (MATCURSO_REL) on delete restrict on update restrict;
+
+alter table UMO371A add constraint FK_UMO371A_REL_370_3_UMO370A foreign key (REGISTRO_REL)
+      references UMO370A (REGISTRO_REL) on delete restrict on update restrict;
 

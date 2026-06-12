@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-//session_start();
+
 function fxGuardarCobros($msCobroMora, $msDescripcion, $mnTipoCobro, $mnTipoEstudio, $mnValor, $mnMoneda, $msFechaVenc, $mbActivo)
 { 
     try {
@@ -52,6 +52,15 @@ function fxBorrarCobros($msCodigo)
 	$mDatos->execute([$msCodigo]);
 }
 
+function fxGuardarDetCobros($msCodigo, $msCliente, $mnAdeudado, $mnMoneda)
+{
+	$m_cnx_MySQL = fxAbrirConexion();
+	$msConsulta = "insert into UMO131A (COBRO_REL, CLIENTE_REL, ADEUDADO_131, ABONADO_131, MONEDA_131, DESCUENTO_131, ANULADO_131)";
+	$msConsulta .= "values (?, ?, ?, ?, ?, ?, ?)";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+	$mDatos->execute([$msCodigo, $msCliente, $mnAdeudado, 0, $mnMoneda, 0, 0]);
+}
+
 function fxDevuelveCobros($mbLlenaGrid, $msCodigo = "")
 {
     $m_cnx_MySQL = fxAbrirConexion();
@@ -65,6 +74,30 @@ function fxDevuelveCobros($mbLlenaGrid, $msCodigo = "")
         $mDatos = $m_cnx_MySQL->prepare($msConsulta);
         $mDatos->execute([$msCodigo]);
     }
+    return $mDatos;
+}
+
+function fxDevuelveClientes($msCodigo)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "select UMO131A.CLIENTE_REL, CONCAT_WS(' ', NOMBRES_220, APELLIDOS_220) as NOMBRECLIENTE, ABONADO_131, DESCUENTO_131, ADEUDADO_131 ";
+    $msConsulta .= "from UMO131A join UMO220A on UMO131A.CLIENTE_REL = UMO220A.CLIENTE_REL where COBRO_REL = ? order by NOMBRECLIENTE";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$msCodigo]);
+    return $mDatos;
+}
+
+function fxDevuelveClientesNuevos($mnTipoEstudio, $msCobro)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "select A.* from (select UMO220A.CLIENTE_REL, CONCAT_WS(' ', NOMBRES_220, APELLIDOS_220) AS NOMBRECLIENTE ";
+    $msConsulta .= "from UMO220A where TIPOESTUDIO_220 = ?) as A left join (select UMO220A.CLIENTE_REL, COBRO_REL from UMO220A ";
+    $msConsulta .= "join UMO131A on UMO220A.CLIENTE_REL = UMO131A.CLIENTE_REL where COBRO_REL = ?) as B on A.CLIENTE_REL = B.CLIENTE_REL ";
+    $msConsulta .= "where B.CLIENTE_REL is null order by A.NOMBRECLIENTE";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$mnTipoEstudio, $msCobro]);
     return $mDatos;
 }
 ?>

@@ -136,15 +136,14 @@ header('Pragma: no-cache');
                                         </ul>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item dropdown-toggle" href="#">Cursos Libres</a>
+                                        <a class="dropdown-item dropdown-toggle" href="#">Financiero</a>
                                         <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item" href="gridAlumnos.php">Estudiantes</a></li>
-                                            <li><a class="dropdown-item" href="gridCursosLibres.php">Cursos</a></li>
+                                            <li><a class="dropdown-item" href="gridCobros.php">Cobros</a></li>
+                                            <li><a class="dropdown-item" href="gridClientes.php">Clientes</a></li>
                                         </ul>
                                     </li>
                                     <li><a class="dropdown-item" href="gridDepartamentos.php">Departamentos</a></li>
                                     <li><a class="dropdown-item" href="gridMunicipios.php">Municipios</a></li>
-                                    <li><a class="dropdown-item" href="gridCobros.php">Cobros</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
