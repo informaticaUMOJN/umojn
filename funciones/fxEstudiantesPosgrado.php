@@ -90,7 +90,7 @@
 
 	/*****Detalle Documento (UMO251A)***********/
 
-	function fxGuardarDetDocumentoPos($msCodigo, $mnTipoDoc, $msArchivo, $msDescripcion, $msRuta)
+	function fxGuardarDetDocumentoPos($msCodigo, $msArchivo, $mnTipoDoc, $msDescripcion, $msRuta)
 	{
 		$m_cnx_MySQL = fxAbrirConexion();
 		$msConsulta = "insert into UMO251A (ESTUDIANTEPOS_REL, TIPO_REL, ARCHIVO_251, DESC_251, RUTA_251) values (?, ?, ?, ?, ?)";

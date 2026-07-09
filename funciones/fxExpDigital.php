@@ -35,14 +35,14 @@
 		$mDatos->execute([$msCodigo]);
 	}
 	
-	function fxDevuelveExpDigital($mbLlenaGrid, $msCodigo = "")
+	function fxDevuelveExpDigital($msCodigo, $mnPosgrado)
 	{
 		$m_cnx_MySQL = fxAbrirConexion();
-		if ($mbLlenaGrid == 1)
+		if ($msCodigo == "")
 		{
-			$msConsulta = "SELECT EXPDIGITAL_REL, FECHA_001, FECHADEFENSA_001, CARRERA_001 FROM UMO001B JOIN UMO040A ON UMO001B.CARRERA_REL = UMO040A.CARRERA_REL WHERE POSGRADO_040 = 0 ORDER BY EXPDIGITAL_REL DESC";
+			$msConsulta = "SELECT EXPDIGITAL_REL, FECHA_001, FECHADEFENSA_001, CARRERA_001 FROM UMO001B JOIN UMO040A ON UMO001B.CARRERA_REL = UMO040A.CARRERA_REL WHERE POSGRADO_040 = ? ORDER BY EXPDIGITAL_REL DESC";
 			$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-			$mDatos->execute();
+			$mDatos->execute([$mnPosgrado]);
 		}
 		else
 		{

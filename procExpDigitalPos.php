@@ -26,7 +26,7 @@
 	else
 	{
 		$mbAdministrador = fxVerificaAdministrador();
-		$mbPermisoUsuario = fxPermisoUsuario("procExpDigital");
+		$mbPermisoUsuario = fxPermisoUsuario("procExpDigitalPos");
 		
 		if ($mbAdministrador == 0 and $mbPermisoUsuario == 0)
 		{?>
@@ -76,7 +76,7 @@
                     fxGuardarDetExpDigital($msCodigo, $mCarnet, $mFolder, $mEstudiante, $mRegistro, $mTomo, $mFolio);
 				}
 				
-				?><meta http-equiv="Refresh" content="0;url=gridExpDigital.php"/><?php
+				?><meta http-equiv="Refresh" content="0;url=gridExpDigitalPos.php"/><?php
 			}
 			else
 			{
@@ -113,7 +113,7 @@
 						<div class = "row">
 							<div class="col-auto col-md-11">
 								<input type="submit" id="Guardar" name="Guardar" value="Guardar" class="btn btn-primary"/>
-								<input type="button" id="Cancelar" name="Cancelar" value="Cancelar" class="btn btn-primary" onclick="location.href='gridExpDigital.php';"/>
+								<input type="button" id="Cancelar" name="Cancelar" value="Cancelar" class="btn btn-primary" onclick="location.href='gridExpDigitalPos.php';"/>
 							</div>
 						</div>
 
@@ -173,7 +173,7 @@
 													</thead>
 													<tbody>
 													<?php
-														$mDatos = fxDevuelveDetExpDigital($msCodigo);
+														$mDatos = fxDevuelveDetExpDigital($msCodigo, 1);
 
 														while ($mFila = $mDatos->fetch())
 														{
@@ -213,7 +213,7 @@
 												<select class="form-control" id="cboCarrera" name="cboCarrera" onchange="llenaGrid()">
 													<?php
 														$msPrimerValor = "";
-														$msConsulta = "select CARRERA_REL, NOMBRE_040 from UMO040A where POSGRADO_040 = 0 order by NOMBRE_040";
+														$msConsulta = "select CARRERA_REL, NOMBRE_040 from UMO040A where POSGRADO_040 = 1 order by NOMBRE_040";
 														$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 														$mDatos->execute();
 														while ($mFila = $mDatos->fetch())
@@ -259,7 +259,7 @@
 														</thead>
 														<tbody>
 														<?php
-															$msConsulta = "SELECT ESTUDIANTE_REL, GENERACION_010, CARNET_010, NOMBRE1_010, NOMBRE2_010, APELLIDO1_010, APELLIDO2_010 FROM UMO010A WHERE CARRERA_REL = ? AND GENERACION_010 = ?";
+															$msConsulta = "SELECT ESTUDIANTEPOS_REL, ANNOACADEMICO_250, CARNET_250, NOMBRE1_250, NOMBRE2_250, APELLIDO1_250, APELLIDO2_250 FROM UMO250A WHERE CARRERA_REL = ? AND ANNOACADEMICO_250 = ?";
 															$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 															$mDatos->execute([$msPrimerValor, $mnGeneracion]);
 
@@ -267,18 +267,18 @@
 															{
 																echo('<tr>');
 																echo('<td></td>');
-																echo('<td>' . rtrim($mFila['ESTUDIANTE_REL']) . '</td>');
-																echo('<td>' . rtrim($mFila['CARNET_010']) . '</td>');
-																echo('<td>' . rtrim($mFila['GENERACION_010']) . '</td>');
-																if (trim($mFila["NOMBRE2_010"])!="")
-																	$msNombre = trim($mFila["NOMBRE1_010"]) . " " . $mFila["NOMBRE2_010"] . " ";
+																echo('<td>' . rtrim($mFila['ESTUDIANTEPOS_REL']) . '</td>');
+																echo('<td>' . rtrim($mFila['CARNET_250']) . '</td>');
+																echo('<td>' . rtrim($mFila['ANNOACADEMICO_250']) . '</td>');
+																if (trim($mFila["NOMBRE2_250"])!="")
+																	$msNombre = trim($mFila["NOMBRE1_250"]) . " " . $mFila["NOMBRE2_250"] . " ";
 																else
-																	$msNombre = trim($mFila["NOMBRE1_010"]) . " ";
+																	$msNombre = trim($mFila["NOMBRE1_250"]) . " ";
 
-																if (trim($mFila["APELLIDO2_010"])!="")
-																	$msNombre .= trim($mFila["APELLIDO1_010"]) . " " . trim($mFila["APELLIDO2_010"]);
+																if (trim($mFila["APELLIDO2_250"])!="")
+																	$msNombre .= trim($mFila["APELLIDO1_250"]) . " " . trim($mFila["APELLIDO2_250"]);
 																else
-																	$msNombre .= trim($mFila["APELLIDO1_010"]);
+																	$msNombre .= trim($mFila["APELLIDO1_250"]);
 
 																echo ("<td>" . $msNombre . " " . "</td>");
 																echo('</tr>');
@@ -332,7 +332,7 @@
 		datos.append('generacion', generacion);
 
 		$.ajax({
-			url: 'funciones/fxDatosExpediente.php',
+			url: 'funciones/fxDatosExpedientePos.php',
 			type: 'post',
 			data: datos,
 			contentType: false,

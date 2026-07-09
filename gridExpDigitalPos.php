@@ -86,7 +86,7 @@
 							</thead>
 							<tbody>
 							<?php
-								$mDatos = fxDevuelveExpDigital("", 0);
+								$mDatos = fxDevuelveExpDigital("", 1);
 								while ($mFila = $mDatos->fetch())
 								{
 									echo ("<tr>");
@@ -141,18 +141,18 @@
 		init();
 
 		$("#append").on("click", function() {
-			$.redirect("procExpDigital.php", "POST");
+			$.redirect("procExpDigitalPos.php", "POST");
 		});
 
 		$("#agregar").on("click", function() {
-			$.redirect("procExpDigital.php", "POST");
+			$.redirect("procExpDigitalPos.php", "POST");
 		});
 			
 		$("#edit").on("click", function() {
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("procExpDigital.php", {UMOJN: codExpediente}, "POST");
+				$.redirect("procExpDigitalPos.php", {UMOJN: codExpediente}, "POST");
 			}
 		});
 
@@ -160,7 +160,7 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("procExpDigital.php", {UMOJN: codExpediente}, "POST");
+				$.redirect("procExpDigitalPos.php", {UMOJN: codExpediente}, "POST");
 			}
 		});
 
@@ -176,7 +176,7 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("gridExpDigital.php", {UMOJN: codExpediente}, "POST");
+				$.redirect("gridExpDigitalPos.php", {UMOJN: codExpediente}, "POST");
 			}
 		});
 
@@ -184,7 +184,7 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("gridExpDigital.php", {UMOJN: msEstudiante}, "POST");
+				$.redirect("gridExpDigitalPos.php", {UMOJN: msEstudiante}, "POST");
 			}
 		});
 
@@ -200,7 +200,7 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("imgDatosDiploma.php", {UMOJN: codExpediente}, "POST", "_blank");
+				$.redirect("imgDatosDiplomaPos.php", {UMOJN: codExpediente}, "POST", "_blank");
 			}
 		});
 
@@ -208,7 +208,7 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codExpediente = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("imgDatosDiploma.php", {UMOJN: codExpediente}, "POST", "_blank");
+				$.redirect("imgDatosDiplomaPos.php", {UMOJN: codExpediente}, "POST", "_blank");
 			}
 		});
 	});

@@ -179,6 +179,7 @@ header('Pragma: no-cache');
                                             <li><a class="dropdown-item" href="gridSyllabusPosgrado.php">Syllabus</a></li>
                                             <li><a class="dropdown-item" href="gridAsistenciasPosgrado.php">Asistencias</a></li>
                                             <li><a class="dropdown-item" href="gridCalificacionesPos.php">Calificaciones</a></li>
+                                            <li><a class="dropdown-item" href="gridExpDigitalPos.php">Expediente digital</a></li>
                                         </ul>
                                     </li>
 
