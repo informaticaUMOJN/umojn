@@ -211,6 +211,7 @@ header('Pragma: no-cache');
                                         <a class="dropdown-item dropdown-toggle" href="#">Estudios de posgrado</a>
                                         <ul class="submenu dropdown-menu">
                                             <li><a class="dropdown-item" href="frmHojaMatriculaPos.php">Hoja de matrícula</a></li>
+                                            <li><a class="dropdown-item" href="frmMatriculadosPos.php">Estudiantes matriculados</a></li>
                                         </ul>
                                     </li>
                                     <li>
