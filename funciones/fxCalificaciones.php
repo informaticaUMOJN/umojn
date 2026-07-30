@@ -11,19 +11,9 @@ function fxGuardarCalificacion($msDocente, $msAsignatura, $msCarrera, $mdFecha, 
     $mnLongitud = strlen($mnNumero);
     $msCodigo = "CLF" . str_repeat("0", 7 - $mnLongitud) . trim($mnNumero);
 
-    //Verifica que el Parcial está o no cerrado
-    $msConsulta = "Select * from UMO162A where ANNO_162 = ? and SEMESTRE_162 = ? and PARCIAL_162 = ? and TURNO_162 = ?";
+    $msConsulta = "insert into UMO160A (CALIFICACION_REL, DOCENTE_REL, ASIGNATURA_REL, CARRERA_REL, FECHA_160, ANNO_160, SEMESTRE_160, PARCIAL_160, TURNO_160) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-    $mDatos->execute([$mnAnno, $mnSemestre, $mnParcial, $mnTurno]);
-    $mnReg = $mDatos->rowCount();
-    if ($mnReg == 0)
-        $mnEstado = 0;
-    else
-        $mnEstado = 1;
-
-    $msConsulta = "insert into UMO160A (CALIFICACION_REL, DOCENTE_REL, ASIGNATURA_REL, CARRERA_REL, FECHA_160, ANNO_160, SEMESTRE_160, PARCIAL_160, TURNO_160, ESTADO_160) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-    $mDatos->execute([$msCodigo, $msDocente, $msAsignatura, $msCarrera, $mdFecha, $mnAnno, $mnSemestre, $mnParcial, $mnTurno, $mnEstado]);
+    $mDatos->execute([$msCodigo, $msDocente, $msAsignatura, $msCarrera, $mdFecha, $mnAnno, $mnSemestre, $mnParcial, $mnTurno]);
     return $msCodigo;
 }
 
@@ -78,14 +68,29 @@ function fxDevuelveCalificacion($mbLlenaGrid, $msDocente, $msCodigo)
 function fxCierreCalificacion($msUsuario, $mnAnno, $mnSemestre, $mnParcial, $mnTurno)
 {
     $m_cnx_MySQL = fxAbrirConexion();
-    $msConsulta = "update UMO160A set ESTADO_160 = ? where ANNO_160 = ? and SEMESTRE_160 = ? and PARCIAL_160 = ? and TURNO_160 = ?";
-    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-    $mDatos->execute([1, $mnAnno, $mnSemestre, $mnParcial, $mnTurno]);
 
     $mdFechaHoy = date('Y-m-d H:i:s');
-    $msConsulta = "insert into UMO162A (USUARIO_162, ANNO_162, SEMESTRE_162, PARCIAL_162, TURNO_162, FECHA_162) values (?, ?, ?, ?, ?, ?)";
+    $msConsulta = "select DOCENTE_REL, ASIGNATURA_REL from UMO070A where ANNO_070 = ? and SEMESTRE_070 = ? and TURNO_070 = ?";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-    $mDatos->execute([$msUsuario, $mnAnno, $mnSemestre, $mnParcial, $mnTurno, $mdFechaHoy]);
+    $mDatos->execute([$mnAnno, $mnSemestre, $mnTurno]);
+
+    while($mFila = $mDatos->fetch())
+    {
+        $msAsignatura = $mFila["ASIGNATURA_REL"];
+        $msDocente = $mFila["DOCENTE_REL"];
+        $msConsulta = "insert into UMO162A (USUARIO_162, ANNO_162, SEMESTRE_162, PARCIAL_162, TURNO_162, FECHA_162, ASIGNATURA_REL, DOCENTE_REL, ESTADO_162) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $mAuxiliar = $m_cnx_MySQL->prepare($msConsulta);
+        $mAuxiliar->execute([$msUsuario, $mnAnno, $mnSemestre, $mnParcial, $mnTurno, $mdFechaHoy, $msAsignatura, $msDocente, 1]);
+    }
+}
+
+function fxEstadoCierreCalificacion($mbEstado, $mnAnno, $mnSemestre, $mnParcial, $mnTurno, $msAsignatura, $msDocente)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "update UMO162A set ESTADO = ? where ANNO_162 = ? and SEMESTRE_162 = ? and PARCIAL_162 = ? and TURNO_162 = ? and ASIGNATURA_REL = ? and DOCENTE_REL = ?";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$mbEstado, $mnAnno, $mnSemestre, $mnParcial, $mnTurno, $msAsignatura, $msDocente]);
 }
 
 function fxDevuelveCierreCalificacion($mnAnno, $mnSemestre, $mnParcial, $mnTurno)

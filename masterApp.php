@@ -8,7 +8,7 @@ header('Pragma: no-cache');
 <html lang="es-NI">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="description" content="Control Administrativo y Académico de UMOJN."/>
+<meta name="description" content="Control Administrativo y Académico de Universidad de Medicina Oriental Japón Nicaragua."/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link rel="icon" href="imagenes/favicon.png" />
 <link rel="stylesheet" href="css/style.css" />

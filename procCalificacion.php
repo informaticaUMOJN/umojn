@@ -221,13 +221,18 @@
                         <div class="col-sm-12 col-md-6">
                             <?php
                                 if ($msCodigo == "")
+                                {
                                     echo('<select class="form-control" id="cboAsignatura" name="cboAsignatura" onchange="llenaEstudiantes()">');
+                                    $msConsulta = "select UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A, UMO070A where UMO060A.ASIGNATURA_REL = UMO070A.ASIGNATURA_REL and CARRERA_REL = ? and DOCENTE_REL = ? and ACTIVO_070 = 1 order by NOMBRE_060";
+                                }
                                 else
+                                {
                                     echo('<select class="form-control" id="cboAsignatura" name="cboAsignatura" disabled>');
-                                    
-                                $msConsulta = "select UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A, UMO070A where UMO060A.ASIGNATURA_REL = UMO070A.ASIGNATURA_REL and CARRERA_REL = ? and DOCENTE_REL = ? and ACTIVO_070 = ? order by NOMBRE_060";
+                                    $msConsulta = "select distinct UMO060A.ASIGNATURA_REL, NOMBRE_060 from UMO060A, UMO070A where UMO060A.ASIGNATURA_REL = UMO070A.ASIGNATURA_REL and CARRERA_REL = ? and DOCENTE_REL = ? order by NOMBRE_060";
+                                }
+                                
                                 $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-                                $mDatos->execute([$msCarrera, $msDocente, 1]);
+                                $mDatos->execute([$msCarrera, $msDocente]);
 
                                 while ($mFila = $mDatos->fetch())
                                 {
@@ -533,6 +538,7 @@ window.onload = function()
 {
     llenaAsignaturas();
     verificaCalificacion();
+    llenaCierre();
     cambiaGrid();
 
     if ($('#txtCodCalificacion').val() == "")
@@ -557,7 +563,7 @@ function verificarFormulario() {
             return false;
         }
     }
-*/ 
+*/
     if (semestre < 1 || semestre > 2)
     {
         $.messager.alert('UMOJN', 'El valor del semestre sólo puede ser 1 ó 2.', 'warning');
@@ -750,11 +756,15 @@ function llenaCierre()
     var semestre = $('#txnSemestre').val();
     var parcial = $('#cboParcial').val();
     var turno = $("input[name='optTurno']:checked").val();
+    var docente = $('#cboDocente').val();
+    var asignatura = $('#cboAsignatura').val();
     var datos = new FormData();
     datos.append('anno', anno);
     datos.append('semestre', semestre);
     datos.append('parcial', parcial);
     datos.append('turno', turno);
+    datos.append('docente', docente);
+    datos.append('asignatura', asignatura);
 
     $.ajax({
         url: 'funciones/fxDatosCierreNotas.php',

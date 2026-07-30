@@ -57,9 +57,14 @@
                 $msMediacion = $_POST["txtMediacion"];
                 $msEjesValores = $_POST["txtEjesValores"];
 
-                $gridObjetivoGrl = $_POST["gridObjGral"];
-                $gridObjetivoUnd = $_POST["gridObjUnd"];
-                $gridDetalle = $_POST["gridDetalle"];
+                if (isset($_POST["gridObjGral"]))
+                    $gridObjetivoGrl = $_POST["gridObjGral"];
+
+                if (isset($_POST["gridObjUnd"]))
+                    $gridObjetivoUnd = $_POST["gridObjUnd"];
+
+                if (isset($_POST["gridDetalle"]))
+                    $gridDetalle = $_POST["gridDetalle"];
 
                 if (isset($_POST["gridObsDocente"]))
                     $gridObsDocente = $_POST["gridObsDocente"];
@@ -85,21 +90,27 @@
                     fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO070A", $msCodigo, "", "Modificar", $msBitacora);
                 }
                 
-                $itemId = 1;
-				foreach($gridObjetivoGrl as $Registro)
-				{
-					$msObjetivo = $Registro['objGral'];
-                    fxGuardarDetObjGral($msCodigo, $itemId, $msObjetivo);
-                    $itemId++;
-				}
+                if (isset($_POST["gridObjGral"]))
+                {
+                    $itemId = 1;
+                    foreach($gridObjetivoGrl as $Registro)
+                    {
+                        $msObjetivo = $Registro['objGral'];
+                        fxGuardarDetObjGral($msCodigo, $itemId, $msObjetivo);
+                        $itemId++;
+                    }
+                }
 				
-				$itemId = 1;
-				foreach($gridObjetivoUnd as $Registro)
-				{
-                    $msObjetivo = $Registro['objUnd'];
-                    $msUnidad = $Registro['unidad'];
-					fxGuardarDetObjUnd($msCodigo, $itemId, $msUnidad, $msObjetivo);
-					$itemId++;
+                if (isset($_POST["gridObjUnd"]))
+                {
+                    $itemId = 1;
+                    foreach($gridObjetivoUnd as $Registro)
+                    {
+                        $msObjetivo = $Registro['objUnd'];
+                        $msUnidad = $Registro['unidad'];
+                        fxGuardarDetObjUnd($msCodigo, $itemId, $msUnidad, $msObjetivo);
+                        $itemId++;
+                    }
                 }
                 
                 if (isset($_POST["gridObsDocente"]))
@@ -124,19 +135,22 @@
                     }
                 }
 
-                $itemId = 1;
-				foreach($gridDetalle as $Registro)
-				{
-                    $mdFecha = $Registro['fecha'];
-                    $msUnidad = $Registro['unidad'];
-                    $msContenido = $Registro['contenido'];
-                    $msObjetivoEsp = $Registro['objEsp'];
-                    $msForma = $Registro['forma'];
-                    $msMedios = $Registro['medios'];
-                    $msEvaluacion = $Registro['evaluacion'];
-					fxGuardarDetSyllabus($msCodigo, $itemId, $mdFecha, $msUnidad, $msContenido, $msObjetivoEsp, $msForma, $msMedios, $msEvaluacion);
-					$itemId++;
-				}
+                if (isset($_POST["gridDetalle"]))
+                {
+                    $itemId = 1;
+                    foreach($gridDetalle as $Registro)
+                    {
+                        $mdFecha = $Registro['fecha'];
+                        $msUnidad = $Registro['unidad'];
+                        $msContenido = $Registro['contenido'];
+                        $msObjetivoEsp = $Registro['objEsp'];
+                        $msForma = $Registro['forma'];
+                        $msMedios = $Registro['medios'];
+                        $msEvaluacion = $Registro['evaluacion'];
+                        fxGuardarDetSyllabus($msCodigo, $itemId, $mdFecha, $msUnidad, $msContenido, $msObjetivoEsp, $msForma, $msMedios, $msEvaluacion);
+                        $itemId++;
+                    }
+                }
 				?><meta http-equiv="Refresh" content="0;url=gridSyllabus.php" /><?php
 			}
 			else
@@ -307,7 +321,7 @@
                         <div class="col-sm-12 col-md-6">
                             <?php
                                 if ($msCodigo == "")
-                                    echo('<select class="form-control" id="cboPlanEstudio" name="cboPlanEstudio" onchange="llenaAsignatura()">');
+                                    echo('<select class="form-control" id="cboPlanEstudio" name="cboPlanEstudio" onchange="llenaAsignaturas()">');
                                 else
                                     echo('<select class="form-control" id="cboPlanEstudio" name="cboPlanEstudio" disabled>');
                                 
@@ -489,14 +503,14 @@
                     <div class="form-group row">
                         <label for="txtMediacion" class="col-sm-12 col-md-2 col-form-label">Mediación pedagógica</label>
                         <div class="col-sm-12 col-md-8">
-                            <?php echo('<textarea class="form-control" id="txtMediacion" name="txtMediacion" rows="3" maxlength="300">' . $msMediacion . '</textarea>'); ?>
+                            <?php echo('<textarea class="form-control" id="txtMediacion" name="txtMediacion" rows="8" maxlength="1400">' . $msMediacion . '</textarea>'); ?>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="txtEjesValores" class="col-sm-12 col-md-2 col-form-label">Ejes transversales y valores</label>
                         <div class="col-sm-12 col-md-8">
-                            <?php echo('<textarea class="form-control" id="txtEjesValores" name="txtEjesValores" rows="3" maxlength="300">' . $msEjesValores . '</textarea>'); ?>
+                            <?php echo('<textarea class="form-control" id="txtEjesValores" name="txtEjesValores" rows="6" maxlength="700">' . $msEjesValores . '</textarea>'); ?>
                         </div>
                     </div>
 
@@ -543,7 +557,7 @@
                         <div class="form-group row">
                             <label for="txtObjGral" class="col-sm-12 col-md-3 form-label">Objetivo general</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtObjGral" name="txtObjGral" rows="5" maxlength="400"></textarea>
+                                <textarea class="form-control" id="txtObjGral" name="txtObjGral" rows="6" maxlength="700"></textarea>
                             </div>
                         </div>
                     </div>
@@ -604,7 +618,7 @@
                         <div class="form-group row">
                             <label for="txtObjUnd" class="col-sm-12 col-md-3 form-label">Objetivo de la Unidad</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtObjUnd" name="txtObjUnd" rows="5" maxlength="500"></textarea>
+                                <textarea class="form-control" id="txtObjUnd" name="txtObjUnd" rows="6" maxlength="700"></textarea>
                             </div>
                         </div>
                     </div>
@@ -681,7 +695,7 @@
                         <div class="form-group row">
                             <label for="txtContenidoDet" class="col-sm-12 col-md-3 form-label">Contenido o temas</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtContenidoDet" name="txtContenidoDet" rows="2" maxlength="200"></textarea>
+                                <textarea class="form-control" id="txtContenidoDet" name="txtContenidoDet" rows="4" maxlength="500"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -693,19 +707,19 @@
                         <div class="form-group row">
                             <label for="txtFormaDet" class="col-sm-12 col-md-3 form-label">Mediación pedagógica y ejes</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtFormaDet" name="txtFormaDet" rows="2" maxlength="900"></textarea>
+                                <textarea class="form-control" id="txtFormaDet" name="txtFormaDet" rows="5" maxlength="900"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="txtMediosDet" class="col-sm-12 col-md-3 form-label">Recursos didácticos</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtMediosDet" name="txtMediosDet" rows="2" maxlength="100"></textarea>
+                                <textarea class="form-control" id="txtMediosDet" name="txtMediosDet" rows="5" maxlength="900"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="txtEvaluacionDet" class="col-sm-12 col-md-3 form-label">Evaluación</label>
                             <div class="col-sm-12 col-md-8">
-                                <textarea class="form-control" id="txtEvaluacionDet" name="txtEvaluacionDet" rows="2" maxlength="100"></textarea>
+                                <textarea class="form-control" id="txtEvaluacionDet" name="txtEvaluacionDet" rows="5" maxlength="800"></textarea>
                             </div>
                         </div>
                     </div>
@@ -910,13 +924,22 @@ function verificarFormulario() {
     var regObjGral = $('#dgObjGral').datagrid('getRows').length;
     var regObjUnd = $('#dgObjUnd').datagrid('getRows').length;
     var regObjDetalle = $('#dgDetalle').datagrid('getRows').length;
+    var rowsObjGral = $('#dgObjGral').datagrid('getRows');
+    var rowsObjUnd = $('#dgObjUnd').datagrid('getRows');
+    var rowsObjDetalle = $('#dgDetalle').datagrid('getRows');
     var administrador = <?php echo($mbAdministrador) ?>;
+    var linea = 0
+    var text = "";
+    var contenido = "";
+    var objEsp = "";
+    var forma = "";
+    var medios = "";
 
     if (semestre < 1 || semestre > 2) {
         $.messager.alert('UMOJN', 'El valor del semestre sólo puede ser 1 ó 2.', 'warning');
         return false;
     }
-
+/*
     if (regObjGral == 0) {
         $.messager.alert('UMOJN', 'Faltan los Objetivos generales.', 'warning');
         return false;
@@ -930,6 +953,69 @@ function verificarFormulario() {
     if (regObjDetalle == 0) {
         $.messager.alert('UMOJN', 'Falta el detalle del syllabus.', 'warning');
         return false;
+    }
+*/
+    text = $('#txtMediacion').val();
+    if (text && (text.indexOf('\n') !== -1 || text.indexOf('<br>') !== -1 || text.indexOf('<br/>') !== -1)) {
+        $.messager.alert('UMOJN', 'La Mediación pedagógica contiene salto de línea', 'warning');
+        return false;
+    }
+
+    text = $('#txtEjesValores').val();
+    if (text && (text.indexOf('\n') !== -1 || text.indexOf('<br>') !== -1 || text.indexOf('<br/>') !== -1)) {
+        $.messager.alert('UMOJN', 'Ejes transversales y valores, contiene salto de línea', 'warning');
+        return false;
+    }
+
+    linea = 0;
+    for (var i = 0; i < rowsObjGral.length; i++) {
+        text = rowsObjGral[i].objGral;
+        linea++;
+
+        if (text && (text.indexOf('\n') !== -1 || text.indexOf('<br>') !== -1 || text.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' de los objetivos generales contiene salto de línea', 'warning');
+            return false;
+        }
+    }
+
+    linea = 0;
+    for (var i = 0; i < rowsObjUnd.length; i++) {
+        text = rowsObjUnd[i].objUnd;
+        linea++;
+
+        if (text && (text.indexOf('\n') !== -1 || text.indexOf('<br>') !== -1 || text.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' de los objetivos por unidad contiene salto de línea', 'warning');
+            return false;
+        }
+    }
+
+    linea = 0;
+    for (var i = 0; i < rowsObjDetalle.length; i++) {
+        contenido = rowsObjDetalle[i].contenido;
+        objEsp = rowsObjDetalle[i].objEsp;
+        forma = rowsObjDetalle[i].forma;
+        medios = rowsObjDetalle[i].medios;
+        linea++;
+
+        if (contenido && (contenido.indexOf('\n') !== -1 || contenido.indexOf('<br>') !== -1 || contenido.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' del detalle contiene salto de línea en el Contenido', 'warning');
+            return false;
+        }
+
+        if (objEsp && (objEsp.indexOf('\n') !== -1 || objEsp.indexOf('<br>') !== -1 || objEsp.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' del detalle contiene salto de línea en el Objetivo específico', 'warning');
+            return false;
+        }
+
+        if (objEsp && (forma.indexOf('\n') !== -1 || forma.indexOf('<br>') !== -1 || forma.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' del detalle contiene salto de línea en la Mediación pedagógica', 'warning');
+            return false;
+        }
+
+        if (objEsp && (medios.indexOf('\n') !== -1 || medios.indexOf('<br>') !== -1 || medios.indexOf('<br/>') !== -1)) {
+            $.messager.alert('UMOJN', 'Fila ' + linea + ' del detalle contiene salto de línea en los Recursos didácticos', 'warning');
+            return false;
+        }
     }
     return true;
 }
@@ -958,7 +1044,7 @@ function llenaPlanEstudio()
     var carrera = document.getElementById('cboCarrera').value;
     var datos = new FormData();
     datos.append('carreraPE', carrera);
-    datos.append('syllabus', syllabus);
+    datos.append('syllabusPE', syllabus);
 
     $.ajax({
         url: 'funciones/fxDatosSyllabus.php',
@@ -1451,8 +1537,9 @@ $('form').submit(function(e) {
 
         registros = $('#dgObjGral').datagrid('getRows').length - 1;
 
+        texto += '"gridObjGral": [';
         if (registros >= 0) {
-            texto += '"gridObjGral": [';
+            
             for (i = 0; i <= registros; i++) {
                 texto += '{"objGral":"' + gridObjGral.rows[i].objGral;
                 if (i == registros)
@@ -1461,11 +1548,13 @@ $('form').submit(function(e) {
                     texto += '"},';
             }
         }
+        else
+            texto += '],';
 
         registros = $('#dgObjUnd').datagrid('getRows').length - 1;
 
+        texto += '"gridObjUnd": [';
         if (registros >= 0) {
-            texto += '"gridObjUnd": [';
             for (i = 0; i <= registros; i++) {
                 texto += '{"unidad":"' + gridObjUnd.rows[i].unidad + '","objUnd":"' + gridObjUnd.rows[i].objUnd;
                 if (i == registros)
@@ -1474,11 +1563,13 @@ $('form').submit(function(e) {
                     texto += '"},';
             }
         }
+        else
+            texto += '],';
 
         registros = $('#dgDetalle').datagrid('getRows').length - 1;
 
+        texto += '"gridDetalle": [';
         if (registros >= 0) {
-            texto += '"gridDetalle": [';
             for (i = 0; i <= registros; i++) {
                 texto += '{"fecha":"' + gridDetalle.rows[i].fecha + '","unidad":"' + gridDetalle.rows[i].unidad + '","contenido":"' + gridDetalle.rows[i].contenido + '","objEsp":"' + gridDetalle.rows[i].objEsp + '","forma":"' + gridDetalle.rows[i].forma + '","medios":"' + gridDetalle.rows[i].medios + '","evaluacion":"' + gridDetalle.rows[i].evaluacion;
                 if (i == registros)
@@ -1487,6 +1578,8 @@ $('form').submit(function(e) {
                     texto += '"},';
             }
         }
+        else
+            texto += ']}';
 
         datos = JSON.parse(texto);
 

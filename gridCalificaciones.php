@@ -177,60 +177,71 @@
 <script src="bootstrap/dist/jquery.bootgrid.fa.js"></script>
 <script src="js/jquery.redirect.js"></script>
 <script>
-        $(function() {
-            function init() {
-                $("#grid").bootgrid({
-                    formatters: {
-                        "link": function(column, row) {
-                            return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-                        }
-                    },
-                    rowCount: [-1, 10, 50, 75]
-                });
-            }
+	$(function() {
+		$(window).scroll(function() {
+			var scroll = $(window).scrollTop();
+			if (scroll >= 100) {
+			$("#lateral").addClass("entra");
+			} else {
+			$("#lateral").removeClass("entra");
+			}
+		});
+	});
 
-            init();
+	$(function() {
+		function init() {
+			$("#grid").bootgrid({
+				formatters: {
+					"link": function(column, row) {
+						return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
+					}
+				},
+				rowCount: [-1, 10, 50, 75]
+			});
+		}
 
-			$("#append").on("click", function() {
-                $.redirect("procCalificacion.php", "POST");
-			});
-  
-			$("#remove").on("click", function() {
-                if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("gridCalificaciones.php", {UMOJN: codCalificacion}, "POST");
-                }
-			});
-      			
-            $("#edit").on("click", function() {
-				if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("procCalificacion.php", {UMOJN: codCalificacion}, "POST");
-                }
-            });
+		init();
 
-			$("#agregar").on("click", function() {
-                $.redirect("procCalificacion.php", "POST");
-			});
-  
-			$("#borrar").on("click", function() {
-                if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("gridCalificaciones.php", {UMOJN: codCalificacion}, "POST");
-                }
-			});
-      			
-            $("#modificar").on("click", function() {
-				if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
-                {
-                    var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
-                    $.redirect("procCalificacion.php", {UMOJN: codCalificacion}, "POST");
-                }
-            });
-        });
-    </script>
+		$("#append").on("click", function() {
+			$.redirect("procCalificacion.php", "POST");
+		});
+
+		$("#remove").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("gridCalificaciones.php", {UMOJN: codCalificacion}, "POST");
+			}
+		});
+			
+		$("#edit").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("procCalificacion.php", {UMOJN: codCalificacion}, "POST");
+			}
+		});
+
+		$("#agregar").on("click", function() {
+			$.redirect("procCalificacion.php", "POST");
+		});
+
+		$("#borrar").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("gridCalificaciones.php", {UMOJN: codCalificacion}, "POST");
+			}
+		});
+			
+		$("#modificar").on("click", function() {
+			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
+			{
+				var codCalificacion = $.trim($("#grid").bootgrid("getSelectedRows"));
+				$.redirect("procCalificacion.php", {UMOJN: codCalificacion}, "POST");
+			}
+		});
+	});
+</script>
 </body>
 </html>

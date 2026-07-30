@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     22/05/2026 10:21:52 a. m.                    */
+/* Created on:     10/07/2026 3:16:56 p. m.                     */
 /*==============================================================*/
 
 
@@ -748,8 +748,6 @@ create table UMO160A
              4.-Nocturno
              5.-Sabatino
              6.-Dominical',
-   ESTADO_160           numeric(1,0)  comment '0.- Abierto
-             1.- Cerrado',
    primary key (CALIFICACION_REL)
 );
 
@@ -773,6 +771,8 @@ create table UMO161A
 /*==============================================================*/
 create table UMO162A
 (
+   DOCENTE_REL          varchar(10)  comment '',
+   ASIGNATURA_REL       varchar(10)  comment '',
    USUARIO_162          varchar(20)  comment '',
    ANNO_162             numeric(4,0)  comment '',
    SEMESTRE_162         numeric(1,0)  comment '',
@@ -783,7 +783,10 @@ create table UMO162A
              4.-Nocturno
              5.-Sabatino
              6.-Dominical',
-   FECHA_162            datetime  comment ''
+   FECHA_162            datetime  comment '',
+   ESTADO_162           bool  comment 'Este campo permite abrir temporalmente el cierre.
+             0.-Abierto temporalmente
+             1.-Cerrado'
 );
 
 /*==============================================================*/
@@ -989,10 +992,12 @@ create table UMO220A
 (
    CLIENTE_REL          varchar(10) not null  comment '',
    CEDULA_220           varchar(20)  comment '',
-   CARNET_220           varchar(20)  comment '',
    NOMBRES_220          varchar(50)  comment '',
    APELLIDOS_220        varchar(50)  comment '',
-   TIPOESTUDIO_220      numeric(1,0)  comment '',
+   TIPOESTUDIO_220      numeric(1,0)  comment '0.- Grado regular
+             1.- Grado sabatino
+             2.- Posgrado
+             3.- Curso libre',
    primary key (CLIENTE_REL)
 );
 
@@ -1440,6 +1445,12 @@ alter table UMO161A add constraint FK_UMO161A_REL_030_1_UMO030A foreign key (MAT
 
 alter table UMO161A add constraint FK_UMO161A_REL_160_1_UMO160A foreign key (CALIFICACION_REL)
       references UMO160A (CALIFICACION_REL) on delete restrict on update restrict;
+
+alter table UMO162A add constraint FK_UMO162A_REL_060_1_UMO060A foreign key (ASIGNATURA_REL)
+      references UMO060A (ASIGNATURA_REL) on delete restrict on update restrict;
+
+alter table UMO162A add constraint FK_UMO162A_REL_100_1_UMO100A foreign key (DOCENTE_REL)
+      references UMO100A (DOCENTE_REL) on delete restrict on update restrict;
 
 alter table UMO170A add constraint FK_UMO170A_REL_040_1_UMO040A foreign key (CARRERA_REL)
       references UMO040A (CARRERA_REL) on delete restrict on update restrict;

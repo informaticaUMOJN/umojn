@@ -24,10 +24,11 @@ if (isset($_POST["planEstudio"]))
 }
 
 /**********Llenar el combo del Plan de estudios**********/
-if (isset($_POST["carreraPE"]))
+if (isset($_POST["carreraPE"]) and isset($_POST["syllabusPE"]))
 {
 	$m_cnx_MySQL = fxAbrirConexion();
 	$msCarrera = $_POST["carreraPE"];
+	$msSyllabus = $_POST["syllabusPE"];
 	$msConsulta = "Select PLANESTUDIO_REL, PERIODO_050, ACTIVO_050 from UMO050A where CARRERA_REL = ?";
 	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
 	$mDatos->execute([$msCarrera]);
@@ -40,13 +41,9 @@ if (isset($_POST["carreraPE"]))
 		{
 			$msPlanEstudio = $mFila["PLANESTUDIO_REL"];
 			$msPeriodo = $mFila["PERIODO_050"];
+			$mbActivo = intval($mFila["ACTIVO_050"]);
 
-			if ($msSyllabus == "")
-			{
-				if (intval($mFila["ACTIVO_050"])==1)
-					$msResultado .= "<option value='" . $msPlanEstudio . "'>Período " . $msPeriodo . "</option>";
-			}
-			else
+			if ($msSyllabus == "" and $mbActivo == 1)
 				$msResultado .= "<option value='" . $msPlanEstudio . "'>Período " . $msPeriodo . "</option>";
 		}
 	}
