@@ -14,7 +14,7 @@ if (is_array($_FILES) && count($_FILES) > 0) {
 	}
 
 	if (move_uploaded_file($_FILES["archivo"]["tmp_name"], $miCarpeta."/".$_FILES['archivo']['name'])) {
-		fxGuardarDetDocumentoPos ($msEstudiante, $mnTipoDoc, $msArchivo, $msDescripcion, $msRuta);
+		fxGuardarDetDocumentoPos ($msEstudiante, $msArchivo, $mnTipoDoc, $msDescripcion, $msRuta);
 		
 		//Construye el InnerHTHL del DIV contenedor
 		$mnCuenta = 0;

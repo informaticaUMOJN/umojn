@@ -52,6 +52,8 @@
 				$msApellido1 = $_POST["txtApellido1"];
 				$msApellido2 = $_POST["txtApellido2"];
 				$mdFechaNac = $_POST["dtpFechaNac"];
+				$msLugarNac = $_POST["txtLugarNac"];
+				$msPaisNac = $_POST["txtPaisNac"];
 				$msNacionalidad = $_POST["txtNacionalidad"];
 				$mnAnnoAcademico = $_POST["txnAnnoAcademico"];
 				$msGradoAcademico = $_POST["txtGradoAcademico"];
@@ -83,21 +85,21 @@
 				try {
 					if ($msCodigo == "") {
 						$msCodigo = fxGuardarEstudiantePos($msCarrera, $msUniversidad, $msMunicipio, $msUsuario, $mdFecha, $mnAnnoAcademico, $msCarnet,
-						$msNombre1, $msNombre2, $msApellido1, $msApellido2, $msGradoAcademico, $mdFechaNac, $msNacionalidad, $mnPeso, $mnTalla, $msTipoSangre, $msCedula,
+						$msNombre1, $msNombre2, $msApellido1, $msApellido2, $msGradoAcademico, $mdFechaNac, $msLugarNac, $msPaisNac, $msNacionalidad, $mnPeso, $mnTalla, $msTipoSangre, $msCedula,
 						$msSexo, $mnEstadoCivil, $mnHijos, $msTelefono, $msCelular, $msCorreoE, $msCorreoI, $msDireccion, $mnMedio, $msEmergencia,
 						$msTelEmergencia, $msCelEmergencia, $mbLaboral, $msOcupacion, $mnIngresoMensual, $msCentroTrabajo, $msDireccionTrabajo,
 						$mbOtroIdioma, $msIdioma);
-						$msBitacora = $msCodigo . "; " . $msUniversidad . "; " . $msMunicipio . "; " . $msUsuario . "; " . $mdFecha . "; " . $mnAnnoAcademico . "; " . $msCarnet . "; " . $msNombre1 . "; " . $msNombre2 . "; " . $msApellido1 . "; " . $msApellido2 . "; " . $msGradoAcademico . "; " . $mdFechaNac . "; " . $msNacionalidad . "; " . $mnPeso . "; " . $mnTalla . "; " . $msTipoSangre . "; " . $msCedula . "; " . $msSexo . "; " . $mnEstadoCivil . "; " . $mnHijos . "; " . $msTelefono . "; " . $msCelular . "; " . $msCorreoE . "; " . $msCorreoI . "; " . $msDireccion . "; " . $mnMedio . "; " . $msEmergencia . "; " . $msTelEmergencia . "; " . $msCelEmergencia . "; " . $mbLaboral . "; " . $msOcupacion . "; " . $mnIngresoMensual . "; " . $msCentroTrabajo . "; " . $msDireccionTrabajo . "; " . $mbOtroIdioma . "; " . $msIdioma;
+						$msBitacora = $msCodigo . "; " . $msUniversidad . "; " . $msMunicipio . "; " . $msUsuario . "; " . $mdFecha . "; " . $mnAnnoAcademico . "; " . $msCarnet . "; " . $msNombre1 . "; " . $msNombre2 . "; " . $msApellido1 . "; " . $msApellido2 . "; " . $msGradoAcademico . "; " . $mdFechaNac . "; " . $msLugarNac . "; " . $msPaisNac . "; " . $msNacionalidad . "; " . $mnPeso . "; " . $mnTalla . "; " . $msTipoSangre . "; " . $msCedula . "; " . $msSexo . "; " . $mnEstadoCivil . "; " . $mnHijos . "; " . $msTelefono . "; " . $msCelular . "; " . $msCorreoE . "; " . $msCorreoI . "; " . $msDireccion . "; " . $mnMedio . "; " . $msEmergencia . "; " . $msTelEmergencia . "; " . $msCelEmergencia . "; " . $mbLaboral . "; " . $msOcupacion . "; " . $mnIngresoMensual . "; " . $msCentroTrabajo . "; " . $msDireccionTrabajo . "; " . $mbOtroIdioma . "; " . $msIdioma;
 
 						fxAgregarBitacora($_SESSION["gsUsuario"], "UMO250A", $msCodigo, "", "Agregar", $msBitacora);
 						echo json_encode(["status"=>"ok","msg"=>"Alumno agregado","codigo"=>$msCodigo]);
 					} else {
 						fxModificarEstudiantePos($msCodigo, $msCarrera, $msUniversidad, $msMunicipio, $msUsuario, $mdFecha, $mnAnnoAcademico, $msCarnet,
-						$msNombre1, $msNombre2, $msApellido1, $msApellido2, $msGradoAcademico, $mdFechaNac, $msNacionalidad, $mnPeso, $mnTalla, $msTipoSangre, $msCedula,
+						$msNombre1, $msNombre2, $msApellido1, $msApellido2, $msGradoAcademico, $mdFechaNac, $msLugarNac, $msPaisNac, $msNacionalidad, $mnPeso, $mnTalla, $msTipoSangre, $msCedula,
 						$msSexo, $mnEstadoCivil, $mnHijos, $msTelefono, $msCelular, $msCorreoE, $msCorreoI, $msDireccion, $mnMedio, $msEmergencia,
 						$msTelEmergencia, $msCelEmergencia, $mbLaboral, $msOcupacion, $mnIngresoMensual, $msCentroTrabajo, $msDireccionTrabajo,
 						$mbOtroIdioma, $msIdioma);
-						$msBitacora = $msCodigo . "; " . $msUniversidad . "; " . $msMunicipio . "; " . $msUsuario . "; " . $mdFecha . "; " . $mnAnnoAcademico . "; " . $msCarnet . "; " . $msNombre1 . "; " . $msNombre2 . "; " . $msApellido1 . "; " . $msApellido2 . "; " . $msGradoAcademico . "; " . $mdFechaNac . "; " . $msNacionalidad . "; " . $mnPeso . "; " . $mnTalla . "; " . $msTipoSangre . "; " . $msCedula . "; " . $msSexo . "; " . $mnEstadoCivil . "; " . $mnHijos . "; " . $msTelefono . "; " . $msCelular . "; " . $msCorreoE . "; " . $msCorreoI . "; " . $msDireccion . "; " . $mnMedio . "; " . $msEmergencia . "; " . $msTelEmergencia . "; " . $msCelEmergencia . "; " . $mbLaboral . "; " . $msOcupacion . "; " . $mnIngresoMensual . "; " . $msCentroTrabajo . "; " . $msDireccionTrabajo . "; " . $mbOtroIdioma . "; " . $msIdioma;
+						$msBitacora = $msCodigo . "; " . $msUniversidad . "; " . $msMunicipio . "; " . $msUsuario . "; " . $mdFecha . "; " . $mnAnnoAcademico . "; " . $msCarnet . "; " . $msNombre1 . "; " . $msNombre2 . "; " . $msApellido1 . "; " . $msApellido2 . "; " . $msGradoAcademico . "; " . $mdFechaNac . "; " . $msLugarNac . "; " . $msPaisNac . "; " . $msNacionalidad . "; " . $mnPeso . "; " . $mnTalla . "; " . $msTipoSangre . "; " . $msCedula . "; " . $msSexo . "; " . $mnEstadoCivil . "; " . $mnHijos . "; " . $msTelefono . "; " . $msCelular . "; " . $msCorreoE . "; " . $msCorreoI . "; " . $msDireccion . "; " . $mnMedio . "; " . $msEmergencia . "; " . $msTelEmergencia . "; " . $msCelEmergencia . "; " . $mbLaboral . "; " . $msOcupacion . "; " . $mnIngresoMensual . "; " . $msCentroTrabajo . "; " . $msDireccionTrabajo . "; " . $mbOtroIdioma . "; " . $msIdioma;
 
 						echo json_encode(["status"=>"ok","msg"=>"Alumno actualizado","codigo"=>$msCodigo]);
 						fxAgregarBitacora($_SESSION["gsUsuario"], "UMO250A", $msCodigo, "", "Modificar", $msBitacora);
@@ -129,6 +131,8 @@
 					$msApellido1 = $mFila["APELLIDO1_250"];
 					$msApellido2 = $mFila["APELLIDO2_250"];
 					$mdFechaNac = $mFila["FECHANAC_250"];
+					$msLugarNac = htmlentities($mFila["LUGARNAC_250"]);
+					$msPaisNac = htmlentities($mFila["PAIS_250"]);
 					$msNacionalidad = $mFila["NACIONALIDAD_250"];
 					$msGradoAcademico = $mFila["GRADOACADEMICO_250"];
 					$mnAnnoAcademico = $mFila["ANNOACADEMICO_250"];
@@ -169,6 +173,8 @@
 					$msApellido1 = "";
 					$msApellido2 = "";
 					$mdFechaNac = date('Y-m-d');
+					$msLugarNac = "";
+					$msPaisNac = "Nicaragua";
 					$msNacionalidad = "Nicaragüense";
 					$msGradoAcademico = "";
 					$mnAnnoAcademico = date('Y');
@@ -316,9 +322,23 @@
 									</div>
 
 									<div class = "form-group row">
+										<label for="txtPaisNac" class="col-sm-12 col-md-3 form-label">País de nacimiento</label>
+										<div class="col-sm-12 col-md-4">
+										<?php echo('<input type="text" class="form-control" id="txtPaisNac" name="txtPaisNac" value="' . $msPaisNac . '" />'); ?>
+										</div>
+									</div>
+
+									<div class = "form-group row">
 										<label for="txtNacionalidad" class="col-sm-12 col-md-3 form-label">Nacionalidad</label>
 										<div class="col-sm-12 col-md-4">
 										<?php echo('<input type="text" class="form-control" id="txtNacionalidad" name="txtNacionalidad" value="' . $msNacionalidad . '" />'); ?>
+										</div>
+									</div>
+
+									<div class = "form-group row">
+										<label for="txtLugarNac" class="col-sm-12 col-md-3 form-label">Lugar de nacimiento</label>
+										<div class="col-sm-12 col-md-4">
+										<?php echo('<input type="text" class="form-control" id="txtLugarNac" name="txtLugarNac" value="' . $msLugarNac . '" />'); ?>
 										</div>
 									</div>
 
@@ -972,6 +992,27 @@
 			return false;
 		}
 
+		if (document.getElementById('txtPaisNac').value=="")
+		{
+			document.getElementById('txtPaisNac').focus();
+			$.messager.alert('UMOJN','Falta el país de nacimiento.','warning');
+			return false;
+		}
+
+		if (document.getElementById('txtNacionalidad').value=="")
+		{
+			document.getElementById('txtNacionalidad').focus();
+			$.messager.alert('UMOJN','Falta la nacionalidad.','warning');
+			return false;
+		}
+
+		if (document.getElementById('txtLugarNac').value=="")
+		{
+			document.getElementById('txtLugarNac').focus();
+			$.messager.alert('UMOJN','Falta el lugar de nacimiento.','warning');
+			return false;
+		}
+
 		if (document.getElementById('txtCedula').value=="")
 		{
 			document.getElementById('txtCedula').focus();
@@ -1251,6 +1292,8 @@
 				txtNombre2: document.getElementById("txtNombre2").value,
 				txtApellido1: document.getElementById("txtApellido1").value,
 				txtApellido2: document.getElementById("txtApellido2").value,
+				txtPaisNac: document.getElementById("txtPaisNac").value,
+				txtLugarNac: document.getElementById("txtLugarNac").value,
 				txtNacionalidad: document.getElementById("txtNacionalidad").value,
 				txnAnnoAcademico: document.getElementById("txnAnnoAcademico").value,
 				txtGradoAcademico: document.getElementById("txtGradoAcademico").value,

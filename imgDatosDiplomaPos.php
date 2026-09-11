@@ -34,7 +34,7 @@ if (isset($_POST["UMOJN"]))
         $mdFechaRegistro = $mFila["FECHA_001"];
         $mdFechaDefensa = $mFila["FECHADEFENSA_001"];
 
-        $msConsulta = "select ESTUDIANTEPOS_REL, NOMBRE1_250, NOMBRE2_250, APELLIDO1_250, APELLIDO2_250, PAIS_250, CEDULA_250, NOMBRE_040, GRADO_050 ";
+        $msConsulta = "select ESTUDIANTEPOS_REL, NOMBRE1_250, NOMBRE2_250, APELLIDO1_250, APELLIDO2_250, PAIS_250, CEDULA_250, NOMBRE_040, GRADO_230 ";
         $msConsulta .= "from UMO250A, UMO040A, UMO230A where UMO250A.CARRERA_REL = UMO040A.CARRERA_REL and UMO250A.CARRERA_REL = UMO230A.CARRERA_REL and CARNET_250 = ?";
         $mEstudiante = $m_cnx_MySQL->prepare($msConsulta);
         $mEstudiante->execute([$msCarnet]);
@@ -53,7 +53,7 @@ if (isset($_POST["UMOJN"]))
             $msPais = $mrEstudiante["PAIS_250"];
             $msCedula = $mrEstudiante["CEDULA_250"];
             $msCarrera = $mrEstudiante["NOMBRE_040"];
-            $msGrado = $mrEstudiante["GRADO_050"];
+            $msGrado = $mrEstudiante["GRADO_230"];
 
             // Define las dimensiones de la imagen en pixeles
             $ancho = 700;
@@ -188,7 +188,7 @@ if (isset($_POST["UMOJN"]))
             $mnConteo = $mAuxiliar->rowCount();
 
             if ($mnConteo == 0)
-                fxGuardarDetDocumentoPos($msEstudiante, 9, $archivo, 'Datos generales del título', $ruta_archivo);
+                fxGuardarDetDocumentoPos($msEstudiante, $archivo, 9, 'Datos generales del título', $ruta_archivo);
 
             // Libera la memoria
             imagedestroy($imagen);

@@ -222,8 +222,8 @@
 					$mbNacional = 1;
 					$msFechaNac = date('Y-m-d');
 					$msLugarNac = "";
-					$msPaisNac = "";
-					$msNacionalidad = "";
+					$msPaisNac = "Nicaragua";
+					$msNacionalidad = "Nicaragüense";
 					$msEtnia = "";
 					$mnPeso = 0;
 					$mnTalla = 0;
