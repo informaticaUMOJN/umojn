@@ -297,7 +297,7 @@
                         <div class="col-sm-12 col-md-2">
                             <?php
                                 if ($msCodigo == "")
-                                    echo('<input type="number" class="form-control" id="txnSemestre" name="txnSemestre" value="' . $mnSemestre . '" onchange="llenaEstudiantes()" />');
+                                    echo('<input type="number" class="form-control" id="txnSemestre" name="txnSemestre" value="' . $mnSemestre . '" onchange="llenaAsignaturas()" />');
                                 else
                                     echo('<input type="number" class="form-control" id="txnSemestre" name="txnSemestre" value="' . $mnSemestre . '" readonly />');
                             ?>
@@ -312,34 +312,34 @@
                                     if ($msCodigo == "")
                                     {
                                         if ($mnTurno == 1)
-                                            echo('<input type="radio" id="optTurno1" name="optTurno" value="1" onclick="llenaEstudiantes()" checked/> Diurno');
+                                            echo('<input type="radio" id="optTurno1" name="optTurno" value="1" onclick="llenaAsignaturas()" checked/> Diurno');
                                         else
-                                            echo('<input type="radio" id="optTurno1" name="optTurno" value="1" onclick="llenaEstudiantes()" /> Diurno');
+                                            echo('<input type="radio" id="optTurno1" name="optTurno" value="1" onclick="llenaAsignaturas()" /> Diurno');
 
                                         if ($mnTurno == 2)
-                                            echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" onclick="llenaEstudiantes()" checked /> Matutino');
+                                            echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" onclick="llenaAsignaturas()" checked /> Matutino');
                                         else
-                                            echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" onclick="llenaEstudiantes()" /> Matutino');
+                                            echo('&emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" onclick="llenaAsignaturas()" /> Matutino');
 
                                         if ($mnTurno == 3)
-                                            echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" onclick="llenaEstudiantes()" checked /> Vespertino');
+                                            echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" onclick="llenaAsignaturas()" checked /> Vespertino');
                                         else
-                                            echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" onclick="llenaEstudiantes()" /> Vespertino');
+                                            echo('&emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" onclick="llenaAsignaturas()" /> Vespertino');
 
                                         if ($mnTurno == 4)
-                                            echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" onclick="llenaEstudiantes()" checked /> Nocturno');
+                                            echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" onclick="llenaAsignaturas()" checked /> Nocturno');
                                         else
-                                            echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" onclick="llenaEstudiantes()" /> Nocturno');
+                                            echo('&emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" onclick="llenaAsignaturas()" /> Nocturno');
 
                                         if ($mnTurno == 5)
-                                            echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" onclick="llenaEstudiantes()" checked /> Sabatino');
+                                            echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" onclick="llenaAsignaturas()" checked /> Sabatino');
                                         else
-                                            echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" onclick="llenaEstudiantes()" /> Sabatino');
+                                            echo('&emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" onclick="llenaAsignaturas()" /> Sabatino');
 
                                         if ($mnTurno == 6)
-                                            echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" onclick="llenaEstudiantes()" checked /> Dominical');
+                                            echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" onclick="llenaAsignaturas()" checked /> Dominical');
                                         else
-                                            echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" onclick="llenaEstudiantes()" /> Dominical');
+                                            echo('&emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" onclick="llenaAsignaturas()" /> Dominical');
                                     }
                                     else
                                     {

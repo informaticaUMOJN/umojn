@@ -148,12 +148,12 @@
                         <label for="optTurno" class="col-sm-auto col-md-2 form-label">Turno</label>
                         <div class="col-sm-12 col-md-7">
                             <div class="radio">
-                                <input type="radio" id="optTurno1" name="optTurno" value="1" checked/> Diurno
-                                &emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" /> Matutino
-                                &emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" /> Vespertino
-                                &emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" /> Nocturno
-                                &emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" /> Sabatino
-                                &emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" /> Dominical
+                                <input type="radio" id="optTurno1" name="optTurno" value="1"  onclick="llenaAsignaturas()" checked/> Diurno
+                                &emsp;<input type="radio" id="optTurno2" name="optTurno" value="2" onclick="llenaAsignaturas()"/> Matutino
+                                &emsp;<input type="radio" id="optTurno3" name="optTurno" value="3" onclick="llenaAsignaturas()"/> Vespertino
+                                &emsp;<input type="radio" id="optTurno4" name="optTurno" value="4" onclick="llenaAsignaturas()"/> Nocturno
+                                &emsp;<input type="radio" id="optTurno5" name="optTurno" value="5" onclick="llenaAsignaturas()"/> Sabatino
+                                &emsp;<input type="radio" id="optTurno6" name="optTurno" value="6" onclick="llenaAsignaturas()"/> Dominical
                             </div>
                         </div>
                     </div>

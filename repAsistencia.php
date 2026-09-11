@@ -298,10 +298,10 @@ else
 
 	$msConsulta = "select UMO030A.MATRICULA_REL, APELLIDO1_010, APELLIDO2_010, NOMBRE1_010, NOMBRE2_010 from UMO050A, UMO030A, UMO031A, UMO010A ";
 	$msConsulta .= "where UMO030A.ESTUDIANTE_REL = UMO010A.ESTUDIANTE_REL and UMO030A.MATRICULA_REL = UMO031A.MATRICULA_REL ";
-	$msConsulta .= "and UMO030A.PLANESTUDIO_REL = UMO050A.PLANESTUDIO_REL and ASIGNATURA_REL = ? and TURNO_050 = ? ";
+	$msConsulta .= "and UMO030A.PLANESTUDIO_REL = UMO050A.PLANESTUDIO_REL and ASIGNATURA_REL = ? and TURNO_050 = ? and ANNOLECTIVO_030 = ? and SEMESTREACADEMICO_030 = ? ";
 	$msConsulta .= "order by APELLIDO1_010, APELLIDO2_010, NOMBRE1_010, NOMBRE2_010";
 	$mEstudiantes = $m_cnx_MySQL->prepare($msConsulta);
-	$mEstudiantes->execute([$msCodAsignatura, $mnTurno]);
+	$mEstudiantes->execute([$msCodAsignatura, $mnTurno, $mnAnno, $mnSemestre]);
 	
 	
 	$msHTML .= '<tbody>';
