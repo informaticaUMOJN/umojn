@@ -109,7 +109,7 @@ if (isset($_POST["UMOJN"]))
 
             $y += 30;
             $msConcepto = "Natural de " . $msPais . ", con documento de identidad " . $msCedula . " ha aprobado en el mes de " . fxFechaLetras($mdFechaDefensa, 0);
-            $msConcepto .= " los estudios y requisitos académicos, conforme el Plan de Estudio de la Carrera de " . $msCarrera . ".";
+            $msConcepto .= " los estudios y requisitos académicos, conforme el Plan de Estudio de la carrera o programa de posgrado académico de " . $msCarrera . ".";
             imagettftext_multiline($imagen, 12, 0, 20, $y, $negro, $arialNormal, $msConcepto, 660);
 
             $y += 90;
@@ -350,6 +350,6 @@ function fxFechaLetras($mdFecha, $mbDia)
     if ($mbDia == 1)
         return (fxNumerosLetras($Dia) . " días de " . $NombreMes . " de " . fxNumerosLetras($Anno));
     else
-        return ($NombreMes . " de " . fxNumerosLetras($Anno));
+        return ($NombreMes . " el año " . fxNumerosLetras($Anno));
 }
 ?>

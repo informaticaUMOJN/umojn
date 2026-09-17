@@ -133,7 +133,7 @@
 									<div class = "form-group row">
 										<label for="dtpFecha" class="col-sm-12 col-md-2 form-label">Fecha de registro</label>
 										<div class="col-sm-12 col-md-3">
-										<?php echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . $mdFecha . '" readonly />'); ?>
+										<?php echo('<input type="date" class="form-control" id="dtpFecha" name="dtpFecha" value="' . $mdFecha . '" />'); ?>
 										</div>
 									</div>
 
@@ -546,7 +546,7 @@
 				data:datos,
 				beforeSend: function(){console.log(datos)}
 			})
-			.done(function(){location.href="gridExpDigital.php"})
+			.done(function(){location.href="gridExpDigitalPos.php"})
 			.fail(function(){console.log('Error')});
 			}
 		}

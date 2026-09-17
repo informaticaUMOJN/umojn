@@ -76,12 +76,12 @@ if (isset($_POST["CodEstudiante"]) and isset($_POST["CodImagen"])) {
 		$mDatos = fxDevuelveDetDocumentoPos($msEstudiante);
 		while ($mFila = $mDatos->fetch())
 		{
-			$extensionImg = strtoupper(substr($mFila["ARCHIVO_REL"], -3));
+			$extensionImg = strtoupper(substr($mFila["ARCHIVO_251"], -3));
 			if ($mnCuenta == 0) {
 				$texto .= '<tr>';
 			}
 			$texto .= '<td width="23%" valign="top" style="margin-left:1%; margin-right:1%">';
-			$texto .= '<img src="imagenes/imageDel.png"  id="' . trim($mFila["ARCHIVO_REL"]) . '" style="cursor:pointer" onclick="borrarImagen(this)"/><label style="font-size: small"> Borrar ' . trim($mFila["ARCHIVO_251"]) . '</label>';
+			$texto .= '<img src="imagenes/imageDel.png"  id="' . trim($mFila["ARCHIVO_251"]) . '" style="cursor:pointer" onclick="borrarImagen(this)"/><label style="font-size: small"> Borrar ' . trim($mFila["ARCHIVO_251"]) . '</label>';
 			if ($extensionImg != 'PDF')
 				$texto .= '<br/><a href="' . trim($mFila["RUTA_251"]) . '" target="_blank"><img src="' . trim($mFila["RUTA_251"]) . '" style="width:100%"/></a>';
 			else

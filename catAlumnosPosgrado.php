@@ -928,7 +928,7 @@
 													$texto .= '<br/><a href="' . trim($mFila["RUTA_251"]) . '" target="_blank"><img src="' . trim($mFila["RUTA_251"]) . '" style="width:100%"/></a>';
 												else
 													$texto .= '<br/><a href="' . trim($mFila["RUTA_251"]) . '" target="_blank"><img src="imagenes/pdf.png" style="width:80%"/></a>';
-												$texto .= '<br/><div>' . trim($mFila["DESC_011"]) . '</div';
+												$texto .= '<br/><div>' . trim($mFila["DESC_251"]) . '</div';
 												$texto .= '</td>';
 												$mnCuenta++;
 												if ($mnCuenta == 4) {
