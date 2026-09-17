@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     10/07/2026 3:16:56 p. m.                     */
+/* Created on:     17/09/2026 9:26:01 a. m.                     */
 /*==============================================================*/
 
 
@@ -456,7 +456,7 @@ create table UMO070A
              5.-Sabatino
              6.-Dominical',
    GRUPO_070            varchar(30)  comment '',
-   RECOMENDACIONES_070  varchar(300)  comment 'El campo se llamaba originalmente "Recomendaciones metodológicas"',
+   RECOMENDACIONES_070  varchar(1400)  comment 'El campo se llamaba originalmente "Recomendaciones metodológicas"',
    EJESVALORES_070      varchar(300)  comment '',
    APROBADO_070         bool  comment '',
    ACTIVO_070           bool  comment '',
@@ -470,7 +470,7 @@ create table UMO071A
 (
    SYLLABUS_REL         varchar(10) not null  comment '',
    OBJETIVOG_REL        numeric(2,0) not null  comment '',
-   TEXTO_071            varchar(400)  comment '',
+   TEXTO_071            varchar(700)  comment '',
    primary key (SYLLABUS_REL, OBJETIVOG_REL)
 );
 
@@ -482,7 +482,7 @@ create table UMO072A
    SYLLABUS_REL         varchar(10) not null  comment '',
    OBJETIVOU_REL        numeric(2,0) not null  comment '',
    UNIDAD_072           varchar(100)  comment '',
-   TEXTO_072            varchar(400)  comment '',
+   TEXTO_072            varchar(700)  comment '',
    primary key (SYLLABUS_REL, OBJETIVOU_REL)
 );
 
@@ -499,7 +499,7 @@ create table UMO073A
    OBJETIVOESP_073      varchar(200)  comment '',
    FORMA_073            varchar(900)  comment 'El campo se llamaba originalmente "Forma de enseñanza"',
    MEDIOS_073           varchar(100)  comment 'El campo se llamaba originalmente "Medios o recursos"',
-   EVALUACION_073       varchar(200)  comment '',
+   EVALUACION_073       varchar(800)  comment '',
    primary key (SYLLABUS_REL, DETSYLLABUS_REL)
 );
 
@@ -876,6 +876,8 @@ create table UMO200A
    NUMEROUNICO_200      varchar(10)  comment '',
    CEDULA_200           varchar(15)  comment '',
    FECHANAC_200         date  comment '',
+   LUGARNAC_010         varchar(50)  comment '',
+   PAIS_010             varchar(50)  comment '',
    TELEFONO_200         varchar(20)  comment '',
    CELULAR_200          varchar(20)  comment '',
    EMAIL_200            varchar(90)  comment '',
@@ -1081,6 +1083,8 @@ create table UMO250A
    APELLIDO2_250        varchar(50)  comment '',
    GRADOACADEMICO_250   varchar(200)  comment '',
    FECHANAC_250         date  comment '',
+   LUGARNAC_250         varchar(50)  comment '',
+   PAIS_250             varchar(250)  comment '',
    NACIONALIDAD_250     varchar(50)  comment '',
    PESO_250             numeric(3,0)  comment '',
    TALLA_250            numeric(3,0)  comment '',
@@ -1142,7 +1146,7 @@ create table UMO251A
              9.- Datos generales del título
              10.- Publicación en la gaceta
              11.- Título de posgrado',
-   ARCHIVO_251          varchar(50)  comment '',
+   ARCHIVO_251          varchar(100)  comment '',
    DESC_251             varchar(100)  comment '',
    RUTA_251             varchar(255)  comment '',
    primary key (ESTUDIANTEPOS_REL, TIPO_REL)
