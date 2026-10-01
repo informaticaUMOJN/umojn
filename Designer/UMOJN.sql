@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     17/09/2026 9:26:01 a. m.                     */
+/* Created on:     18/09/2026 2:20:40 p. m.                     */
 /*==============================================================*/
 
 
@@ -459,6 +459,7 @@ create table UMO070A
    RECOMENDACIONES_070  varchar(1400)  comment 'El campo se llamaba originalmente "Recomendaciones metodológicas"',
    EJESVALORES_070      varchar(300)  comment '',
    APROBADO_070         bool  comment '',
+   EXTERNO_070          bool  comment 'Indica que el syllabus se subió mediante un archivo PDF. En este caso los campos de Mediación Pedagógica y Ejes Transversales se guardan vacíos.',
    ACTIVO_070           bool  comment '',
    primary key (SYLLABUS_REL)
 );
@@ -526,6 +527,19 @@ create table UMO075A
    TEXTO_075            varchar(300)  comment '',
    primary key (SYLLABUS_REL, OBSACADEMICA_REL)
 );
+
+/*==============================================================*/
+/* Table: UMO076A                                               */
+/*==============================================================*/
+create table UMO076A
+(
+   SYLLABUS_REL         varchar(10) not null  comment '',
+   ARCHIVOEXTERNO_REL   numeric(2,0) not null  comment '',
+   RUTA_076             varchar(255)  comment '',
+   primary key (SYLLABUS_REL, ARCHIVOEXTERNO_REL)
+);
+
+alter table UMO076A comment 'Esta tabla guarda la referencia del syllabus subido como un ';
 
 /*==============================================================*/
 /* Table: UMO080A                                               */
@@ -1379,6 +1393,9 @@ alter table UMO074A add constraint FK_UMO074A_REL_070_0_UMO070A foreign key (SYL
       references UMO070A (SYLLABUS_REL) on delete restrict on update restrict;
 
 alter table UMO075A add constraint FK_UMO075A_REL_070_0_UMO070A foreign key (SYLLABUS_REL)
+      references UMO070A (SYLLABUS_REL) on delete restrict on update restrict;
+
+alter table UMO076A add constraint FK_UMO076A_REL_070_0_UMO070A foreign key (SYLLABUS_REL)
       references UMO070A (SYLLABUS_REL) on delete restrict on update restrict;
 
 alter table UMO080A add constraint FK_UMO080A_REL_060_0_UMO060A foreign key (ASIGNATURA_REL)

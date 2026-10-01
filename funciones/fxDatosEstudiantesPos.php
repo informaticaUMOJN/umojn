@@ -39,10 +39,11 @@ if (isset($_POST["fechaNac"]) and isset($_POST["codCarrera"]) and isset($_POST["
 	$mDatos->execute([$msCarrera]);
 	$mFila = $mDatos->fetch();
 	$msSiglas = $mFila["SIGLAS_040"];
+	$mnCharIni = strlen($msSiglas) + 10;
 
-	$msConsulta = "Select count(ESTUDIANTEPOS_REL) as CONTEO from UMO250A where CARRERA_REL = ? and ANNOACADEMICO_250 = ?";
+	$msConsulta = "Select CONVERT(SUBSTR(CARNET_250, ?, 2), UNSIGNED) as CONTEO, CARNET_250 from UMO250A where CARRERA_REL = ? and ANNOACADEMICO_250 = ? order by CONVERT(SUBSTR(CARNET_250, ?, 2), UNSIGNED) desc";
 	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
-	$mDatos->execute([$msCarrera, $mnAnnoAcademico]);
+	$mDatos->execute([$mnCharIni, $msCarrera, $mnAnnoAcademico, $mnCharIni]);
 	$mFila = $mDatos->fetch();
 	$mnConteo = intval($mFila["CONTEO"]) + 1;
 
