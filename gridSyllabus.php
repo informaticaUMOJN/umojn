@@ -310,7 +310,29 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codSyllabus = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("repSyllabus.php", {UMOJN: codSyllabus}, "POST", "_blank");
+				var datos = $("#grid").bootgrid("getCurrentRows");
+				var fila = datos.find(row => row.SYLLABUS_REL === codSyllabus);
+				var externo = fila.EXTERNO_070;
+				if (externo == 0)
+					$.redirect("repSyllabus.php", {UMOJN: codSyllabus}, "POST", "_blank");
+				else
+				{
+					var datos = new FormData();
+					datos.append('syllabusExt', codSyllabus);
+					$.ajax({
+						url: 'funciones/fxDatosSyllabus.php',
+						type: 'post',
+						data: datos,
+						contentType: false,
+						processData: false,
+						success: function(response){
+							if (response != "")
+								$.redirect(response, {}, "POST", "_blank");
+							else
+								$.messager.alert('UMOJN', 'No se puede mostrar el archivo.', 'warning');
+						}
+					})
+				}
 			}
 		});
 
@@ -318,7 +340,29 @@
 			if ($.trim($("#grid").bootgrid("getSelectedRows")) != "")
 			{
 				var codSyllabus = $.trim($("#grid").bootgrid("getSelectedRows"));
-				$.redirect("repSyllabus.php", {UMOJN: codSyllabus}, "POST", "_blank");
+				var datos = $("#grid").bootgrid("getCurrentRows");
+				var fila = datos.find(row => row.SYLLABUS_REL === codSyllabus);
+				var externo = fila.EXTERNO_070;
+				if (externo == 0)
+					$.redirect("repSyllabus.php", {UMOJN: codSyllabus}, "POST", "_blank");
+				else
+				{
+					var datos = new FormData();
+					datos.append('syllabusExt', codSyllabus);
+					$.ajax({
+						url: 'funciones/fxDatosSyllabus.php',
+						type: 'post',
+						data: datos,
+						contentType: false,
+						processData: false,
+						success: function(response){
+							if (response != "")
+								$.redirect(response, {}, "POST", "_blank");
+							else
+								$.messager.alert('UMOJN', 'No se puede mostrar el archivo.', 'warning');
+						}
+					})
+				}
 			}
 		});
 	});

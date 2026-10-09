@@ -64,4 +64,18 @@ if (isset($_POST["syllabus"]))
 
 	echo $mnRegistros;
 }
+
+/*********************Obtiene el archivo del syllabus externo********************/
+if (isset($_POST["syllabusExt"]))
+{
+	$m_cnx_MySQL = fxAbrirConexion();
+	$msSyllabus = $_POST["syllabusExt"];
+	$msConsulta = "Select RUTA_076 from UMO076A where SYLLABUS_REL = ?";
+	$mDatos = $m_cnx_MySQL->prepare($msConsulta);
+	$mDatos->execute([$msSyllabus]);
+	$mFila = $mDatos->fetch();
+	$msRuta = $mFila["RUTA_076"];
+
+	echo $msRuta;
+}
 ?>
