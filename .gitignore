@@ -7,6 +7,7 @@
 /estudiantes/
 /tcpdf/
 /fonts/
+/syllabus/
 
 # Configuración sensible
 .env

@@ -1,5 +1,5 @@
 <?php
-function fxGuardarSyllabus($msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores)
+function fxGuardarSyllabus($msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores, $mbExterno)
 {
     $m_cnx_MySQL = fxAbrirConexion();
     $msConsulta = "Select ifnull(mid(max(SYLLABUS_REL), 3), 0) as Ultimo from UMO070A";
@@ -11,11 +11,11 @@ function fxGuardarSyllabus($msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, 
     $mnLongitud = strlen($mnNumero);
     $msCodigo = "SY" . str_repeat("0", 8 - $mnLongitud) . trim($mnNumero);
     //La variable $msMediacion se relaciona con el campo RECOMENDACIONES_070 con el fin de no modificar la tabla
-    $msConsulta = "insert into UMO070A (SYLLABUS_REL, PLANESTUDIO_REL, DOCENTE_REL, ASIGNATURA_REL, FECHA_070, ANNO_070, SEMESTRE_170, ";
-    $msConsulta .= "TURNO_070, GRUPO_070, RECOMENDACIONES_070, EJESVALORES_070, APROBADO_070, ACTIVO_070) ";
-    $msConsulta .= "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $msConsulta = "insert into UMO070A (SYLLABUS_REL, PLANESTUDIO_REL, DOCENTE_REL, ASIGNATURA_REL, FECHA_070, ANNO_070, SEMESTRE_070, ";
+    $msConsulta .= "TURNO_070, GRUPO_070, RECOMENDACIONES_070, EJESVALORES_070, APROBADO_070, EXTERNO_070, ACTIVO_070) ";
+    $msConsulta .= "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
-    $mDatos->execute([$msCodigo, $msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores, 0, 1]);
+    $mDatos->execute([$msCodigo, $msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores, 0, $mbExterno, 1]);
     return ($msCodigo);
 }
 
@@ -23,7 +23,7 @@ function fxModificarSyllabus($msCodigo, $msPlanEstudio, $msDocente, $msAsignatur
 {
     $m_cnx_MySQL = fxAbrirConexion();
 
-    $msConsulta = "update UMO070A set PLANESTUDIO_REL = ?, DOCENTE_REL = ?, ASIGNATURA_REL = ?, FECHA_070 = ?, ANNO_070 = ?, SEMESTRE_170 = ?, TURNO_070 = ?, GRUPO_070 = ?, RECOMENDACIONES_070 = ?, ";
+    $msConsulta = "update UMO070A set PLANESTUDIO_REL = ?, DOCENTE_REL = ?, ASIGNATURA_REL = ?, FECHA_070 = ?, ANNO_070 = ?, SEMESTRE_070 = ?, TURNO_070 = ?, GRUPO_070 = ?, RECOMENDACIONES_070 = ?, ";
     $msConsulta .= "EJESVALORES_070 = ? where SYLLABUS_REL = ?";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
     $mDatos->execute([$msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores, $msCodigo]);
@@ -32,6 +32,10 @@ function fxModificarSyllabus($msCodigo, $msPlanEstudio, $msDocente, $msAsignatur
 function fxBorrarSyllabus($msCodigo)
 {
     $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "delete from UMO076A where SYLLABUS_REL = ?";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$msCodigo]);
 
     $msConsulta = "delete from UMO075A where SYLLABUS_REL = ?";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
@@ -66,7 +70,7 @@ function fxDevuelveSyllabus($mbLlenaGrid, $msDocente, $msCodigo)
     {
         if ($msDocente == "")
         {
-            $msConsulta = "select SYLLABUS_REL, NOMBRE_100, NOMBRE_060, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, APROBADO_070, ACTIVO_070 ";
+            $msConsulta = "select SYLLABUS_REL, NOMBRE_100, NOMBRE_060, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, APROBADO_070, EXTERNO_070, ACTIVO_070 ";
             $msConsulta .= "from UMO070A, UMO100A, UMO060A where UMO070A.DOCENTE_REL = UMO100A.DOCENTE_REL and ";
             $msConsulta .= "UMO070A.ASIGNATURA_REL = UMO060A.ASIGNATURA_REL order by SYLLABUS_REL desc";
             $mDatos = $m_cnx_MySQL->prepare($msConsulta);
@@ -74,7 +78,7 @@ function fxDevuelveSyllabus($mbLlenaGrid, $msDocente, $msCodigo)
         }
         else
         {
-            $msConsulta = "select SYLLABUS_REL, NOMBRE_100, NOMBRE_060, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, APROBADO_070, ACTIVO_070 ";
+            $msConsulta = "select SYLLABUS_REL, NOMBRE_100, NOMBRE_060, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, APROBADO_070, EXTERNO_070, ACTIVO_070 ";
             $msConsulta .= "from UMO070A, UMO100A, UMO060A where UMO070A.DOCENTE_REL = UMO100A.DOCENTE_REL and ";
             $msConsulta .= "UMO070A.ASIGNATURA_REL = UMO060A.ASIGNATURA_REL and UMO070A.DOCENTE_REL = ? order by SYLLABUS_REL desc";
             $mDatos = $m_cnx_MySQL->prepare($msConsulta);
@@ -83,7 +87,7 @@ function fxDevuelveSyllabus($mbLlenaGrid, $msDocente, $msCodigo)
     }
     else
     {
-        $msConsulta = "select SYLLABUS_REL, PLANESTUDIO_REL, DOCENTE_REL, ASIGNATURA_REL, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, RECOMENDACIONES_070, EJESVALORES_070, ACTIVO_070 from UMO070A where SYLLABUS_REL = ?";
+        $msConsulta = "select SYLLABUS_REL, PLANESTUDIO_REL, DOCENTE_REL, ASIGNATURA_REL, FECHA_070, ANNO_070, SEMESTRE_070, TURNO_070, GRUPO_070, RECOMENDACIONES_070, EJESVALORES_070, EXTERNO_070, ACTIVO_070 from UMO070A where SYLLABUS_REL = ?";
         $mDatos = $m_cnx_MySQL->prepare($msConsulta);
         $mDatos->execute([$msCodigo]);
     }
@@ -228,6 +232,34 @@ function fxObtenerDetSyllabus($msCodigo)
 
     $msConsulta = "select SYLLABUS_REL, DETSYLLABUS_REL, FECHA_073, UNIDAD_073, CONTENIDO_073, OBJETIVOESP_073, FORMA_073, ";
     $msConsulta .= "MEDIOS_073, EVALUACION_073 from UMO073A where SYLLABUS_REL = ?";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$msCodigo]);
+    return $mDatos;
+}
+
+function fxBorrarDetExterno($msCodigo)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "delete from UMO076A where SYLLABUS_REL = ?";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$msCodigo]);
+}
+
+function fxGuardarDetExterno($msCodigo, $mnConsecutivo, $msRuta)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "insert into UMO076A (SYLLABUS_REL, ARCHIVOEXTERNO_REL, RUTA_076) values (?, ?, ?)";
+    $mDatos = $m_cnx_MySQL->prepare($msConsulta);
+    $mDatos->execute([$msCodigo, $mnConsecutivo, $msRuta]);
+}
+
+function fxObtenerDetExterno($msCodigo)
+{
+    $m_cnx_MySQL = fxAbrirConexion();
+
+    $msConsulta = "select SYLLABUS_REL, RUTA_076 from UMO076A where SYLLABUS_REL = ?";
     $mDatos = $m_cnx_MySQL->prepare($msConsulta);
     $mDatos->execute([$msCodigo]);
     return $mDatos;

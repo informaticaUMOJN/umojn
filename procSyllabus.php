@@ -56,6 +56,7 @@
                 $msGrupo = $_POST["txtGrupo"];
                 $msMediacion = $_POST["txtMediacion"];
                 $msEjesValores = $_POST["txtEjesValores"];
+                $mbExterno = 0;
 
                 if (isset($_POST["gridObjGral"]))
                     $gridObjetivoGrl = $_POST["gridObjGral"];
@@ -74,7 +75,7 @@
 
                 if ($mnOperacion == 0)
                 {
-                    $msCodigo = fxGuardarSyllabus($msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores);
+                    $msCodigo = fxGuardarSyllabus($msPlanEstudio, $msDocente, $msAsignatura, $mdFecha, $mnAnno, $mnSemestre, $mnTurno, $msGrupo, $msMediacion, $msEjesValores, $mbExterno);
                     $msBitacora = $msCodigo . "; " . $msPlanEstudio . "; " . $msDocente . "; " . $msAsignatura . "; " . $mdFecha . "; " . $mnAnno . "; " . $mnSemestre . "; " . $mnTurno . "; " . $msGrupo;
                     fxAgregarBitacora ($_SESSION["gsUsuario"], "UMO070A", $msCodigo, "", "Agregar", $msBitacora);
                 }
@@ -175,6 +176,7 @@
                     $msGrupo = $mFila["GRUPO_070"];
                     $msMediacion = $mFila["RECOMENDACIONES_070"];
                     $msEjesValores = $mFila["EJESVALORES_070"];
+                    $mbExterno = $mFila["EXTERNO_070"];
                 }
                 else 
                 {
@@ -192,6 +194,7 @@
                     $msGrupo = "";
                     $msMediacion = "";
                     $msEjesValores = "";
+                    $mbExterno = 0;
                 }
 	?>
 

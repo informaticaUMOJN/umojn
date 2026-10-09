@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     18/09/2026 2:20:40 p. m.                     */
+/* Created on:     09/10/2026 8:37:52 a. m.                     */
 /*==============================================================*/
 
 
@@ -257,7 +257,7 @@ alter table UMO010C comment 'Estas áreas son usadas en la aplicación de manejo d
 create table UMO011A
 (
    ESTUDIANTE_REL       varchar(10) not null  comment '',
-   ARCHIVO_REL          varchar(50) not null  comment '',
+   ARCHIVO_REL          varchar(100) not null  comment '',
    TIPO_201             numeric(2,0)  comment '0.- Diploma de bachiller
              1.- Calificaciones de secundaria
              2.- Cédula de identidad

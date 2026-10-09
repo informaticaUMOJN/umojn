@@ -1226,15 +1226,15 @@
 												<td></td>
 											</tr>
 											<tr>
-												<td valign="top" style="width: 15%;">Imagen</td>
+												<td valign="top" style="width: 15%;">Archivo</td>
 												<td style="width:70%">
 													<input id="txtRutaLocal" class="form-control" readonly>
 												</td>
 												<td>
-													<label for="archivo" style="margin-left:1%; padding:0.5%" data-toggle="tooltip" data-placement="top" title="Agregar imagen">
+													<label for="archivo" style="margin-left:1%; padding:0.5%" data-toggle="tooltip" data-placement="top" title="Agregar archivo">
 													<img src="imagenes/imageAdd.png" height="100%" style="cursor:pointer" /></label>
 													<input type="file" accept=".pdf, image/*" id="archivo" style="display:none"	onchange="llenaArchivo()" />
-													<label id="cmdSubir" data-toggle="tooltip" data-placement="top"	title="Subir imagen"><img src="imagenes/imageUp.png" height="100%" style="cursor:pointer" /></label>
+													<label id="cmdSubir" data-toggle="tooltip" data-placement="top"	title="Subir archivo"><img src="imagenes/imageUp.png" height="100%" style="cursor:pointer" /></label>
 												</td>
 											</tr>
 											<tr>
